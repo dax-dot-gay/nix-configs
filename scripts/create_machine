@@ -1,10 +1,8 @@
 #! /bin/bash
 
-ssh-keygen -f temp-ssh -N ""
+ssh-keygen -f temp-ssh -N "" -C "itec@$1" > /dev/null
 PUBLIC_KEY=$(cat temp-ssh.pub | ssh-to-age)
 MACHINE=$1
-
-echo "$1: $PUBLIC_KEY"
 
 read -r -d '' COMMANDS <<- EOF
     .keys += ("$PUBLIC_KEY" | . anchor = "server_$MACHINE") |
@@ -33,3 +31,5 @@ sops encrypt "secrets/$MACHINE/temp-ssh.pub.dec" --output "secrets/$MACHINE/temp
 
 rm "secrets/$MACHINE/temp-ssh.dec"
 rm "secrets/$MACHINE/temp-ssh.pub.dec"
+
+echo "Generated key for $MACHINE: $PUBLIC_KEY"
