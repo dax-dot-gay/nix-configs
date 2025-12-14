@@ -16,25 +16,35 @@
     };
 
     outputs =
-        { self, nixpkgs, ... }@inputs:
+        {
+            self,
+            nixpkgs,
+            comin,
+            config,
+            nixos-generators,
+            ...
+        }@inputs:
         let
             system = "x86_64-linux";
             pkgs = import nixpkgs { inherit system; };
+            repository = "https://github.com/dax-dot-gay/nix-configs.git";
         in
         {
-            devShells.${system}.default = pkgs.mkShell {
-                packages = with pkgs; [
-                    sops
-                    nixos-generators
-                    git
-                    ssh-to-age
-                    age
-                    yq-go
-                ];
+            nixosConfigurations = {
+                
+            };
 
-                shellHook = ''
-                    export PATH="$PATH:./scripts"
-                '';
+            packages.${system} = {
+                base-vm = nixos-generators.nixosGenerate {
+                    system = "${system}";
+                    format = "proxmox";
+                    specialArgs = {
+                        pkgs = pkgs;
+                    };
+                    modules = [
+                        ./systems/base_vm.nix
+                    ];
+                };
             };
         };
 }
