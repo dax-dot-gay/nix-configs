@@ -1,0 +1,35 @@
+#! /bin/bash
+
+ssh-keygen -f temp-ssh -N ""
+PUBLIC_KEY=$(cat temp-ssh.pub | ssh-to-age)
+MACHINE=$1
+
+echo "$1: $PUBLIC_KEY"
+
+read -r -d '' COMMANDS <<- EOF
+    .keys += ("$PUBLIC_KEY" | . anchor = "server_$MACHINE") |
+    .creation_rules[0].key_groups[0].age += ((.keys[-1] | anchor) | . alias |= .) |
+    .creation_rules += {
+        "path_regex": "secrets/$MACHINE/[^/]+$",
+        "key_groups": [
+            {
+                "age": [
+                    ((.keys[0] | anchor) | . alias |= .),
+                    ((.keys[-1] | anchor) | . alias |= .)
+                ]
+            }
+        ]
+    }
+EOF
+
+yq eval -i "$COMMANDS" .sops.yaml
+
+mkdir "secrets/$MACHINE"
+mv temp-ssh "secrets/$MACHINE/temp-ssh.dec"
+mv temp-ssh.pub "secrets/$MACHINE/temp-ssh.pub.dec"
+
+sops encrypt "secrets/$MACHINE/temp-ssh.dec" --output "secrets/$MACHINE/temp-ssh"
+sops encrypt "secrets/$MACHINE/temp-ssh.pub.dec" --output "secrets/$MACHINE/temp-ssh.pub"
+
+rm "secrets/$MACHINE/temp-ssh.dec"
+rm "secrets/$MACHINE/temp-ssh.pub.dec"

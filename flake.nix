@@ -1,6 +1,6 @@
 {
     inputs = {
-        nixpkgs.url = "nixos/nixos-25.11";
+        nixpkgs.url = "nixpkgs/nixos-25.11";
         comin = {
             url = "github:nlewo/comin";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -22,14 +22,19 @@
             pkgs = import nixpkgs { inherit system; };
         in
         {
-            devshells.${system}.default = pkgs.mkShell {
+            devShells.${system}.default = pkgs.mkShell {
                 packages = with pkgs; [
                     sops
                     nixos-generators
                     git
                     ssh-to-age
                     age
+                    yq-go
                 ];
+
+                shellHook = ''
+                    export PATH="$PATH:./scripts"
+                '';
             };
         };
 }

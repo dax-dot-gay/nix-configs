@@ -1,0 +1,9 @@
+#! /bin/bash
+
+if [ ! -f ~/.config/sops/age/keys.txt ]; then
+    mkdir -p ~/.config/sops/age
+    ssh-to-age -private-key -i ~/.ssh/id_ed25519 > ~/.config/sops/age/keys.txt
+    PUBLIC_KEY=$(age-keygen -y ~/.config/sops/age/keys.txt)
+
+    echo $PUBLIC_KEY
+fi

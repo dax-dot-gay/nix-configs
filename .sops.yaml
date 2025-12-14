@@ -1,0 +1,7 @@
+keys:
+  - &admin_itec age1ct2cxf8ac72mwuyu0fy9z0f9rwer67yt3jsx259jf2vqzduh5fastz48vr
+creation_rules:
+  - path_regex: secrets/shared/[^/]+$
+    key_groups:
+      - age:
+          - *admin_itec
