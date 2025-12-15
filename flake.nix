@@ -13,15 +13,16 @@
             url = "github:nix-community/nixos-generators";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        disko = {
+            url = "github:nix-community/disko/latest";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs =
         {
             self,
             nixpkgs,
-            comin,
-            config,
-            nixos-generators,
             ...
         }@inputs:
         let
@@ -31,18 +32,13 @@
         in
         {
             nixosConfigurations = {
-                
-            };
-
-            packages.${system} = {
-                base-vm = nixos-generators.nixosGenerate {
+                "base.vm" = nixpkgs.lib.nixosSystem {
                     system = "${system}";
-                    format = "proxmox";
-                    specialArgs = {
-                        pkgs = pkgs;
-                    };
+                    specialArgs = inputs;
                     modules = [
-                        ./systems/base_vm.nix
+                        ./modules/default_modules.nix
+                        ./systems/base.vm/configuration.nix
+                        inputs.sops-nix.nixosModules.sops
                     ];
                 };
             };
