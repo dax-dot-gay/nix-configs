@@ -36,10 +36,13 @@
         };
     };
 
-    boot.loader.grub = {
+    boot.loader.systemd-boot = {
         enable = true;
-        efiSupport = true;
-        efiInstallAsRemovable = true;
+    };
+
+    boot.loader.efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/EFI";
     };
 
     boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
