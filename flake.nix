@@ -32,7 +32,7 @@
         in
         {
             nixosConfigurations = {
-                base_vm = nixpkgs.lib.nixosSystem {
+                nixos = nixpkgs.lib.nixosSystem {
                     system = "${system}";
                     specialArgs = inputs;
                     modules = [
