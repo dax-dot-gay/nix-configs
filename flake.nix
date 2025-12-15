@@ -36,7 +36,7 @@
                     system = "${system}";
                     specialArgs = inputs;
                     modules = [
-                        ./modules/default_modules.nix
+                        ./modules/defaults
                         ./modules/systems/vm.nix
                         ./systems/base_vm/configuration.nix
                         inputs.sops-nix.nixosModules.sops
