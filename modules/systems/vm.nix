@@ -38,6 +38,14 @@
 
     boot.loader.grub = {
         devices = [ "/dev/sda" ];
+        enable = true;
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+    };
+
+    boot.loader.efi = {
+        efiSysMountPoint = "/boot/EFI";
+        canTouchEfiVariables = true;
     };
 
     boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
