@@ -1,5 +1,9 @@
-{ disko, ... }:
+{ disko, modulesPath, lib, ... }:
 {
+    imports = [
+        (modulesPath + "/profiles/qemu-guest.nix")
+    ];
+
     disko.devices = {
         disk = {
             sda = {
@@ -35,4 +39,9 @@
     boot.loader.grub = {
         devices = [ "/dev/sda" ];
     };
+
+    boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod" ];
+    boot.initrd.kernelModules = [];
+    boot.kernelModules = ["kvm-intel"];
+    nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
