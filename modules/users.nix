@@ -4,13 +4,13 @@
         itec = {
             isNormalUser = true;
             hashedPasswordFile = config.sops.secrets.password.path;
-            group = [ "itec" ];
+            group = "itec";
             uid = 1000;
             extraGroups = [ "wheel" ];
         };
         root = {
             hashedPasswordFile = config.sops.secrets.password.path;
-            group = [ "root" ];
+            group = "root";
             uid = 0;
         };
     };
