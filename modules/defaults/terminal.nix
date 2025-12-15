@@ -5,7 +5,7 @@
         ghostty.terminfo
         git
         neovim
-        nerd-fonts
+        nerd-fonts.fira-code
     ];
 
     programs.starship = {
@@ -16,7 +16,7 @@
     programs.zsh = {
         enable = true;
         enableCompletion = true;
-        syntax-highlighting.enable = true;
+        syntaxHighlighting.enable = true;
         autosuggestions = {
             enable = true;
             strategy = [
