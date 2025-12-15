@@ -14,4 +14,9 @@
             uid = 0;
         };
     };
+
+    users.groups.itec = {
+        name = "itec";
+        gid = 1000;
+    };
 }
