@@ -37,8 +37,10 @@
                     specialArgs = inputs;
                     modules = [
                         ./modules/default_modules.nix
+                        ./modules/systems/vm.nix
                         ./systems/base_vm/configuration.nix
                         inputs.sops-nix.nixosModules.sops
+                        inputs.disko.nixosModules.disko
                     ];
                 };
             };
