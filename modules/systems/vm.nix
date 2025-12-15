@@ -32,8 +32,7 @@
         };
     };
 
-    boot.loader.efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/EFI";
+    boot.loader.grub = {
+        devices = [ "/dev/sda" ];
     };
 }
