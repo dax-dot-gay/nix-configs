@@ -1,0 +1,16 @@
+{
+    "nix.serverSettings": {
+        "nixd": {
+            "formatting": {
+                "command": ["nixfmt", "--indent=4"]
+            },
+            "options": {
+                "nixos": {
+                    "expr": "(builtins.getFlake \"/mnt/data/Programming/devops/nix-configs\").nixosConfigurations.base_vm.options"
+                }
+            }
+        }
+    },
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd"
+}

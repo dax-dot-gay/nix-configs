@@ -32,12 +32,12 @@
         in
         {
             nixosConfigurations = {
-                "base.vm" = nixpkgs.lib.nixosSystem {
+                base_vm = nixpkgs.lib.nixosSystem {
                     system = "${system}";
                     specialArgs = inputs;
                     modules = [
                         ./modules/default_modules.nix
-                        ./systems/base.vm/configuration.nix
+                        ./systems/base_vm/configuration.nix
                         inputs.sops-nix.nixosModules.sops
                     ];
                 };
