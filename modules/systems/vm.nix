@@ -15,6 +15,7 @@
                         ESP = {
                             type = "EF00";
                             size = "1G";
+                            device = "/dev/disk/by-partlabel/EFI";
                             content = {
                                 type = "filesystem";
                                 format = "vfat";
@@ -24,6 +25,7 @@
                         };
                         root = {
                             size = "100%";
+                            device = "/dev/disk/by-partlabel/root";
                             content = {
                                 type = "filesystem";
                                 format = "ext4";
