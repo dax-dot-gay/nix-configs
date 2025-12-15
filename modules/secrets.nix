@@ -14,6 +14,4 @@
             password.neededForUsers = true;
         };
     };
-
-    fileSystems."/persistent/ssh".neededForBoot = true;
 }
