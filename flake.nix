@@ -30,7 +30,7 @@
             pkgs = import nixpkgs { inherit system; };
             repository = "https://github.com/dax-dot-gay/nix-configs.git";
 
-            mkVM = {hostname, path, extraModules ? []}: nixpkgs.lib.nixosSystem {
+            mkVM = {hostname, path, extraModules ? [], include ? []}: nixpkgs.lib.nixosSystem {
                 system = "${system}";
                 specialArgs = inputs // {hostname = "${hostname}"; repository = repository; };
                 modules = [
@@ -40,10 +40,10 @@
                     inputs.sops-nix.nixosModules.sops
                     inputs.disko.nixosModules.disko
                     inputs.comin.nixosModules.comin
-                ] ++ extraModules;
+                ] ++ extraModules ++ (builtins.map (inc: ./modules/${inc}) include);
             };
 
-            mkLXC = {hostname, path, extraModules ? []}: nixpkgs.lib.nixosSystem {
+            mkLXC = {hostname, path, extraModules ? [], include ? []}: nixpkgs.lib.nixosSystem {
                 system = "${system}";
                 specialArgs = inputs // {hostname = "${hostname}"; repository = repository; };
                 modules = [
@@ -52,13 +52,13 @@
                     ./systems/${path}/configuration.nix
                     inputs.sops-nix.nixosModules.sops
                     inputs.comin.nixosModules.comin
-                ] ++ extraModules;
+                ] ++ extraModules ++ (builtins.map (inc: ./modules/${inc}) include);
             };
         in
         {
             nixosConfigurations = {
-                base-vm = mkVM {hostname = "base-vm"; path = "base/vm";};
-                base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc";};
+                base-vm = mkVM {hostname = "base-vm"; path = "base/vm"; include = ["nfs-client.nix"];};
+                base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc"; include = ["nfs-client.nix"];};
                 infra-nfs = mkLXC {hostname = "infra-nfs"; path = "infra/nfs";};
             };
         };
