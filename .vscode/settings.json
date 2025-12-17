@@ -12,5 +12,24 @@
         }
     },
     "nix.enableLanguageServer": true,
-    "nix.serverPath": "nixd"
+    "nix.serverPath": "nixd",
+    "sshfs.configs": [
+        {
+            "name": "base-lxc",
+            "host": "192.168.30.5",
+            "extend": ["base"]
+        },
+        {
+            "name": "base-vm",
+            "host": "192.168.30.6",
+            "extend": ["base"]
+        },
+        {
+            "name": "base",
+            "root": "/",
+            "group": "base",
+            "username": "root",
+            "privateKeyPath": "/home/itec/.ssh/lesbos.id_ed25519"
+        }
+    ]
 }

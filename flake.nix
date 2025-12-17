@@ -34,7 +34,7 @@
             nixosConfigurations = {
                 base-vm = nixpkgs.lib.nixosSystem {
                     system = "${system}";
-                    specialArgs = inputs;
+                    specialArgs = inputs // {hostname = "base-vm"; };
                     modules = [
                         ./modules/defaults
                         ./modules/systems/vm.nix
@@ -45,7 +45,7 @@
                 };
                 base-lxc = nixpkgs.lib.nixosSystem {
                     system = "${system}";
-                    specialArgs = inputs;
+                    specialArgs = inputs // {hostname = "base-lxc"; };
                     modules = [
                         ./modules/defaults
                         ./modules/systems/lxc.nix
