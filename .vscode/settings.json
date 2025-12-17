@@ -6,7 +6,7 @@
             },
             "options": {
                 "nixos": {
-                    "expr": "(builtins.getFlake \"/mnt/data/Programming/devops/nix-configs\").nixosConfigurations.base_vm.options"
+                    "expr": "(builtins.getFlake \"/mnt/data/Programming/devops/nix-configs\").nixosConfigurations.base-vm.options"
                 }
             }
         }
@@ -19,19 +19,20 @@
             "host": "192.168.30.5",
             "extend": [
                 "base"
-            ]
+            ],
+            "group": "base"
         },
         {
             "name": "base-vm",
             "host": "192.168.30.6",
             "extend": [
                 "base"
-            ]
+            ],
+            "group": "base"
         },
         {
             "name": "base",
             "root": "/",
-            "group": "base",
             "username": "root",
             "privateKeyPath": "/home/itec/.ssh/lesbos.id_ed25519"
         },
@@ -42,6 +43,14 @@
                 "base"
             ],
             "host": "192.168.30.10"
+        },
+        {
+            "name": "infra-nginx",
+            "group": "infra",
+            "extend": [
+                "base"
+            ],
+            "host": "192.168.30.11"
         }
     ]
 }
