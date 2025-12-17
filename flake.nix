@@ -60,6 +60,7 @@
                 base-vm = mkVM {hostname = "base-vm"; path = "base/vm"; include = ["nfs-client.nix"];};
                 base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc"; include = ["nfs-client.nix"];};
                 infra-nfs = mkLXC {hostname = "infra-nfs"; path = "infra/nfs";};
+                infra-nginx = mkLXC {hostname = "infra-nginx"; path = "infra/nginx";};
             };
         };
 }
