@@ -6,7 +6,7 @@
             {
                 name = "origin";
                 url = "${repository}";
-                branches.main.name = "deployment";
+                branches.main.name = "main";
             }
         ];
 
