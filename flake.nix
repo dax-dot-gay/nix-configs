@@ -29,30 +29,36 @@
             system = "x86_64-linux";
             pkgs = import nixpkgs { inherit system; };
             repository = "https://github.com/dax-dot-gay/nix-configs.git";
+
+            mkVM = {hostname, path, extraModules ? []}: nixpkgs.lib.nixosSystem {
+                system = "${system}";
+                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; };
+                modules = [
+                    ./modules/defaults
+                    ./modules/systems/vm.nix
+                    ./systems/${path}/configuration.nix
+                    inputs.sops-nix.nixosModules.sops
+                    inputs.disko.nixosModules.disko
+                    inputs.comin.nixosModules.comin
+                ] ++ extraModules;
+            };
+
+            mkLXC = {hostname, path, extraModules ? []}: nixpkgs.lib.nixosSystem {
+                system = "${system}";
+                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; };
+                modules = [
+                    ./modules/defaults
+                    ./modules/systems/lxc.nix
+                    ./systems/${path}/configuration.nix
+                    inputs.sops-nix.nixosModules.sops
+                    inputs.comin.nixosModules.comin
+                ] ++ extraModules;
+            };
         in
         {
             nixosConfigurations = {
-                base-vm = nixpkgs.lib.nixosSystem {
-                    system = "${system}";
-                    specialArgs = inputs // {hostname = "base-vm"; };
-                    modules = [
-                        ./modules/defaults
-                        ./modules/systems/vm.nix
-                        ./systems/base/vm/configuration.nix
-                        inputs.sops-nix.nixosModules.sops
-                        inputs.disko.nixosModules.disko
-                    ];
-                };
-                base-lxc = nixpkgs.lib.nixosSystem {
-                    system = "${system}";
-                    specialArgs = inputs // {hostname = "base-lxc"; };
-                    modules = [
-                        ./modules/defaults
-                        ./modules/systems/lxc.nix
-                        ./systems/base/lxc/configuration.nix
-                        inputs.sops-nix.nixosModules.sops
-                    ];
-                };
+                base-vm = mkVM {hostname = "base-vm"; path = "base/vm";};
+                base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc";};
             };
         };
 }

@@ -1,0 +1,13 @@
+{ repository, ... }:
+{
+    services.comin = {
+        enable = true;
+        remotes = [
+            {
+                name = "origin";
+                url = "${repository}";
+                branches.main.name = "main";
+            }
+        ];
+    };
+}
