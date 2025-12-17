@@ -17,12 +17,16 @@
         {
             "name": "base-lxc",
             "host": "192.168.30.5",
-            "extend": ["base"]
+            "extend": [
+                "base"
+            ]
         },
         {
             "name": "base-vm",
             "host": "192.168.30.6",
-            "extend": ["base"]
+            "extend": [
+                "base"
+            ]
         },
         {
             "name": "base",
@@ -30,6 +34,14 @@
             "group": "base",
             "username": "root",
             "privateKeyPath": "/home/itec/.ssh/lesbos.id_ed25519"
+        },
+        {
+            "name": "infra-nfs",
+            "group": "infra",
+            "extend": [
+                "base"
+            ],
+            "host": "192.168.30.10"
         }
     ]
 }
