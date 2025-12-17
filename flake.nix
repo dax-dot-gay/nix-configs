@@ -29,10 +29,11 @@
             system = "x86_64-linux";
             pkgs = import nixpkgs { inherit system; };
             repository = "https://github.com/dax-dot-gay/nix-configs.git";
+            utils = import ./lib;
 
             mkVM = {hostname, path, extraModules ? [], include ? []}: nixpkgs.lib.nixosSystem {
                 system = "${system}";
-                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; };
+                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; utils = utils; };
                 modules = [
                     ./modules/defaults
                     ./modules/systems/vm.nix
@@ -45,7 +46,7 @@
 
             mkLXC = {hostname, path, extraModules ? [], include ? []}: nixpkgs.lib.nixosSystem {
                 system = "${system}";
-                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; };
+                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; utils = utils; };
                 modules = [
                     ./modules/defaults
                     ./modules/systems/lxc.nix

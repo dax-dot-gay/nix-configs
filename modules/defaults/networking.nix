@@ -1,6 +1,6 @@
-{ hostname, ... }:
+{ hostname, utils, ... }:
 let
-    hosts = (import ../../lib).hosts;
+    hosts = utils.hosts;
 in
 {
     networking = {

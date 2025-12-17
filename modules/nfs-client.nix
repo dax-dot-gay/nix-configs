@@ -1,6 +1,6 @@
-{ ... }:
+{ utils, ... }:
 let
-    hosts = (import ../lib).hosts;
+    hosts = utils.hosts;
 in
 {
     boot.supportedFilesystems = [ "nfs" ];
