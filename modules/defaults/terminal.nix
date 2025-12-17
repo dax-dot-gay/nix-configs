@@ -6,8 +6,7 @@
         git
         neovim
         nerd-fonts.fira-code
-        hyfetch
-        fastfetch
+        afetch
     ];
 
     programs.starship = {
@@ -26,6 +25,7 @@
                 "completion"
             ];
         };
+        shellInit = "afetch";
     };
 
     users.users.itec.shell = pkgs.zsh;
