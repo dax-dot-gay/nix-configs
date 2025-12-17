@@ -32,15 +32,25 @@
         in
         {
             nixosConfigurations = {
-                base_vm = nixpkgs.lib.nixosSystem {
+                base-vm = nixpkgs.lib.nixosSystem {
                     system = "${system}";
                     specialArgs = inputs;
                     modules = [
                         ./modules/defaults
                         ./modules/systems/vm.nix
-                        ./systems/base_vm/configuration.nix
+                        ./systems/base/vm/configuration.nix
                         inputs.sops-nix.nixosModules.sops
                         inputs.disko.nixosModules.disko
+                    ];
+                };
+                base-lxc = nixpkgs.lib.nixosSystem {
+                    system = "${system}";
+                    specialArgs = inputs;
+                    modules = [
+                        ./modules/defaults
+                        ./modules/systems/lxc.nix
+                        ./systems/base/lxc/configuration.nix
+                        inputs.sops-nix.nixosModules.sops
                     ];
                 };
             };

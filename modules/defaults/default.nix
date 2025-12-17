@@ -6,6 +6,7 @@
         ./users.nix
         ./terminal.nix
         ./networking.nix
+        ./nixos.nix
     ];
 
     system.stateVersion = "25.11";
