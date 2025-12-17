@@ -1,4 +1,4 @@
-{ repository, ... }:
+{ repository, hostname, ... }:
 {
     services.comin = {
         enable = true;
@@ -7,6 +7,7 @@
                 name = "origin";
                 url = "${repository}";
                 branches.main.name = "main";
+                hostname = "${hostname}";
             }
         ];
     };
