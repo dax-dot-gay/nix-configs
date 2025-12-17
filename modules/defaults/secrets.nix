@@ -1,4 +1,12 @@
 { pkgs, config, ... }:
+let
+    secret_paths = [
+        "password"
+        "acme"
+        "services/access/filebrowser/username"
+        "services/access/filebrowser/password"
+    ];
+in 
 {
     environment.systemPackages = [
         pkgs.sops
@@ -10,9 +18,6 @@
         defaultSopsFile = ../../secrets/secrets.yaml;
         age.sshKeyPaths = [ "/persistent/ssh/id_ed25519" ];
 
-        secrets = {
-            password.neededForUsers = true;
-            acme.neededForUsers = true;
-        };
+        secrets = builtins.listToAttrs (builtins.map (path: {name = path; value = {neededForUsers = true;};}) secret_paths);
     };
 }
