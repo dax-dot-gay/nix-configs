@@ -6,6 +6,8 @@
         git
         neovim
         nerd-fonts.fira-code
+        hyfetch
+        fastfetch
     ];
 
     programs.starship = {
