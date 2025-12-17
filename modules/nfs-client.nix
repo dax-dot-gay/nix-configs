@@ -1,9 +1,22 @@
 { ... }:
 {
     boot.supportedFilesystems = [ "nfs" ];
-    fileSystems."/shared" = {
-        device = "infra-nfs.lsb:/shared";
-        fsType = "nfs";
-        options = [ "x-systemd.automount" "noauto" ];
-    };
+    systemd.mounts = [
+        {
+            type = "nfs";
+            mountConfig = {
+                Options = "noatime";
+            };
+            what = "infra-nfs.lsb:/shared";
+            where = "/shared";
+        }
+    ];
+
+    systemd.automounts = [
+        {
+            wantedBy = [ "multi-user.target" ];
+            automountConfig = {};
+            where = "/shared";
+        }
+    ];
 }
