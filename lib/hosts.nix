@@ -6,6 +6,7 @@ let
     hosts = {
         base-lxc = mkHost "base-lxc" 5;
         base-vm = mkHost "base-vm" 6;
+        infra-nfs = mkHost "infra-nfs" 10;
     };
 in
 {

@@ -59,6 +59,7 @@
             nixosConfigurations = {
                 base-vm = mkVM {hostname = "base-vm"; path = "base/vm";};
                 base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc";};
+                infra-nfs = mkLXC {hostname = "infra-nfs"; path = "infra/nfs";};
             };
         };
 }
