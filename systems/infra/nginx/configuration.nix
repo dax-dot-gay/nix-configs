@@ -10,15 +10,12 @@
 
         certs = {
             "dax.gay" = {
-                group = "nginx";
                 domain = "dax.gay";
             };
             "any.dax.gay" = {
-                group = "nginx";
                 domain = "*.dax.gay";
             };
             "any.matrix.dax.gay" = {
-                group = "nginx";
                 domain = "*.matrix.dax.gay";
             };
         };
