@@ -1,7 +1,7 @@
 let
     mkHost = hostname: ip-ending: {
         hostname = "${hostname}.lsb";
-        ip = "192.168.30.${ip-ending}";
+        ip = "192.168.30.${builtins.toString ip-ending}";
     };
     hosts = {
         base-lxc = mkHost "base-lxc" 5;
