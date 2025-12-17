@@ -8,6 +8,7 @@ let
         base-vm = mkHost "base-vm" 6;
         infra-nfs = mkHost "infra-nfs" 10;
         infra-nginx = mkHost "infra-nginx" 11;
+        services-access = mkHost "services-access" 20;
     };
 in
 {

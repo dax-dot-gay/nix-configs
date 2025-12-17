@@ -62,6 +62,7 @@
                 base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc"; include = ["nfs-client.nix"];};
                 infra-nfs = mkLXC {hostname = "infra-nfs"; path = "infra/nfs";};
                 infra-nginx = mkLXC {hostname = "infra-nginx"; path = "infra/nginx";};
+                services-access = mkLXC {hostname = "services-access"; path = "services/access"; include = ["nfs-client.nix"];};
             };
         };
 }
