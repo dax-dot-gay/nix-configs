@@ -4,7 +4,7 @@
         acceptTerms = true;
         defaults = {
             email = "me@dax.gay";
-            environmentFile = config.sops.templates."namecheap.env".path;
+            environmentFile = "${config.sops.secrets.acme.path}";
             dnsProvider = "namecheap";
         };
 
