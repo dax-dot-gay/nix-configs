@@ -1,9 +1,18 @@
 { ... }:
+let
+    hosts = (import ../lib).hosts;
+in
 {
     boot.supportedFilesystems = [ "nfs" ];
     fileSystems."/shared" = {
-        device = "infra-nfs.lsb:/shared";
+        device = "${(hosts.getHost "infra-nfs").ip}:/shared";
         fsType = "nfs";
-        options = [ "nfsvers=4.2" "rw" "intr" "hard" "timeo=14" ];
+        options = [
+            "nfsvers=4.2"
+            "rw"
+            "intr"
+            "hard"
+            "timeo=14"
+        ];
     };
 }
