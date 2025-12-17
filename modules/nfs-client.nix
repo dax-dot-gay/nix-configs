@@ -5,7 +5,7 @@ in
 {
     boot.supportedFilesystems = [ "nfs" ];
     fileSystems."/shared" = {
-        device = "${(hosts.getHost "infra-nfs").ip}:/shared";
+        device = "${(hosts.getHost "infra-nfs").ip}:/export/shared";
         fsType = "nfs";
         options = [
             "nfsvers=4.2"
