@@ -1,6 +1,6 @@
-{ utils, ... }:
+{ daxlib, ... }:
 let
-    hosts = utils.hosts;
+    hosts = daxlib.hosts;
 in
 {
     boot.supportedFilesystems = [ "nfs" ];

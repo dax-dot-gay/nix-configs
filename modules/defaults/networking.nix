@@ -1,6 +1,6 @@
-{ hostname, utils, ... }:
+{ hostname, daxlib, ... }:
 let
-    hosts = utils.hosts;
+    hosts = daxlib.hosts;
 in
 {
     networking = {
