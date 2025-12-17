@@ -7,8 +7,9 @@
                 name = "origin";
                 url = "${repository}";
                 branches.main.name = "main";
-                hostname = "${hostname}";
             }
         ];
+
+        hostname = "${hostname}";
     };
 }
