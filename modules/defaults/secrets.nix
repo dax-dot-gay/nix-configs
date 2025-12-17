@@ -20,5 +20,6 @@
             NAMECHEAP_API_USER=${config.sops.placeholder."acme/username"}
             NAMECHEAP_API_KEY=${config.sops.placeholder."acme/key"}
         '';
+        templates."namecheap.env".neededForUsers = true;
     };
 }
