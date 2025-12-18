@@ -1,14 +1,4 @@
-{ pkgs, config, ... }:
-let
-    secret_paths = [
-        "password"
-        "acme"
-        "matrix/turn/username"
-        "matrix/turn/credential"
-        "matrix/matrix-authentication/secret"
-        "matrix/matrix-authentication/config.yaml"
-    ];
-in 
+{ pkgs, ... }:
 {
     environment.systemPackages = [
         pkgs.sops
@@ -20,6 +10,29 @@ in
         defaultSopsFile = ../../secrets/secrets.yaml;
         age.sshKeyPaths = [ "/persistent/ssh/id_ed25519" ];
 
-        secrets = builtins.listToAttrs (builtins.map (path: {name = path; value = {neededForUsers = true;};}) secret_paths);
+        secrets = {
+            password.neededForUsers = true;
+            acme.neededForUsers = true;
+            "matrix/turn/username" = {
+                neededForUsers = true;
+                owner = "matrix-synapse";
+                mode = "666";
+            };
+            "matrix/turn/credential" = {
+                neededForUsers = true;
+                owner = "matrix-synapse";
+                mode = "666";
+            };
+            "matrix/matrix-authentication/secret" = {
+                neededForUsers = true;
+                owner = "matrix-authentication-service";
+                mode = "666";
+            };
+            "matrix/matrix-authentication/config.yaml" = {
+                neededForUsers = true;
+                owner = "matrix-authentication-service";
+                mode = "666";
+            };
+        };
     };
 }
