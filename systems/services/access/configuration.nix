@@ -10,8 +10,8 @@
             database = "/shared/systems/services/access/filebrowser.db";
             address = "0.0.0.0";
             port = 8080;
-            username = builtins.readFile config.sops.secrets."services/access/filebrowser/username".path;
-            password = builtins.readFile config.sops.secrets."services/access/filebrowser/password".path;
+            username = config.sops.placeholder."services/access/filebrowser/username";
+            password = config.sops.placeholder."services/access/filebrowser/password";
         };
     };
 }
