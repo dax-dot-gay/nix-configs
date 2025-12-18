@@ -13,6 +13,7 @@ let
 in
 {
     getHost = hostname: hosts.${hostname};
+    ip = hostname: hosts.${hostname}.ip;
     makeHosts =
         hostname:
         builtins.listToAttrs (
