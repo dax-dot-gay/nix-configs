@@ -9,6 +9,7 @@ let
         infra-nfs = mkHost "infra-nfs" 10;
         infra-nginx = mkHost "infra-nginx" 11;
         services-access = mkHost "services-access" 20;
+        services-matrix = mkHost "services-matrix" 21;
     };
 in
 {

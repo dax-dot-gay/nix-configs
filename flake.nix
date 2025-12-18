@@ -63,6 +63,7 @@
                 infra-nfs = mkLXC {hostname = "infra-nfs"; path = "infra/nfs";};
                 infra-nginx = mkLXC {hostname = "infra-nginx"; path = "infra/nginx";};
                 services-access = mkLXC {hostname = "services-access"; path = "services/access"; include = ["nfs-client.nix"];};
+                services-matrix = mkLXC {hostname = "services-matrix"; path = "services/matrix";};
             };
         };
 }

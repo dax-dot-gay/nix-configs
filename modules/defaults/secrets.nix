@@ -3,6 +3,10 @@ let
     secret_paths = [
         "password"
         "acme"
+        "matrix/turn/username"
+        "matrix/turn/credential"
+        "matrix/matrix-authentication/secret"
+        "matrix/matrix-authentication/config.yaml"
     ];
 in 
 {
