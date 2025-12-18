@@ -3,8 +3,6 @@ let
     secret_paths = [
         "password"
         "acme"
-        "services/access/filebrowser/username"
-        "services/access/filebrowser/password"
     ];
 in 
 {
