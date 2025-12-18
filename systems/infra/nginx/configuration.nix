@@ -14,12 +14,15 @@ in
         certs = {
             "dax.gay" = {
                 domain = "dax.gay";
+                group = config.services.nginx.group;
             };
             "any.dax.gay" = {
                 domain = "*.dax.gay";
+                group = config.services.nginx.group;
             };
             "any.matrix.dax.gay" = {
                 domain = "*.matrix.dax.gay";
+                group = config.services.nginx.group;
             };
         };
     };
