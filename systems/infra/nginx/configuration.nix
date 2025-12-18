@@ -1,6 +1,6 @@
-{ config, daxlibs, ... }:
+{ config, daxlib, ... }:
 let
-    hosts = daxlibs.hosts;
+    hosts = daxlib.hosts;
 in
 {
     security.acme = {
