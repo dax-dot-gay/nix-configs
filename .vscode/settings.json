@@ -51,6 +51,14 @@
                 "base"
             ],
             "host": "192.168.30.11"
+        },
+        {
+            "name": "services-access",
+            "group": "services",
+            "extend": [
+                "base"
+            ],
+            "host": "192.168.30.20"
         }
     ]
 }
