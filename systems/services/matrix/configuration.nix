@@ -12,7 +12,7 @@
             group = "matrix-authentication-service";
             isSystemUser = true;
             createHome = true;
-            home = "/persistent/matrix-authentication/service";
+            home = "/persistent/matrix-authentication-service";
         };
     };
 
