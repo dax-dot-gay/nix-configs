@@ -26,6 +26,7 @@ in
             };
         };
     };
+    networking.firewall.enable = false;
 
     services.nginx = {
         enable = true;
