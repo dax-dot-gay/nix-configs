@@ -2,7 +2,6 @@
 {
     config = {
         sops.templates."services/access/filebrowser.config.json" = {
-            user = "root";
             content = ''
                 {
                     "root": "/shared",
@@ -14,7 +13,7 @@
                 }
             '';
         };
-        
+
         services.filebrowser = {
             enable = true;
             user = "root";
