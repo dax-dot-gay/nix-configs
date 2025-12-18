@@ -66,7 +66,7 @@ in
                 useACMEHost = "any.dax.gay";
                 forceSSL = true;
                 locations."/" = {
-                    proxyPass = "https://${hosts.ip "services-access"}:8080";
+                    proxyPass = "http://${hosts.ip "services-access"}:8080";
                     proxyWebsockets = true;
                 };
             };
