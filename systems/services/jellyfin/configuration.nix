@@ -1,5 +1,14 @@
 { config, pkgs, ... }:
 {
+    sops.templates.jellarr-env = {
+        templates.jellarr-env = {
+        content = ''
+            JELLARR_API_KEY=${config.sops.placeholder."jellyfin/jellarr_key"}
+        '';
+        owner = config.services.jellarr.user;
+        group = config.services.jellarr.group;
+        };
+    };
     services.jellyfin = {
         enable = true;
         user = "root";
@@ -11,6 +20,7 @@
         enable = true;
         user = "root";
         group = "root";
+        environmentFile = config.sops.templates.jellarr-env.path;
         bootstrap = {
             enable = true;
             apiKeyFile = "${config.sops.secrets."jellyfin/jellarr_key".path}";
