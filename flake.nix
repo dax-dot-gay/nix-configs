@@ -31,7 +31,7 @@
         }@inputs:
         let
             system = "x86_64-linux";
-            pkgs = import nixpkgs { inherit system; };
+            pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
             repository = "https://github.com/dax-dot-gay/nix-configs.git";
             daxlib = import ./lib;
 
@@ -48,6 +48,7 @@
                         hostname = "${hostname}";
                         repository = repository;
                         daxlib = daxlib;
+                        pkgs = pkgs;
                     };
                     modules = [
                         ./modules/defaults
@@ -74,6 +75,7 @@
                         hostname = "${hostname}";
                         repository = repository;
                         daxlib = daxlib;
+                        pkgs = pkgs;
                     };
                     modules = [
                         ./modules/defaults
