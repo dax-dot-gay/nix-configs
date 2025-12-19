@@ -10,7 +10,7 @@
             jellyfinDataDir = "/shared/systems/services/jellyfin";
         };
         config = {
-            base_url = "http://0.0.0.0:8096";
+            base_url = "http://localhost:8096";
             system = {
                 enableMetrics = true;
                 pluginRepositories = [
