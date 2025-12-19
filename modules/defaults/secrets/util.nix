@@ -107,13 +107,6 @@ let
                         Permissions mode of the in octal.
                     '';
                 };
-                sopsFileHash = mkOption {
-                    type = types.str;
-                    readOnly = true;
-                    description = ''
-                        Hash of the sops file, useful in <xref linkend="opt-systemd.services._name_.restartTriggers" />.
-                    '';
-                };
                 restartUnits = mkOption {
                     type = types.listOf types.str;
                     default = [ ];
@@ -158,7 +151,7 @@ in
                     if ((length value.hosts) == 0) || (elem hostname value.hosts) then
                         {
                             name = name;
-                            value = filterAttrs (n: _: n != "hosts") value;
+                            value = filterAttrs (n: _: n != "hosts" && n != "sopsFileHash") value;
                         }
                     else
                         null
