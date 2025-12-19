@@ -35,6 +35,26 @@
             local all       all     trust
         '';
         dataDir = "/persistent/postgresql";
+        ensureDatabases = [
+            "matrix-authentication-service"
+            "matrix-synapse"
+        ];
+        ensureUsers = [
+            {
+                name = "matrix-authentication-service";
+                ensureClauses.login = true;
+            }
+            {
+                name = "matrix-synapse";
+                ensureDBOwnership = true;
+                ensureClauses.login = true;
+            }
+            {
+                name = "root";
+                ensureClauses.login = true;
+                ensureClauses.superuser = true;
+            }
+        ];
     };
     networking.firewall.enable = false;
 
