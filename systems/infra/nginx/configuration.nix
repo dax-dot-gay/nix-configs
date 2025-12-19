@@ -1,8 +1,20 @@
 { config, daxlib, ... }:
 let
     hosts = daxlib.hosts;
+    mkHost = {acmeHost ? "any.dax.gay", hostname, port}: {
+                useACMEHost = acmeHost;
+                forceSSL = true;
+                locations."/" = {
+                    proxyPass = "http://${hosts.ip hostname}:${builtins.toString port}";
+                    proxyWebsockets = true;
+                };
+    };
+    preflight = import ./preflight.nix;
 in
 {
+    imports = [
+        ./services
+    ];
     security.acme = {
         acceptTerms = true;
         defaults = {
@@ -45,29 +57,61 @@ in
             }
             add_header Strict-Transport-Security $hsts_header;
 
-            # Enable CSP for your services.
-            #add_header Content-Security-Policy "script-src 'self'; object-src 'none'; base-uri 'none';" always;
+            proxy_hide_header Access-Control-Allow-Origin;
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Host $host;
 
-            # Minimize information leaked to other domains
-            add_header 'Referrer-Policy' 'origin-when-cross-origin';
+            map $http_origin $allowed_origin {
+                default "";  # Block invalid origins
+                ~^(https?):\/\/([a-zA-Z0-9-]+\.)*dax\.gay(:\d+)?$ $http_origin;  # Allow valid origins
+            }
 
-            # Disable embedding as a frame
-            add_header X-Frame-Options DENY;
-
-            # Prevent injection of code in other mime types (XSS Attacks)
-            add_header X-Content-Type-Options nosniff;
-
-            # This might create errors
-            proxy_cookie_path / "/; secure; HttpOnly; SameSite=strict";
+            add_header 'Access-Control-Allow-Origin' '*' always;
         '';
 
         virtualHosts = {
-            "fs.dax.gay" = {
-                useACMEHost = "any.dax.gay";
+            "fs.dax.gay" = mkHost {hostname = "services-access"; port = 8080; };
+            "dax.gay" = {
+                useACMEHost = "dax.gay";
                 forceSSL = true;
-                locations."/" = {
-                    proxyPass = "http://${hosts.ip "services-access"}:8080";
-                    proxyWebsockets = true;
+                locations = {
+                    "/.well-known/openid-configuration" = {
+                        proxyPass = "http://${hosts.ip "services-matrix"}:8085/.well-known/openid-configuration";
+                        proxyWebsockets = true;
+                        extraConfig = preflight;
+                    };
+                    "/.well-known/matrix/client" = {
+                        return = ''
+                            200 '{
+                                "m.homeserver": {
+                                    "base_url": "https://matrix.dax.gay"
+                                },
+                                "m.identity_server": {
+                                    "base_url": "https://vector.im"
+                                },
+                                "org.matrix.msc3575.proxy": {
+                                    "url": "https://matrix.dax.gay"
+                                },
+                                "org.matrix.msc4143.rtc_foci": [
+                                    {
+                                    "type": "livekit",    "livekit_service_url": "https://livekit.matrix.dax.gay"
+                                    }
+                                ]
+                            }'
+                        '';
+                        extraConfig = ''
+                            default_type application/json;
+                        '' + preflight;
+                    };
+                    "/.well-known/matrix/server" = {
+                        return = ''
+                            200 '{"m.server":"matrix.dax.gay:443"}'
+                        '';
+                        extraConfig = ''
+                            default_type application/json;
+                        '' + preflight;     
+                    };
                 };
             };
         };

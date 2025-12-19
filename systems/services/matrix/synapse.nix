@@ -1,17 +1,8 @@
 { config, ... }:
 {
-    sops.templates."services-matrix/matrix-secrets.yaml" = {
-        owner = "matrix-synapse";
-        content = ''
-            turn_username: "${config.sops.placeholder."matrix/turn/username"}"
-            turn_password: "${config.sops.placeholder."matrix/turn/credential"}"
-            matrix_authentication_service:
-                secret: "${config.sops.placeholder."matrix/matrix-authentication/secret"}"
-        '';
-    };
     services.matrix-synapse = {
         enable = true;
-        extraConfigFiles = [ "${config.sops.templates."services-matrix/matrix-secrets.yaml".path}" ];
+        extraConfigFiles = [ "${config.sops.secrets."matrix/synapse.yaml".path}" ];
         settings.server_name = "dax.gay";
         settings.public_baseurl = "https://matrix.dax.gay";
         settings.listeners = [
@@ -49,10 +40,9 @@
             msc3266_enabled = true;
             msc4222_enabled = true;
             msc4140_enabled = true;
+            msc2965_enabled = true;
         };
         settings.max_event_delay_duration = "24h";
-        settings.matrix_authentication_service.enabled = true;
-        settings.matrix_authentication_service.endpoint = "http://localhost:8085/";
         settings.auto_join_rooms = [
             "#cat-tower:dax.gay"
             "#cat-tower-general-room:dax.gay"

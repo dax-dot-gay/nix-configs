@@ -58,12 +58,12 @@
         in
         {
             nixosConfigurations = {
-                base-vm = mkVM {hostname = "base-vm"; path = "base/vm"; include = ["nfs-client.nix"];};
-                base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc"; include = ["nfs-client.nix"];};
+                base-vm = mkVM {hostname = "base-vm"; path = "base/vm"; include = ["features/nfs-client.nix"];};
+                base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc"; include = ["features/nfs-client.nix"];};
                 infra-nfs = mkLXC {hostname = "infra-nfs"; path = "infra/nfs";};
                 infra-nginx = mkLXC {hostname = "infra-nginx"; path = "infra/nginx";};
-                services-access = mkLXC {hostname = "services-access"; path = "services/access"; include = ["nfs-client.nix"];};
-                services-matrix = mkLXC {hostname = "services-matrix"; path = "services/matrix";};
+                services-access = mkLXC {hostname = "services-access"; path = "services/access"; include = ["features/nfs-client.nix"];};
+                services-matrix = mkLXC {hostname = "services-matrix"; path = "services/matrix"; include = ["features/podman.nix"];};
             };
         };
 }

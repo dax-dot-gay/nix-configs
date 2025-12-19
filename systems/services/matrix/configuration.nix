@@ -3,6 +3,7 @@
     imports = [
         ./livekit.nix
         ./synapse.nix
+        ./element_admin.nix
     ];
 
     # MAS user & persistent homedir
@@ -12,7 +13,7 @@
             group = "matrix-authentication-service";
             isSystemUser = true;
             createHome = true;
-            home = "/persistent/matrix-authentication/service";
+            home = "/persistent/matrix-authentication-service";
         };
     };
 

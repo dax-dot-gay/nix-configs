@@ -59,6 +59,14 @@
                 "base"
             ],
             "host": "192.168.30.20"
+        },
+        {
+            "name": "services-matrix",
+            "group": "services",
+            "extend": [
+                "base"
+            ],
+            "host": "192.168.30.21"
         }
     ]
 }
