@@ -17,6 +17,10 @@
             url = "github:nix-community/disko/latest";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        inputs = {
+            nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+            declarative-jellyfin.url = "github:Sveske-Juice/declarative-jellyfin";
+        };
     };
 
     outputs =
@@ -31,39 +35,93 @@
             repository = "https://github.com/dax-dot-gay/nix-configs.git";
             daxlib = import ./lib;
 
-            mkVM = {hostname, path, extraModules ? [], include ? []}: nixpkgs.lib.nixosSystem {
-                system = "${system}";
-                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; daxlib = daxlib; };
-                modules = [
-                    ./modules/defaults
-                    ./modules/systems/vm.nix
-                    ./systems/${path}/configuration.nix
-                    inputs.sops-nix.nixosModules.sops
-                    inputs.disko.nixosModules.disko
-                    inputs.comin.nixosModules.comin
-                ] ++ extraModules ++ (builtins.map (inc: ./modules/${inc}) include);
-            };
+            mkVM =
+                {
+                    hostname,
+                    path,
+                    extraModules ? [ ],
+                    include ? [ ],
+                }:
+                nixpkgs.lib.nixosSystem {
+                    system = "${system}";
+                    specialArgs = inputs // {
+                        hostname = "${hostname}";
+                        repository = repository;
+                        daxlib = daxlib;
+                    };
+                    modules = [
+                        ./modules/defaults
+                        ./modules/systems/vm.nix
+                        ./systems/${path}/configuration.nix
+                        inputs.sops-nix.nixosModules.sops
+                        inputs.disko.nixosModules.disko
+                        inputs.comin.nixosModules.comin
+                    ]
+                    ++ extraModules
+                    ++ (builtins.map (inc: ./modules/${inc}) include);
+                };
 
-            mkLXC = {hostname, path, extraModules ? [], include ? []}: nixpkgs.lib.nixosSystem {
-                system = "${system}";
-                specialArgs = inputs // {hostname = "${hostname}"; repository = repository; daxlib = daxlib; };
-                modules = [
-                    ./modules/defaults
-                    ./modules/systems/lxc.nix
-                    ./systems/${path}/configuration.nix
-                    inputs.sops-nix.nixosModules.sops
-                    inputs.comin.nixosModules.comin
-                ] ++ extraModules ++ (builtins.map (inc: ./modules/${inc}) include);
-            };
+            mkLXC =
+                {
+                    hostname,
+                    path,
+                    extraModules ? [ ],
+                    include ? [ ],
+                }:
+                nixpkgs.lib.nixosSystem {
+                    system = "${system}";
+                    specialArgs = inputs // {
+                        hostname = "${hostname}";
+                        repository = repository;
+                        daxlib = daxlib;
+                    };
+                    modules = [
+                        ./modules/defaults
+                        ./modules/systems/lxc.nix
+                        ./systems/${path}/configuration.nix
+                        inputs.sops-nix.nixosModules.sops
+                        inputs.comin.nixosModules.comin
+                    ]
+                    ++ extraModules
+                    ++ (builtins.map (inc: ./modules/${inc}) include);
+                };
         in
         {
             nixosConfigurations = {
-                base-vm = mkVM {hostname = "base-vm"; path = "base/vm"; include = ["features/nfs-client.nix"];};
-                base-lxc = mkLXC {hostname = "base-lxc"; path = "base/lxc"; include = ["features/nfs-client.nix"];};
-                infra-nfs = mkLXC {hostname = "infra-nfs"; path = "infra/nfs";};
-                infra-nginx = mkLXC {hostname = "infra-nginx"; path = "infra/nginx";};
-                services-access = mkLXC {hostname = "services-access"; path = "services/access"; include = ["features/nfs-client.nix"];};
-                services-matrix = mkLXC {hostname = "services-matrix"; path = "services/matrix"; include = ["features/podman.nix"];};
+                base-vm = mkVM {
+                    hostname = "base-vm";
+                    path = "base/vm";
+                    include = [ "features/nfs-client.nix" ];
+                };
+                base-lxc = mkLXC {
+                    hostname = "base-lxc";
+                    path = "base/lxc";
+                    include = [ "features/nfs-client.nix" ];
+                };
+                infra-nfs = mkLXC {
+                    hostname = "infra-nfs";
+                    path = "infra/nfs";
+                };
+                infra-nginx = mkLXC {
+                    hostname = "infra-nginx";
+                    path = "infra/nginx";
+                };
+                services-access = mkLXC {
+                    hostname = "services-access";
+                    path = "services/access";
+                    include = [ "features/nfs-client.nix" ];
+                };
+                services-matrix = mkLXC {
+                    hostname = "services-matrix";
+                    path = "services/matrix";
+                    include = [ "features/podman.nix" ];
+                };
+                services-jellyfin = mkVM {
+                    hostname = "services-jellyfin";
+                    path = "services/jellyfin";
+                    extraModules = [ inputs.declarative-jellyfin.nixosModules.default ];
+                    include = [ "features/nfs-client.nix" ];
+                };
             };
         };
 }

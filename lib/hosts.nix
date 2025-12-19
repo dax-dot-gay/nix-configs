@@ -10,6 +10,7 @@ let
         infra-nginx = mkHost "infra-nginx" 11;
         services-access = mkHost "services-access" 20;
         services-matrix = mkHost "services-matrix" 21;
+        services-jellyfin = mkHost "services-jellyfin" 22;
     };
 in
 {
