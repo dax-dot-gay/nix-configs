@@ -1,8 +1,12 @@
 { config, pkgs, ... }:
 {
-    systemd.tmpfiles.rules = [
-        "d /shared/systems/services/jellyfin 0777 root root 99999y"
-    ];
+    services.jellyfin = {
+        enable = true;
+        user = "root";
+        group = "root";
+        dataDir = "/shared/systems/services/jellyfin";
+        openFirewall = true;
+    };
     services.jellarr = {
         enable = true;
         user = "root";
