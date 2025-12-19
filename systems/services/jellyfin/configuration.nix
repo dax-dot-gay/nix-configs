@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+    systemd.tmpfiles.rules = [
+        "d /shared/systems/services/jellyfin 0777 root root 99999y"
+    ];
     services.jellarr = {
         enable = true;
         user = "root";
