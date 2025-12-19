@@ -14,5 +14,4 @@
     };*/
 
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
-    hardware.nvidia.enabled = true;
 }
