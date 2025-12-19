@@ -161,7 +161,7 @@ in
                         }
                     else
                         null
-                )
+                ) cfg.secrets
             );
         };
     };
