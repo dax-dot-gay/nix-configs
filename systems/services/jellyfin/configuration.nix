@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
     /*services.jellarr = {
         enable = true;
@@ -14,4 +14,11 @@
     };*/
 
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
+    hardware.nvidia.open = false;
+    hardware.nvidia.powerManagement.enable = false;
+
+    environment.systemPackages = with pkgs; [
+        libva-utils
+        nvidia-vaapi-driver
+    ];
 }
