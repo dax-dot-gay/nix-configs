@@ -58,14 +58,13 @@
                     "h264"
                     "hevc"
                     "mpeg2video"
-                    "mpeg4video"
                     "vc1"
                     "vp8"
                     "vp9"
                 ];
-                enableDecodingColorDepth10Hevc = true;
-                enableDecodingColorDepth10HevcRext = true;
-                enableDecodingColorDepth12HevcRext = true;
+                enableDecodingColorDepth10Hevc = false;
+                enableDecodingColorDepth10HevcRext = false;
+                enableDecodingColorDepth12HevcRext = false;
                 enableDecodingColorDepth10Vp9 = true;
                 allowHevcEncoding = true;
                 allowAv1Encoding = false;
