@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
     imports = [
         ./livekit.nix
@@ -54,7 +54,7 @@
             matrix-authentication-service
         ];
         script = ''
-            mas-cli server --config /run/secrets-for-users/matrix/matrix-authentication/config.yaml
+            mas-cli server --config ${config.sops.secrets."matrix/matrix-authentication/config.yaml".path}
         '';
         serviceConfig = {
             RemainAfterExit = "yes";
