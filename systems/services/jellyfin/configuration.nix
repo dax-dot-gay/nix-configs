@@ -16,9 +16,11 @@
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
     hardware.nvidia.open = false;
     hardware.nvidia.powerManagement.enable = false;
+    services.xserver.videoDrivers = ["nvidia"];
+    hardware.graphics.enable = true;
 
     environment.systemPackages = with pkgs; [
         libva-utils
-        nvidia-vaapi-driver
+        libva-vdpau-driver
     ];
 }
