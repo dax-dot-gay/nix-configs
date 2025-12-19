@@ -65,7 +65,7 @@ let
                 };
                 key = mkOption {
                     type = types.str;
-                    default = if cfg.defaultSopsKey != null then cfg.defaultSopsKey else config._module.args.name;
+                    default = if sops.defaultSopsKey != null then sops.defaultSopsKey else config._module.args.name;
                     description = ''
                         Key used to lookup in the sops file.
                         No tested data structures are supported right now.
@@ -94,7 +94,7 @@ let
                         "dotenv"
                         "ini"
                     ];
-                    default = cfg.defaultSopsFormat;
+                    default = sops.defaultSopsFormat;
                     description = ''
                         File format used to decrypt the sops secret.
                         Binary files are written to the target file as is.
