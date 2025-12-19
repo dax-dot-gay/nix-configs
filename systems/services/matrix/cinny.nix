@@ -25,7 +25,7 @@ let
 in
 {
     virtualisation.oci-containers.containers.cinny = {
-        image = "cinny:latest";
+        image = "ajbura/cinny:latest";
         ports = [ "0.0.0.0:9081:80" ];
         volumes = [ "${cinny_config}:/app/config.json" ];
         autoStart = true;
