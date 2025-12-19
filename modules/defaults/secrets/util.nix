@@ -151,7 +151,7 @@ in
         sops = {
             defaultSopsFile = ../../../secrets/secrets.yaml;
             age.sshKeyPaths = [ "/persistent/ssh/id_ed25519" ];
-            secrets = listToAttrs (
+            secrets = listToAttrs (filter isAttrs (
                 mapAttrsToList (
                     name: value:
                     if ((length value.hosts) == 0) || (elem hostname value.hosts) then
@@ -162,7 +162,7 @@ in
                     else
                         null
                 ) cfg.secrets
-            );
+            ));
         };
     };
 }
