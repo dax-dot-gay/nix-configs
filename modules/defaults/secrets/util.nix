@@ -8,13 +8,14 @@
 with lib;
 let
     cfg = config.secrets;
+    sops = config.sops;
     users = config.users.users;
 
     secretDefinitionOptions = types.submodule (
         { config, ... }:
         {
             config = {
-                sopsFile = mkOptionDefault cfg.defaultSopsFile;
+                sopsFile = mkOptionDefault sops.defaultSopsFile;
             };
             options = {
                 hosts = mkOption {
