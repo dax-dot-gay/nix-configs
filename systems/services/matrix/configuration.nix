@@ -4,6 +4,7 @@
         ./livekit.nix
         ./synapse.nix
         ./element_admin.nix
+        ./cinny.nix
     ];
 
     # MAS user & persistent homedir

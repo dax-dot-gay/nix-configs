@@ -5,6 +5,15 @@ let
 in
 {
     services.nginx.virtualHosts = {
+        "cinny.dax.gay" = {
+            useACMEHost = "any.dax.gay";
+            forceSSL = true;
+            locations."/" = {
+                proxyPass = "http://${hosts.ip "services-matrix"}:9081";
+                proxyWebsockets = true;
+                extraConfig = preflight;
+            };
+        };
         "auth.matrix.dax.gay" = {
             useACMEHost = "any.matrix.dax.gay";
             forceSSL = true;

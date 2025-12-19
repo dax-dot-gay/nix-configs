@@ -10,4 +10,5 @@
         podman-tui
         podman-compose
     ];
+    virtualisation.oci-containers.backend = "podman";
 }
