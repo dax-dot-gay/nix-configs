@@ -6,7 +6,7 @@
         group = "root";
         bootstrap = {
             enable = true;
-            apiKeyFile = config.sops.secrets."jellyfin/jellarr_key";
+            apiKeyFile = "${config.sops.secrets."jellyfin/jellarr_key".path}";
             jellyfinDataDir = "/shared/systems/services/jellyfin";
         };
         config = {
