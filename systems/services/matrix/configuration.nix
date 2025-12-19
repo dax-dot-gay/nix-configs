@@ -33,27 +33,14 @@
         authentication = pkgs.lib.mkOverride 10 ''
             #type database  DBuser  auth-method
             local all       all     trust
+            local all matrix-synapse trust
+            local all matrix-authentication-service trust
+            local all root trust
         '';
         dataDir = "/persistent/postgresql";
         ensureDatabases = [
             "matrix-authentication-service"
             "matrix-synapse"
-        ];
-        ensureUsers = [
-            {
-                name = "matrix-authentication-service";
-                ensureClauses.login = true;
-            }
-            {
-                name = "matrix-synapse";
-                ensureDBOwnership = true;
-                ensureClauses.login = true;
-            }
-            {
-                name = "root";
-                ensureClauses.login = true;
-                ensureClauses.superuser = true;
-            }
         ];
     };
     networking.firewall.enable = false;
