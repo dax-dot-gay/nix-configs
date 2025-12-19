@@ -1,13 +1,11 @@
 { config, pkgs, ... }:
 {
     sops.templates.jellarr-env = {
-        templates.jellarr-env = {
         content = ''
             JELLARR_API_KEY=${config.sops.placeholder."jellyfin/jellarr_key"}
         '';
         owner = config.services.jellarr.user;
         group = config.services.jellarr.group;
-        };
     };
     services.jellyfin = {
         enable = true;
