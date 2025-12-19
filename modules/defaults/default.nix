@@ -2,7 +2,7 @@
 {
     imports = [
         ./openssh.nix
-        ./secrets.nix
+        ./secrets
         ./users.nix
         ./terminal.nix
         ./networking.nix

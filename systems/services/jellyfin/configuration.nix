@@ -1,4 +1,6 @@
 { ... }:
 {
-    
+    services.jellarr = {
+        enable = true;
+    };
 }
