@@ -17,9 +17,9 @@
             url = "github:nix-community/disko/latest";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        inputs = {
-            nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-            declarative-jellyfin.url = "github:Sveske-Juice/declarative-jellyfin";
+        declarative-jellyfin = {
+            url = "github:Sveske-Juice/declarative-jellyfin";
+            inputs.nixpkgs.follows = "nixpkgs";
         };
     };
 
