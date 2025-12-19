@@ -47,6 +47,9 @@
                 hosts = [ "services-jellyfin" ];
                 mode = "0444";
             };
+            "jellyfin/admin_password" = {
+                hosts = [ "services-jellyfin" ];
+            };
         };
     };
 }
