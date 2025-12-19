@@ -17,8 +17,8 @@
             url = "github:nix-community/disko/latest";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        declarative-jellyfin = {
-            url = "github:Sveske-Juice/declarative-jellyfin";
+        jellarr = {
+            url = "github:venkyr77/jellarr/v0.0.3";
             inputs.nixpkgs.follows = "nixpkgs";
         };
     };
@@ -119,7 +119,7 @@
                 services-jellyfin = mkVM {
                     hostname = "services-jellyfin";
                     path = "services/jellyfin";
-                    extraModules = [ inputs.declarative-jellyfin.nixosModules.default ];
+                    extraModules = [ inputs.jellarr.nixosModules.default ];
                     include = [ "features/nfs-client.nix" ];
                 };
             };
