@@ -28,6 +28,7 @@ in
             email = "me@dax.gay";
             environmentFile = "${config.sops.secrets.acme.path}";
             dnsProvider = "namecheap";
+            dnsResolver = "dns1.registrar-servers.com ";
         };
 
         certs = {
