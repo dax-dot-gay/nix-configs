@@ -1,15 +1,22 @@
 { config, daxlib, ... }:
 let
     hosts = daxlib.hosts;
-    mkHost = {acmeHost ? "any.dax.gay", hostname, port}: {
-                useACMEHost = acmeHost;
-                forceSSL = true;
-                locations."/" = {
-                    proxyPass = "http://${hosts.ip hostname}:${builtins.toString port}";
-                    proxyWebsockets = true;
-                };
-    };
     preflight = import ./preflight.nix;
+    mkHost =
+        {
+            acmeHost ? "any.dax.gay",
+            hostname,
+            port,
+        }:
+        {
+            useACMEHost = acmeHost;
+            forceSSL = true;
+            locations."/" = {
+                proxyPass = "http://${hosts.ip hostname}:${builtins.toString port}";
+                proxyWebsockets = true;
+                extraConfig = preflight;
+            };
+        };
 in
 {
     imports = [
@@ -71,7 +78,14 @@ in
         '';
 
         virtualHosts = {
-            "fs.dax.gay" = mkHost {hostname = "services-access"; port = 8080; };
+            "fs.dax.gay" = mkHost {
+                hostname = "services-access";
+                port = 8080;
+            };
+            "retro.dax.gay" = mkHost {
+                hostname = "services-romm";
+                port = 8080;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;
@@ -102,7 +116,8 @@ in
                         '';
                         extraConfig = ''
                             default_type application/json;
-                        '' + preflight;
+                        ''
+                        + preflight;
                     };
                     "/.well-known/matrix/server" = {
                         return = ''
@@ -110,7 +125,8 @@ in
                         '';
                         extraConfig = ''
                             default_type application/json;
-                        '' + preflight;     
+                        ''
+                        + preflight;
                     };
                 };
             };

@@ -9,6 +9,7 @@
         ./nixos.nix
         ./comin.nix
         ./upgrades.nix
+        ./ensure_paths.nix
     ];
 
     system.stateVersion = "25.11";

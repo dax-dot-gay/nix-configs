@@ -14,6 +14,9 @@ pkgs.mkShellNoCC {
         ssh-to-age
         age
         yq-go
+        compose2nix
+        podman
+        podman-compose
     ];
 
     shellHook = ''

@@ -11,6 +11,7 @@ let
         services-access = mkHost "services-access" 20;
         services-matrix = mkHost "services-matrix" 21;
         services-jellyfin = mkHost "services-jellyfin" 22;
+        services-romm = mkHost "services-romm" 23;
     };
 in
 {
