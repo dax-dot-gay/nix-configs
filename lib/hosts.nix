@@ -14,6 +14,7 @@ let
         services-romm = mkHost "services-romm" 23;
         services-kavita = mkHost "services-kavita" 24;
         services-audiobookshelf = mkHost "services-audiobookshelf" 25;
+        services-wizarr = mkHost "services-wizarr" 26;
     };
 in
 {

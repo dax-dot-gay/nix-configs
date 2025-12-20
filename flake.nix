@@ -137,6 +137,11 @@
                     path = "services/audiobookshelf";
                     include = ["features/nfs-client.nix"];
                 };
+                services-wizarr = mkLXC {
+                    hostname = "services-wizarr";
+                    path = "services/wizarr";
+                    include = [ "features/podman.nix" "features/nfs-client.nix" ];
+                };
             };
         };
 }

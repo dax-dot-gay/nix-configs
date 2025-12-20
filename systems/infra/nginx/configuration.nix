@@ -94,6 +94,10 @@ in
                 hostname = "services-audiobookshelf";
                 port = 8000;
             };
+            "invite.dax.gay" = mkHost {
+                hostname = "services-wizarr";
+                port = 5690;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;
