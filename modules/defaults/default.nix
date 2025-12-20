@@ -10,8 +10,8 @@
         ./comin.nix
         ./upgrades.nix
         ./ensure_paths.nix
+        ./nixpkgs.nix
     ];
 
     system.stateVersion = "25.11";
-    nixpkgs.config.allowUnfree = true;
 }
