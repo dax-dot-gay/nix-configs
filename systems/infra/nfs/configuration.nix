@@ -11,4 +11,9 @@
     networking.firewall.enable = false;
 
     environment.systemPackages = [ pkgs.rclone ];
+    users.users.nfsuser = {
+        group = "nfsuser";
+        uid = 6500;
+    };
+    users.groups."nfsuser".gid = 6500;
 }
