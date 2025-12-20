@@ -13,6 +13,7 @@
         group = "root";
         dataDir = "/shared/systems/services/jellyfin";
         openFirewall = true;
+        package = pkgs.jellyfin;
     };
     services.jellarr = {
         enable = true;
@@ -106,5 +107,8 @@
     environment.systemPackages = with pkgs; [
         libva-utils
         libva-vdpau-driver
+        jellyfin
+        jellyfin-ffmpeg
+        jellyfin-web
     ];
 }
