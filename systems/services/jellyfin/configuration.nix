@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+    ensurePaths.folders."/persistent/jellyfin" = {
+        mode = "0777";
+    };
     sops.templates.jellarr-env = {
         content = ''
             JELLARR_API_KEY=${config.sops.placeholder."jellyfin/jellarr_key"}

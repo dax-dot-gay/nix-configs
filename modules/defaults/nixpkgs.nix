@@ -9,7 +9,7 @@
                     mkdir -p $out/share
                     cp -a dist $out/share/jellyfin-web
 
-                    cp $out/share/jellyfin-web /persistent/jellyfin
+                    cp -a $out/share/jellyfin-web /persistent/jellyfin
 
                     runHook postInstall
                 '';
