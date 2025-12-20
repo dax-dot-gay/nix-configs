@@ -7,4 +7,5 @@
         openFirewall = true;
     };
     ensurePaths.folders."/shared/data/media/Audiobooks" = { };
+    ensurePaths.folders."/shared/data/media/Podcasts" = {};
 }
