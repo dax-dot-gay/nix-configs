@@ -43,6 +43,18 @@ in
                 domain = "*.matrix.dax.gay";
                 group = config.services.nginx.group;
             };
+            "any.arr.dax.gay" = {
+                domain = "*.arr.dax.gay";
+                group = config.services.nginx.group;
+            };
+            "any.jellyfin.dax.gay" = {
+                domain = "*.jellyfin.dax.gay";
+                group = config.services.nginx.group;
+            };
+            "any.audiobooks.dax.gay" = {
+                domain = "*.audiobooks.dax.gay";
+                group = config.services.nginx.group;
+            };
         };
     };
     networking.firewall.enable = false;
