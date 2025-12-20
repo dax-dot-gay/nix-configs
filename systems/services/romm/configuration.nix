@@ -73,6 +73,7 @@
             ];
             environmentFiles = [ config.sops.templates."romm/main.env".path ];
             user = "root:root";
+            networks = ["host"];
         };
         romm-mariadb = {
             image = "mariadb:latest";
@@ -81,6 +82,7 @@
             volumes = [ "/shared/systems/services/romm/mariadb:/var/lib/mysql" ];
             ports = [ "127.0.0.1:3306:3306" ];
             user = "root:root";
+            networks = ["host"];
         };
     };
 
