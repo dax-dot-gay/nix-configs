@@ -9,19 +9,10 @@
         environment = {
             DISABLE_BUILTIN_AUTH = "false";
             TZ = "America/New_York";
-            PUID = "568";
-            PGID = "568";
+            PUID = "0";
+            PGID = "0";
         };
-        user = "wizarr:wizarr";
-    };
-    users.groups.wizarr = {
-        gid = 568;
-        members = ["wizarr"];
-    };
-    users.users.wizarr = {
-        isSystemUser = true;
-        uid = 568;
-        group = "wizarr";
+        user = "root:root";
     };
     networking.firewall.allowedTCPPorts = [ 5690 ];
 }
