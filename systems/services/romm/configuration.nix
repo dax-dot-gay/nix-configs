@@ -33,7 +33,7 @@
 
     sops.templates."romm/main.env" = {
         content = ''
-            DB_HOST=localhost:3306
+            DB_HOST=host.docker.internal:3306
             DB_NAME=romm
             DB_USER=romm-user
             DB_PASSWD=${config.sops.placeholder."romm/db/mariadb_password"}
@@ -73,16 +73,14 @@
             ];
             environmentFiles = [ config.sops.templates."romm/main.env".path ];
             user = "root:root";
-            networks = ["host"];
         };
         romm-mariadb = {
             image = "mariadb:latest";
             autoStart = true;
             environmentFiles = [ config.sops.templates."romm/mariadb.env".path ];
             volumes = [ "/shared/systems/services/romm/mariadb:/var/lib/mysql" ];
-            ports = [ "127.0.0.1:3306:3306" ];
+            ports = [ "0.0.0.0:3306:3306" ];
             user = "root:root";
-            networks = ["host"];
         };
     };
 
