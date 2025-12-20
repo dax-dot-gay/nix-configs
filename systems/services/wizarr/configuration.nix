@@ -14,7 +14,10 @@
         };
         user = "wizarr:wizarr";
     };
-    users.groups.wizarr.gid = 568;
+    users.groups.wizarr = {
+        gid = 568;
+        members = ["wizarr"];
+    };
     users.users.wizarr = {
         isSystemUser = true;
         uid = 568;
