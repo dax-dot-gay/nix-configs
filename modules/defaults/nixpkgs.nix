@@ -9,9 +9,9 @@
                     mkdir -p $out/share
                     cp -a dist $out/share/jellyfin-web
 
-                    mkdir -p /var/lib/jellyfin-web
-                    cp $out/share/jellyfin-web /var/lib/jellyfin-web
-                    chown -R jellyfin:jellyfin /var/lib/jellyfin-web
+                    mkdir -p /persistent/jellyfin
+                    cp $out/share/jellyfin-web /persistent/jellyfin
+                    chown -R jellyfin:jellyfin /persistent/jellyfin
 
                     runHook postInstall
                 '';
@@ -20,7 +20,7 @@
                 preInstall = ''
                     makeWrapperArgs+=(
                     --add-flags "--ffmpeg ${prev.jellyfin-ffmpeg}/bin/ffmpeg"
-                    --add-flags "--webdir /var/lib/jellyfin-web"
+                    --add-flags "--webdir /persistent/jellyfin"
                     )
                 '';
             });
