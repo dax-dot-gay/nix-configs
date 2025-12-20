@@ -30,7 +30,7 @@
     # Postgres
     services.postgresql = {
         enable = true;
-        authentication = pkgs.lib.mkOverride 10 ''
+        authentication = ''
             #type database  DBuser  auth-method
             local all       all     trust
             local all matrix-synapse trust
