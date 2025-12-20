@@ -13,7 +13,8 @@
     environment.systemPackages = [ pkgs.rclone ];
     users.users.nfsuser = {
         group = "nfsuser";
-        uid = 6500;
+        isSystemUser = true;
+        uid = 650;
     };
-    users.groups."nfsuser".gid = 6500;
+    users.groups."nfsuser" = {gid = 650;};
 }
