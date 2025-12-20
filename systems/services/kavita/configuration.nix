@@ -10,7 +10,6 @@
         ipAdresses = [ "0.0.0.0" ];
     };
     ensurePaths.folders = {
-        "/shared/systems/services/kavita" = {};
         "/shared/systems/services/kavita/config" = {};
     };
     networking.firewall.allowedTCPPorts = [5000];
