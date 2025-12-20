@@ -74,12 +74,12 @@
                     {
                         name = "Movies";
                         collectionType = "movies";
-                        libraryOptions.pathInfos = [{path = "/shared/data/media/Movies";}];
+                        libraryOptions.pathInfos = [ { path = "/shared/data/media/Movies"; } ];
                     }
                     {
                         name = "Shows";
                         collectionType = "tvshows";
-                        libraryOptions.pathInfos = [{path = "/shared/data/media/Shows";}];
+                        libraryOptions.pathInfos = [ { path = "/shared/data/media/Shows"; } ];
                     }
                 ];
             };
@@ -100,7 +100,7 @@
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
     hardware.nvidia.open = false;
     hardware.nvidia.powerManagement.enable = false;
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
     hardware.graphics.enable = true;
 
     environment.systemPackages = with pkgs; [
