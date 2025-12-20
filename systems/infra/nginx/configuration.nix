@@ -86,6 +86,10 @@ in
                 hostname = "services-romm";
                 port = 8080;
             };
+            "ebooks.dax.gay" = mkHost {
+                hostname = "services-kavita";
+                port = 5000;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;
