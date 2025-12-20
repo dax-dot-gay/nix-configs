@@ -52,10 +52,10 @@ in
                 domain = "*.jellyfin.dax.gay";
                 group = config.services.nginx.group;
             };
-            "any.audiobooks.dax.gay" = {
+            /*"any.audiobooks.dax.gay" = {
                 domain = "*.audiobooks.dax.gay";
                 group = config.services.nginx.group;
-            };
+            };*/
         };
     };
     networking.firewall.enable = false;

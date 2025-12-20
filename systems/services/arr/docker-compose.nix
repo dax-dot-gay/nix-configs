@@ -36,7 +36,6 @@
       "8989:8989/tcp"
       "7878:7878/tcp"
       "5055:5055/tcp"
-      "5432:5432/tcp"
       "9696:9696/tcp"
     ];
     labels = {
@@ -68,7 +67,7 @@
       "podman-compose-arrs-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."audiobookrequest" = {
+  /*virtualisation.oci-containers.containers."audiobookrequest" = {
     image = "markbeep/audiobookrequest:1";
     environment = {
       "ABR_APP__FORCE_LOGIN_TYPE" = "forms";
@@ -98,7 +97,7 @@
     wantedBy = [
       "podman-compose-arrs-root.target"
     ];
-  };
+  };*/
   virtualisation.oci-containers.containers."deluge" = {
     image = "lscr.io/linuxserver/deluge:latest";
     environment = {
