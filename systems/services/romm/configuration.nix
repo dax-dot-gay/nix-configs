@@ -62,7 +62,7 @@
             image = "rommapp/romm:latest";
             autoStart = true;
             dependsOn = [ "romm-mariadb" ];
-            ports = [ "0.0.0.0:8080:8080" ];
+            ports = [ "0.0.0.0:8080:80" ];
             #volumes = [ "volume_name:/path/inside/container" "/path/on/host:/path/inside/container" ];
             volumes = [
                 "/shared/systems/services/romm/resources:/romm/resources"
