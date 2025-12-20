@@ -142,6 +142,11 @@
                     path = "services/wizarr";
                     include = [ "features/podman.nix" "features/nfs-client.nix" ];
                 };
+                services-arr = mkLXC {
+                    hostname = "services-arr";
+                    path = "services/arr";
+                    include = [ "features/podman.nix" "features/nfs-client.nix" ];
+                };
             };
         };
 }

@@ -15,6 +15,7 @@ let
         services-kavita = mkHost "services-kavita" 24;
         services-audiobookshelf = mkHost "services-audiobookshelf" 25;
         services-wizarr = mkHost "services-wizarr" 26;
+        services-arr = mkHost "services-arr" 27;
     };
 in
 {
