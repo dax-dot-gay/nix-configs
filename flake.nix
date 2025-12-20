@@ -122,6 +122,11 @@
                     extraModules = [ inputs.jellarr.nixosModules.default ];
                     include = [ "features/nfs-client.nix" ];
                 };
+                services-romm = mkLXC {
+                    hostname = "services-romm";
+                    path = "services/romm";
+                    include = [ "features/podman.nix" "features/nfs-client.nix" ];
+                };
             };
         };
 }
