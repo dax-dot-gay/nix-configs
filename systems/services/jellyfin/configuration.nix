@@ -5,7 +5,7 @@
     };
     system.activationScripts = {
       jellyfin-web = ''
-        cp -R ${pkgs.jellyfin-web.outPath}/share/jellyfin-web /persistent/jellyfin
+        cp -R ${pkgs.jellyfin-web.outPath}/share/jellyfin-web/** /persistent/jellyfin/
         chmod -R 777 /persistent/jellyfin
       '';
     }
