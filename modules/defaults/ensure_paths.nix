@@ -1,7 +1,8 @@
 { lib, config, ... }:
 with lib;
 let
-    cfg = config.ensurePaths;
+    cfgFolders = config.ensureFolders;
+    cfgFiles = config.ensureFiles;
     users = config.users.users;
     folderDefinition = types.submodule (
         { config, ... }:
@@ -88,29 +89,26 @@ let
     );
 in
 {
-    options.ensurePaths = {
-        folders = mkOption {
-            type = types.attrsOf (types.submodule folderDefinition);
-            description = "Folders to create";
-        };
-        files = mkOption {
-            type = types.attrsOf (types.submodule fileDefinition);
-            description = "Files to create";
-        };
+    options.ensureFolders = mkOption {
+        type = types.attrsOf (types.submodule folderDefinition);
+        description = "Folders to create";
+    };
+
+    options.ensureFiles = mkOption {
+        type = types.attrsOf (types.submodule fileDefinition);
+        description = "Files to create";
     };
 
     config = {
         systemd.tmpfiles.rules =
             (builtins.map (value: "d ${value.path} ${value.mode} ${value.owner} ${value.group} 99999y") (
-                lib.attrValues cfg.folders
+                lib.attrValues cfgFolders
             ))
             ++ (builtins.map (
                 value: "f ${value.path} ${value.mode} ${value.owner} ${value.group} 99999y ${value.content}"
-            ) (lib.attrValues cfg.files));
+            ) (lib.attrValues cfgFiles));
 
-        ensurePaths = {
-            folders = {};
-            files = {};
-        };
+        ensureFolders = {};
+        ensureFiles = {};
     };
 }

@@ -85,7 +85,7 @@
     };
 
     networking.firewall.allowedTCPPorts = [ 8080 ];
-    ensurePaths.folders = {
+    ensureFolders = {
         "/shared/systems/services/romm/resources" = {};
         "/shared/systems/services/romm/redis" = {};
         "/shared/data/media/Games/ROMs" = {};
@@ -93,5 +93,5 @@
         "/shared/systems/services/romm/config" = {};
         "/shared/systems/services/romm/mariadb" = {};
     };
-    ensurePaths.files."/shared/systems/services/romm/config/config.yml" = {};
+    ensureFiles."/shared/systems/services/romm/config/config.yml" = {};
 }
