@@ -52,5 +52,7 @@ in
         systemd.tmpfiles.rules = builtins.map (
             value: "d ${value.path} ${value.mode} ${value.owner} ${value.group} 99999y"
         ) (lib.attrValues cfg);
+
+        ensureDirs = {};
     };
 }
