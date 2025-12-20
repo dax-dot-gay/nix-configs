@@ -132,6 +132,11 @@
                     path = "services/kavita";
                     include = ["features/nfs-client.nix"];
                 };
+                services-audiobookshelf = mkLXC {
+                    hostname = "services-audiobookshelf";
+                    path = "services/audiobookshelf";
+                    include = ["features/nfs-client.nix"];
+                };
             };
         };
 }

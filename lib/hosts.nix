@@ -13,6 +13,7 @@ let
         services-jellyfin = mkHost "services-jellyfin" 22;
         services-romm = mkHost "services-romm" 23;
         services-kavita = mkHost "services-kavita" 24;
+        services-audiobookshelf = mkHost "services-audiobookshelf" 25;
     };
 in
 {

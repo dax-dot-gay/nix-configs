@@ -90,6 +90,10 @@ in
                 hostname = "services-kavita";
                 port = 5000;
             };
+            "audiobooks.dax.gay" = mkHost {
+                hostname = "services-audiobookshelf";
+                port = 8000;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;
