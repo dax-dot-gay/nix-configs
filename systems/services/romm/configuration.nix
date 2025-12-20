@@ -72,6 +72,7 @@
                 "/shared/systems/services/romm/config:/romm/config"
             ];
             environmentFiles = [ config.sops.templates."romm/main.env".path ];
+            user = "root:root";
         };
         romm-mariadb = {
             image = "mariadb:latest";
@@ -79,8 +80,17 @@
             environmentFiles = [ config.sops.templates."romm/mariadb.env".path ];
             volumes = [ "/shared/systems/services/romm/mariadb:/var/lib/mysql" ];
             ports = [ "127.0.0.1:3306:3306" ];
+            user = "root:root";
         };
     };
 
     networking.firewall.allowedTCPPorts = [ 8080 ];
+    ensureDirs = {
+        "/shared/systems/services/romm/resources" = {};
+        "/shared/systems/services/romm/redis" = {};
+        "/shared/data/media/Games/ROMs" = {};
+        "/shared/data/media/Games/Assets" = {};
+        "/shared/systems/services/romm/config" = {};
+        "/shared/systems/services/romm/mariadb" = {};
+    };
 }
