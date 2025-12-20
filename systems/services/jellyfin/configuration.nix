@@ -3,6 +3,13 @@
     ensurePaths.folders."/persistent/jellyfin" = {
         mode = "0777";
     };
+    system.activationScripts = {
+      jellyfin-web = ''
+        cp -R ${pkgs.jellyfin-web.outPath}/share/jellyfin-web /persistent/jellyfin
+        chmod -R 777 /persistent/jellyfin
+      '';
+    }
+    ;
     sops.templates.jellarr-env = {
         content = ''
             JELLARR_API_KEY=${config.sops.placeholder."jellyfin/jellarr_key"}
