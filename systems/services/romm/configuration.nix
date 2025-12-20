@@ -81,4 +81,6 @@
             ports = [ "127.0.0.1:3306:3306" ];
         };
     };
+
+    networking.firewall.allowedTCPPorts = [ 8080 ];
 }
