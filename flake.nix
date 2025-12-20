@@ -127,6 +127,11 @@
                     path = "services/romm";
                     include = [ "features/podman.nix" "features/nfs-client.nix" ];
                 };
+                services-kavita = mkLXC {
+                    hostname = "services-kavita";
+                    path = "services/kavita";
+                    include = ["features/nfs-client.nix"];
+                };
             };
         };
 }
