@@ -33,7 +33,7 @@
 
     sops.templates."romm/main.env" = {
         content = ''
-            DB_HOST=host.docker.internal:3306
+            DB_HOST=host.docker.internal
             DB_NAME=romm
             DB_USER=romm-user
             DB_PASSWD=${config.sops.placeholder."romm/db/mariadb_password"}
@@ -84,7 +84,7 @@
         };
     };
 
-    networking.firewall.allowedTCPPorts = [ 8080 ];
+    networking.firewall.allowedTCPPorts = [ 8080 3306 ];
     ensurePaths.folders = {
         "/shared/systems/services/romm/resources" = {};
         "/shared/systems/services/romm/redis" = {};
