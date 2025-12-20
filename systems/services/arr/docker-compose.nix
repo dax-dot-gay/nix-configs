@@ -49,6 +49,7 @@
       "--network-alias=gluetun"
       "--network=arrs_default"
     ];
+    user = "root:root";
   };
   systemd.services."podman-arrs-gluetun" = {
     serviceConfig = {
