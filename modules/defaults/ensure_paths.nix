@@ -91,12 +91,10 @@ in
     options.ensurePaths = {
         folders = mkOption {
             type = types.attrsOf (types.submodule folderDefinition);
-            default = { };
             description = "Folders to create";
         };
         files = mkOption {
             type = types.attrsOf (types.submodule fileDefinition);
-            default = { };
             description = "Files to create";
         };
     };
@@ -110,6 +108,9 @@ in
                 value: "f ${value.path} ${value.mode} ${value.owner} ${value.group} 99999y ${value.content}"
             ) (lib.attrValues cfg.files));
 
-        ensurePaths = { };
+        ensurePaths = {
+            folders = {};
+            files = {};
+        };
     };
 }
