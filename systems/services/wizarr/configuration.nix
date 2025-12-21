@@ -1,6 +1,6 @@
 { ... }:
 {
-    ensurePaths.folders."/shared/systems/services/wizarr" = { owner = "nfsuser"; group = "nfsuser"; mode = "660"; };
+    ensurePaths.folders."/shared/systems/services/wizarr" = { owner = "itec"; group = "itec"; mode = "777"; };
     virtualisation.oci-containers.containers.wizarr = {
         autoStart = true;
         image = "ghcr.io/wizarrrr/wizarr";
@@ -9,10 +9,10 @@
         environment = {
             DISABLE_BUILTIN_AUTH = "false";
             TZ = "America/New_York";
-            PGID = "0";
-            PUID = "0";
+            PGID = "1000";
+            PUID = "1000";
         };
-        user = "0:0";
+        user = "1000:1000";
     };
     networking.firewall.allowedTCPPorts = [ 5690 ];
 }
