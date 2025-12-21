@@ -8,7 +8,7 @@ in
         device = "${(hosts.getHost "infra-nfs").ip}:/shared";
         fsType = "nfs";
         options = [
-            "nfsvers=4.2"
+            "nfsvers=3"
             "rw"
             "intr"
             "hard"
