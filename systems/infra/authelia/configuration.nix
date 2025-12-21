@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
     secrets.secrets."authelia/config.yaml" = {
         sopsFile = ../../../secrets/authelia.yaml;
@@ -18,9 +18,27 @@
         group = "authelia";
         mode = "770";
     };
-    /*services.authelia.instances.main = {
+    ensurePaths.folders."/shared/systems/infra/authelia/assets" = {
+        owner = "authelia";
+        group = "authelia";
+        mode = "770";
+    };
+    ensurePaths.folders."/shared/systems/infra/authelia/logs" = {
+        owner = "authelia";
+        group = "authelia";
+        mode = "770";
+    };
+    ensurePaths.folders."/shared/systems/infra/authelia/users.yml" = {
+        owner = "authelia";
+        group = "authelia";
+        mode = "770";
+    };
+    services.authelia.instances.main = {
         enable = true;
         user = "authelia";
         group = "authelia";
-    };*/
+        name = "Lesbos - Authentication";
+        settingsFiles = [ config.sops.secrets."authelia/config.yaml".path ];
+    };
+    networking.firewall.enable = false;
 }
