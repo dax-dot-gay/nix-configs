@@ -1,5 +1,5 @@
 { pkgs, config, ... }:
-let 
+let
     nfsuser = toString config.users.users.nfsuser.uid;
     nfsgroup = toString config.users.groups.nfsuser.gid;
 in
@@ -10,6 +10,13 @@ in
             /export 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,root_squash,no_all_squash,crossmnt)
             /export/shared 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,no_subtree_check,root_squash,no_all_squash,crossmnt)
         '';
+    };
+
+    services.nfs.idmapd.settings = {
+        Mapping = {
+            Nobody-Group = "nfsuser";
+            Nobody-User = "nfsuser";
+        };
     };
 
     networking.firewall.enable = false;
