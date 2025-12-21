@@ -7,8 +7,8 @@ in
     services.nfs.server = {
         enable = true;
         exports = ''
-            /export 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check)
-            /export/shared 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,no_subtree_check)
+            /export 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,root_squash,no_all_squash,crossmnt)
+            /export/shared 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,no_subtree_check,root_squash,no_all_squash,crossmnt)
         '';
     };
 
