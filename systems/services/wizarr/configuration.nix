@@ -9,8 +9,8 @@
         environment = {
             DISABLE_BUILTIN_AUTH = "false";
             TZ = "America/New_York";
-            PGID = "200";
-            PUID = "200";
+            PGID = "0";
+            PUID = "0";
         };
         user = "200:200";
     };
