@@ -5,12 +5,15 @@
     ];
 
     secrets.secrets."arr/gluetun.env" = {
-        mode = "0777";
+        mode = "0666";
     };
 
     ensurePaths.folders = {
         "/shared/data/media/Shows" = { };
         "/shared/data/media/Movies" = { };
+        "/shared/data/media/Podcasts" = { };
+        "/shared/data/media/Books" = { };
+        "/shared/data/media/Audiobooks" = { };
         "/shared/systems/services/arr/audiobookrequest" = { };
         "/shared/systems/services/arr/deluge/config" = { };
         "/shared/systems/services/arr/deluge/downloads" = { };

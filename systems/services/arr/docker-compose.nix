@@ -48,7 +48,7 @@
       "--network-alias=gluetun"
       "--network=arrs_default"
     ];
-    user = "root:root";
+    user = "nfsuser:nfsuser";
   };
   systemd.services."podman-arrs-gluetun" = {
     serviceConfig = {
@@ -115,6 +115,7 @@
     extraOptions = [
       "--network=container:arrs-gluetun"
     ];
+    user = "nfsuser:nfsuser";
   };
   systemd.services."podman-deluge" = {
     serviceConfig = {
@@ -152,6 +153,7 @@
       "--health-timeout=3s"
       "--network=container:arrs-gluetun"
     ];
+    user = "nfsuser:nfsuser";
   };
   systemd.services."podman-jellyseerr" = {
     serviceConfig = {
@@ -180,6 +182,7 @@
     extraOptions = [
       "--network=container:arrs-gluetun"
     ];
+    user = "nfsuser:nfsuser";
   };
   systemd.services."podman-prowlarr" = {
     serviceConfig = {
@@ -210,6 +213,7 @@
     extraOptions = [
       "--network=container:arrs-gluetun"
     ];
+    user = "nfsuser:nfsuser";
   };
   systemd.services."podman-radarr" = {
     serviceConfig = {
@@ -240,6 +244,7 @@
     extraOptions = [
       "--network=container:arrs-gluetun"
     ];
+    user = "nfsuser:nfsuser";
   };
   systemd.services."podman-sonarr" = {
     serviceConfig = {

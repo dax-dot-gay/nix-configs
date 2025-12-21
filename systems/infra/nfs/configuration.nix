@@ -12,6 +12,10 @@ in
         '';
     };
 
+    ensurePaths.folders = {
+        "/export/shared" = {owner = "nfsuser"; group = "nfsuser";};
+    };
+
     services.nfs.idmapd.settings = {
         Mapping = {
             Nobody-Group = lib.mkForce "nfsuser";

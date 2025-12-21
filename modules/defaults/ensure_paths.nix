@@ -25,14 +25,14 @@ let
 
                 owner = mkOption {
                     type = types.str;
-                    default = "root";
+                    default = "nfsuser";
                     description = ''
                         Sets the owner of this directory
                     '';
                 };
                 group = mkOption {
                     type = types.str;
-                    default = if config.owner != null then users.${config.owner}.group else "root";
+                    default = if config.owner != null then users.${config.owner}.group else "nfsuser";
                     defaultText = literalMD "{option}`config.users.users.\${owner}.group`";
                     description = ''
                         Group of the directory
@@ -63,14 +63,14 @@ let
 
                 owner = mkOption {
                     type = types.str;
-                    default = "root";
+                    default = "nfsuser";
                     description = ''
                         Sets the owner of this file
                     '';
                 };
                 group = mkOption {
                     type = types.str;
-                    default = if config.owner != null then users.${config.owner}.group else "root";
+                    default = if config.owner != null then users.${config.owner}.group else "nfsuser";
                     defaultText = literalMD "{option}`config.users.users.\${owner}.group`";
                     description = ''
                         Group of the file
