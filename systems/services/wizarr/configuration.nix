@@ -12,7 +12,6 @@
             PGID = "1000";
             PUID = "1000";
         };
-        user = "1000:1000";
     };
     networking.firewall.allowedTCPPorts = [ 5690 ];
 }
