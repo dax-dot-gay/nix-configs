@@ -1,10 +1,14 @@
 { pkgs, config, ... }:
+let 
+    nfsuser = toString config.users.users.nfsuser.uid;
+    nfsgroup = toString config.users.groups.nfsuser.gid;
+in
 {
     services.nfs.server = {
         enable = true;
         exports = ''
-            /export 192.168.30.0/24(all_squash,anonuid=0,anongid=0,rw,insecure,async,fsid=0,no_subtree_check) 10.1.8.0/24(all_squash,anonuid=0,anongid=0,rw,insecure,async,fsid=0,no_subtree_check)
-            /export/shared 192.168.30.0/24(all_squash,anonuid=0,anongid=0,rw,insecure,async,no_subtree_check) 10.1.8.0/24(all_squash,anonuid=0,anongid=0,rw,insecure,async,no_subtree_check)
+            /export 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check)
+            /export/shared 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,no_subtree_check)
         '';
     };
 

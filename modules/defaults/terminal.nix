@@ -16,6 +16,9 @@
 
     programs.zsh = {
         enable = true;
+        interactiveShellInit = ''
+            fastfetch --config examples/8.jsonc
+        '';
         enableCompletion = true;
         syntaxHighlighting.enable = true;
         autosuggestions = {
@@ -25,7 +28,6 @@
                 "completion"
             ];
         };
-        shellInit = "fastfetch --config examples/8.jsonc";
     };
 
     users.users.itec.shell = pkgs.zsh;
