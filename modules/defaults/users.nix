@@ -17,6 +17,7 @@
             isSystemUser = true;
             uid = 200;
             group = "nfsuser";
+            hashedPasswordFile = config.sops.secrets.password.path;
         };
     };
 
