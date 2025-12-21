@@ -13,11 +13,6 @@
         group = "authelia";
     };
     users.groups.authelia = {};
-    ensurePaths.folders."/shared/systems/infra/authelia" = {
-        owner = "authelia";
-        group = "authelia";
-        mode = "770";
-    };
     ensurePaths.folders."/shared/systems/infra/authelia/assets" = {
         owner = "authelia";
         group = "authelia";
@@ -28,7 +23,7 @@
         group = "authelia";
         mode = "770";
     };
-    ensurePaths.folders."/shared/systems/infra/authelia/users.yml" = {
+    ensurePaths.files."/shared/systems/infra/authelia/users.yml" = {
         owner = "authelia";
         group = "authelia";
         mode = "770";
