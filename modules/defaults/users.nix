@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
     users.users = {
         itec = {
@@ -18,6 +18,7 @@
             uid = 200;
             group = "nfsuser";
             hashedPasswordFile = config.sops.secrets.password.path;
+            shell = pkgs.zsh;
         };
     };
 
