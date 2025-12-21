@@ -106,6 +106,10 @@
                     hostname = "infra-nginx";
                     path = "infra/nginx";
                 };
+                infra-authelia = mkLXC {
+                    hostname = "infra-authelia";
+                    path = "infra/authelia";
+                };
                 services-access = mkLXC {
                     hostname = "services-access";
                     path = "services/access";
