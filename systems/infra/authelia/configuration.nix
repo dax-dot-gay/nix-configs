@@ -16,6 +16,7 @@
     ensurePaths.folders."/shared/systems/infra/authelia" = {
         owner = "authelia";
         group = "authelia";
+        mode = "770";
     };
     /*services.authelia.instances.main = {
         enable = true;
