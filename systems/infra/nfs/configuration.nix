@@ -4,20 +4,20 @@
     services.nfs.server = {
         enable = true;
         exports = ''
-            /export 192.168.30.0/24(anonuid=0,anongid=0,rw,insecure,async,fsid=0,no_subtree_check,no_root_squash,no_all_squash,crossmnt)
-            /export/shared 192.168.30.0/24(anonuid=0,anongid=0,rw,insecure,async,no_subtree_check,no_root_squash,no_all_squash,crossmnt)
+            /export 192.168.30.0/24(anonuid=0,anongid=0,rw,insecure,async,fsid=0,no_subtree_check,all_squash,crossmnt)
+            /export/shared 192.168.30.0/24(anonuid=0,anongid=0,rw,insecure,async,no_subtree_check,all_squash,crossmnt)
         '';
     };
 
     ensurePaths.folders = {
-        "/export" = {owner = "nfsuser"; group = "nfsuser"; mode = "777";};
-        "/export/shared" = {owner = "nfsuser"; group = "nfsuser"; mode = "777";};
+        "/export" = {owner = "root"; group = "root"; mode = "777";};
+        "/export/shared" = {owner = "root"; group = "root"; mode = "777";};
     };
 
     services.nfs.idmapd.settings = {
         Mapping = {
-            Nobody-Group = lib.mkForce "nfsuser";
-            Nobody-User = lib.mkForce "nfsuser";
+            Nobody-Group = lib.mkForce "root";
+            Nobody-User = lib.mkForce "root";
         };
     };
 

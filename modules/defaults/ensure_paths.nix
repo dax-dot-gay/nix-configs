@@ -25,14 +25,14 @@ let
 
                 owner = mkOption {
                     type = types.str;
-                    default = "nfsuser";
+                    default = "root";
                     description = ''
                         Sets the owner of this directory
                     '';
                 };
                 group = mkOption {
                     type = types.str;
-                    default = if config.owner != null then users.${config.owner}.group else "nfsuser";
+                    default = if config.owner != null then users.${config.owner}.group else "root";
                     defaultText = literalMD "{option}`config.users.users.\${owner}.group`";
                     description = ''
                         Group of the directory

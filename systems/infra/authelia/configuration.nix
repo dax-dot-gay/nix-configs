@@ -5,33 +5,15 @@
         format = "yaml";
         key = "";
         hosts = [ "infra-authelia" ];
-        owner = "authelia";
-        group = "authelia";
-    };
-    users.users.authelia = {
-        isSystemUser = true;
-        group = "authelia";
     };
     users.groups.authelia = {};
-    ensurePaths.folders."/shared/systems/infra/authelia/assets" = {
-        owner = "authelia";
-        group = "authelia";
-        mode = "770";
-    };
-    ensurePaths.folders."/shared/systems/infra/authelia/logs" = {
-        owner = "authelia";
-        group = "authelia";
-        mode = "770";
-    };
-    ensurePaths.files."/shared/systems/infra/authelia/users.yml" = {
-        owner = "authelia";
-        group = "authelia";
-        mode = "770";
-    };
+    ensurePaths.folders."/shared/systems/infra/authelia/assets" = {};
+    ensurePaths.folders."/shared/systems/infra/authelia/logs" = {};
+    ensurePaths.files."/shared/systems/infra/authelia/users.yml" = {};
     services.authelia.instances.lesbosso = {
         enable = true;
-        user = "authelia";
-        group = "authelia";
+        user = "root";
+        group = "root";
         settingsFiles = [ config.sops.secrets."authelia/config.yaml".path ];
         secrets.manual = true;
     };

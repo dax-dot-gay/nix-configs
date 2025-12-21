@@ -18,16 +18,16 @@
     };
     services.jellyfin = {
         enable = true;
-        user = "nfsuser";
-        group = "nfsuser";
+        user = "root";
+        group = "root";
         dataDir = "/shared/systems/services/jellyfin";
         openFirewall = true;
         package = pkgs.jellyfin;
     };
     services.jellarr = {
         enable = true;
-        user = "nfsuser";
-        group = "nfsuser";
+        user = "root";
+        group = "root";
         environmentFile = config.sops.templates.jellarr-env.path;
         bootstrap = {
             enable = true;

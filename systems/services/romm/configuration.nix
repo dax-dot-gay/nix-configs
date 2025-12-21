@@ -72,7 +72,7 @@
                 "/shared/systems/services/romm/config:/romm/config"
             ];
             environmentFiles = [ config.sops.templates."romm/main.env".path ];
-            user = "romm:romm";
+            user = "root:root";
         };
         romm-mariadb = {
             image = "mariadb:latest";
@@ -80,18 +80,18 @@
             environmentFiles = [ config.sops.templates."romm/mariadb.env".path ];
             volumes = [ "/shared/systems/services/romm/mariadb:/var/lib/mysql" ];
             ports = [ "0.0.0.0:3306:3306" ];
-            user = "romm:romm";
+            user = "root:root";
         };
     };
 
     networking.firewall.allowedTCPPorts = [ 8080 3306 ];
     ensurePaths.folders = {
-        "/shared/systems/services/romm/resources" = {owner = "romm"; group = "romm"; mode = "660";};
-        "/shared/systems/services/romm/redis" = {owner = "romm"; group = "romm"; mode = "660";};
+        "/shared/systems/services/romm/resources" = {owner = "root"; group = "root"; mode = "660";};
+        "/shared/systems/services/romm/redis" = {owner = "root"; group = "root"; mode = "660";};
         "/shared/data/media/Games/ROMs" = {};
-        "/shared/data/media/Games/Assets" = {owner = "romm"; group = "romm"; mode = "660";};
-        "/shared/systems/services/romm/config" = {owner = "romm"; group = "romm"; mode = "660";};
-        "/shared/systems/services/romm/mariadb" = {owner = "romm"; group = "romm"; mode = "660";};
+        "/shared/data/media/Games/Assets" = {owner = "root"; group = "root"; mode = "660";};
+        "/shared/systems/services/romm/config" = {owner = "root"; group = "root"; mode = "660";};
+        "/shared/systems/services/romm/mariadb" = {owner = "root"; group = "root"; mode = "660";};
     };
-    ensurePaths.files."/shared/systems/services/romm/config/config.yml" = {owner = "romm"; group = "romm"; mode = "660";};
+    ensurePaths.files."/shared/systems/services/romm/config/config.yml" = {owner = "root"; group = "root"; mode = "660";};
 }

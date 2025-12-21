@@ -5,8 +5,8 @@
         host = "0.0.0.0";
         port = 8000;
         openFirewall = true;
-        user = "nfsuser";
-        group = "nfsuser";
+        user = "root";
+        group = "root";
     };
     ensurePaths.folders."/shared/data/media/Audiobooks" = { };
     ensurePaths.folders."/shared/data/media/Podcasts" = {};
