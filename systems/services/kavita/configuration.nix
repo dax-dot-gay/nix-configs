@@ -1,14 +1,14 @@
 { config, ... }:
 {
     ensurePaths.folders."/shared/systems/services/kavita" = {
-        owner = "kavita";
-        group = "kavita";
+        owner = "nfsuser";
+        group = "nfsuser";
         mode = "660";
     };
-    secrets.secrets."kavita_key".owner = "kavita";
+    secrets.secrets."kavita_key".owner = "root";
     services.kavita = {
         enable = true;
-        user = "kavita";
+        user = "root";
         dataDir = "/shared/systems/services/kavita";
         tokenKeyFile = config.sops.secrets."kavita_key".path;
         port = 5000;
