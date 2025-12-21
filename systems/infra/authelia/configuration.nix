@@ -33,11 +33,10 @@
         group = "authelia";
         mode = "770";
     };
-    services.authelia.instances.main = {
+    services.authelia.instances.lesbosso = {
         enable = true;
         user = "authelia";
         group = "authelia";
-        name = "Lesbos SSO";
         settingsFiles = [ config.sops.secrets."authelia/config.yaml".path ];
         secrets.manual = true;
     };
