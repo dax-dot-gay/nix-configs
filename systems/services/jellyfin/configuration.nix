@@ -4,12 +4,11 @@
         mode = "0777";
     };
     system.activationScripts = {
-      jellyfin-web = ''
-        cp -R ${pkgs.jellyfin-web.outPath}/** /persistent/jellyfin/
-        chmod -R 777 /persistent/jellyfin
-      '';
-    }
-    ;
+        jellyfin-web = ''
+            cp -R ${pkgs.jellyfin-web.outPath}/** /persistent/jellyfin/
+            chmod -R 777 /persistent/jellyfin
+        '';
+    };
     sops.templates.jellarr-env = {
         content = ''
             JELLARR_API_KEY=${config.sops.placeholder."jellyfin/jellarr_key"}
@@ -131,4 +130,21 @@
         jellyfin-ffmpeg
         jellyfin-web
     ];
+
+    # Nightly reboots to kick people off and clear cache
+    systemd.timers."reboot-nightly" = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+            OnCalendar = "daily America/New_York";
+            Unit = "reboot-nightly.service";
+        };
+    };
+
+    systemd.services."reboot-nightly" = {
+        script = "shutdown -r now";
+        serviceConfig = {
+            Type = "oneshot";
+            User = "root";
+        };
+    };
 }
