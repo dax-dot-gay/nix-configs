@@ -2,7 +2,8 @@
 {
     secrets.secrets."authelia/config.yaml" = {
         sopsFile = ../../../secrets/authelia.yaml;
-        format = "binary";
+        format = "yaml";
+        key = "";
         hosts = [ "infra-authelia" ];
         owner = "authelia";
         group = "authelia";
