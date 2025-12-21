@@ -12,7 +12,7 @@
             PGID = "0";
             PUID = "0";
         };
-        user = "200:200";
+        user = "0:0";
     };
     networking.firewall.allowedTCPPorts = [ 5690 ];
 }
