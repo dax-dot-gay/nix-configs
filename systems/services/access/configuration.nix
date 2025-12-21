@@ -1,9 +1,10 @@
 { ... }:
 {
+    ensurePaths.folders."/shared/systems/services/access" = {};
     services.filebrowser = {
         enable = true;
-        user = "root";
-        group = "root";
+        user = "nfsuser";
+        group = "nfsuser";
         openFirewall = true;
         settings = {
             root = "/shared";

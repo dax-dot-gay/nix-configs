@@ -7,6 +7,7 @@
             PasswordAuthentication = false;
             PermitRootLogin = "prohibit-password";
         };
+        allowSFTP = true;
     };
 
     users.users.itec.openssh.authorizedKeys.keys = [

@@ -1,6 +1,6 @@
 { ... }:
 {
-    ensurePaths.folders."/shared/systems/services/wizarr" = { };
+    ensurePaths.folders."/shared/systems/services/wizarr" = { owner = "root"; group = "root"; mode = "777"; };
     virtualisation.oci-containers.containers.wizarr = {
         autoStart = true;
         image = "ghcr.io/wizarrrr/wizarr";
