@@ -8,8 +8,8 @@ in
     services.nfs.server = {
         enable = true;
         exports = ''
-            /export 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,root_squash,no_all_squash,crossmnt) ${hosts.ip "services-wizarr"}/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,no_root_squash,no_all_squash,crossmnt) 
-            /export/shared 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,no_subtree_check,root_squash,no_all_squash,crossmnt) ${hosts.ip "services-wizarr"}/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,no_root_squash,no_all_squash,crossmnt)
+            /export 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,root_squash,no_all_squash,crossmnt) ${hosts.ip "services-wizarr"}(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,no_root_squash,no_all_squash,crossmnt) 
+            /export/shared 192.168.30.0/24(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,no_subtree_check,root_squash,no_all_squash,crossmnt) ${hosts.ip "services-wizarr"}(anonuid=${nfsuser},anongid=${nfsgroup},rw,insecure,async,fsid=0,no_subtree_check,no_root_squash,no_all_squash,crossmnt)
         '';
     };
 
