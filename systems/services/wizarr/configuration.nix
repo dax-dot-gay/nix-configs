@@ -9,6 +9,8 @@
         environment = {
             DISABLE_BUILTIN_AUTH = "false";
             TZ = "America/New_York";
+            GID = "0";
+            UID = "0";
         };
         user = "root:root";
     };
