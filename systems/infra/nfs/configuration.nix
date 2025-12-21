@@ -13,6 +13,7 @@ in
     };
 
     ensurePaths.folders = {
+        "/export" = {owner = "nfsuser"; group = "nfsuser"; mode = "777";};
         "/export/shared" = {owner = "nfsuser"; group = "nfsuser"; mode = "777";};
     };
 
