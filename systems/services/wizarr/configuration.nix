@@ -9,10 +9,10 @@
         environment = {
             DISABLE_BUILTIN_AUTH = "false";
             TZ = "America/New_York";
-            PGID = "0";
-            PUID = "0";
+            PGID = "200";
+            PUID = "200";
         };
-        user = "root:root";
+        user = "200:200";
     };
     networking.firewall.allowedTCPPorts = [ 5690 ];
 }
