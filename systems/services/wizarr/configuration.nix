@@ -1,6 +1,6 @@
 { ... }:
 {
-    ensurePaths.folders."/shared/systems/services/wizarr" = { };
+    ensurePaths.folders."/shared/systems/services/wizarr" = { owner = "wizarr"; group = "wizarr"; mode = "660"; };
     virtualisation.oci-containers.containers.wizarr = {
         autoStart = true;
         image = "ghcr.io/wizarrrr/wizarr";
@@ -10,7 +10,7 @@
             DISABLE_BUILTIN_AUTH = "false";
             TZ = "America/New_York";
         };
-        user = "root:root";
+        user = "wizarr:wizarr";
     };
     networking.firewall.allowedTCPPorts = [ 5690 ];
 }

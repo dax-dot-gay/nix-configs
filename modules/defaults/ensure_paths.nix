@@ -17,7 +17,7 @@ let
 
                 mode = mkOption {
                     type = types.str;
-                    default = "0777";
+                    default = "0666";
                     description = ''
                         Permissions of this directory
                     '';
@@ -55,7 +55,7 @@ let
 
                 mode = mkOption {
                     type = types.str;
-                    default = "0777";
+                    default = "0666";
                     description = ''
                         Permissions of this file
                     '';

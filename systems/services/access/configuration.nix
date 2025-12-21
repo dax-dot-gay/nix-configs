@@ -1,5 +1,6 @@
 { ... }:
 {
+    ensurePaths.folders."/shared/systems/services/access" = {};
     services.filebrowser = {
         enable = true;
         user = "nfsuser";

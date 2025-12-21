@@ -18,8 +18,8 @@
     };
     services.jellyfin = {
         enable = true;
-        user = "root";
-        group = "root";
+        user = "nfsuser";
+        group = "nfsuser";
         dataDir = "/shared/systems/services/jellyfin";
         openFirewall = true;
         package = pkgs.jellyfin;
