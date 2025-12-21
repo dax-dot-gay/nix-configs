@@ -37,7 +37,7 @@
         enable = true;
         user = "authelia";
         group = "authelia";
-        name = "Lesbos - Authentication";
+        name = "Lesbos SSO";
         settingsFiles = [ config.sops.secrets."authelia/config.yaml".path ];
         secrets.manual = true;
     };
