@@ -39,6 +39,7 @@
         group = "authelia";
         name = "Lesbos - Authentication";
         settingsFiles = [ config.sops.secrets."authelia/config.yaml".path ];
+        secrets.manual = true;
     };
     networking.firewall.enable = false;
 }
