@@ -13,4 +13,9 @@
         user = "wizarr:wizarr";
     };
     networking.firewall.allowedTCPPorts = [ 5690 ];
+    users.users.wizarr = {
+        isSystemUser = true;
+        group = "wizarr";
+    };
+    users.groups.wizarr = {};
 }
