@@ -5,10 +5,10 @@
         group = "nfsuser";
         mode = "660";
     };
-    secrets.secrets."kavita_key".owner = "root";
+    secrets.secrets."kavita_key".owner = "nfsuser";
     services.kavita = {
         enable = true;
-        user = "root";
+        user = "nfsuser";
         dataDir = "/shared/systems/services/kavita";
         tokenKeyFile = config.sops.secrets."kavita_key".path;
         port = 5000;
