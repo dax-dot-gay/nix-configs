@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
     nfsuser = toString config.users.users.nfsuser.uid;
     nfsgroup = toString config.users.groups.nfsuser.gid;
@@ -14,8 +14,8 @@ in
 
     services.nfs.idmapd.settings = {
         Mapping = {
-            Nobody-Group = "nfsuser";
-            Nobody-User = "nfsuser";
+            Nobody-Group = lib.mkForce "nfsuser";
+            Nobody-User = lib.mkForce "nfsuser";
         };
     };
 
