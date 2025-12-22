@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
     secrets.secrets = {
         "authentik/secret_key" = {
@@ -24,6 +24,14 @@
         "/shared/systems/infra/authentik/templates" = { };
         "/shared/systems/infra/authentik/media" = { };
     };
+
+    users.users.authentik = {
+        isSystemUser = true;
+        shell = pkgs.zsh;
+        group = "authentik";
+    };
+
+    users.groups.authentik = {};
 
     services = {
         authentik = {
