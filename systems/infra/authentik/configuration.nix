@@ -18,7 +18,7 @@
         "/persistent/postgresql" = {
             owner = "postgres";
             group = "postgres";
-            mode = "770";
+            mode = "750";
         };
         "/shared/systems/infra/authentik/blueprints" = { };
         "/shared/systems/infra/authentik/templates" = { };
