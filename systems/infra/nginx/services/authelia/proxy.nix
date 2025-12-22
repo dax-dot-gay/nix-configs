@@ -13,7 +13,6 @@
     client_body_buffer_size 128k;
     proxy_next_upstream error timeout invalid_header http_500 http_502 http_503; ## Timeout if the real server is dead.
     proxy_redirect  http://  $scheme://;
-    proxy_http_version 1.1;
     proxy_cache_bypass $cookie_session;
     proxy_no_cache $cookie_session;
     proxy_buffers 64 256k;
