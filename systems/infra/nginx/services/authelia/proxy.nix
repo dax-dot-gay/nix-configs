@@ -24,7 +24,7 @@
     # set_real_ip_from 172.16.0.0/12;
     # set_real_ip_from 192.168.0.0/16;
     # set_real_ip_from fc00::/7;
-    set_real_ip_from 192.168.30.0/24
+    set_real_ip_from 192.168.30.0/24;
     real_ip_header X-Forwarded-For;
     real_ip_recursive on;
 
