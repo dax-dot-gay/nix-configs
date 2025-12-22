@@ -7,7 +7,8 @@
         hosts = [ "infra-authelia" ];
     };
     users.groups.authelia = {};
-    ensurePaths.folders."/shared/systems/infra/authelia/assets" = {};
+    ensurePaths.folders."/persistent/authelia" = {};
+    ensurePaths.folders."/persistent/authelia/assets" = {};
     services.authelia.instances.lesbosso = {
         enable = true;
         user = "root";
