@@ -26,15 +26,16 @@
         AUTHENTIK_BOOTSTRAP_TOKEN=${config.sops.placeholder."authentik/admin_token"}
     '';
 
-    ensurePaths.folders = {
-        "/persistent/postgresql" = {
-            owner = "postgres";
-            group = "postgres";
-            mode = "750";
-        };
-        "/shared/systems/infra/authentik/blueprints" = { };
-        "/shared/systems/infra/authentik/templates" = { };
-        "/shared/systems/infra/authentik/media" = { };
+    system.activationScripts = {
+      mkdirs = ''
+        mkdir -p /shared/systems/infra/authentik/blueprints
+        mkdir -p /shared/systems/infra/authentik/templates
+        mkdir -p /shared/systems/infra/authentik/media
+        mkdir -p /persistent/postgresql
+
+        chown -R postgres:postgres /persistent/postgresql
+        chmod -R 750 /persistent/postgresql
+      '';
     };
 
     users.users.authentik = {
