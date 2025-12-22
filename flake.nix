@@ -109,7 +109,6 @@
                 infra-authelia = mkLXC {
                     hostname = "infra-authelia";
                     path = "infra/authelia";
-                    include = [ "features/nfs-client.nix" ];
                 };
                 services-access = mkLXC {
                     hostname = "services-access";
