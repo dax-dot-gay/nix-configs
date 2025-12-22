@@ -21,6 +21,10 @@
             url = "github:venkyr77/jellarr";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        authentik = {
+            url = "github:nix-community/authentik-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs =
@@ -106,6 +110,12 @@
                     hostname = "infra-nginx";
                     path = "infra/nginx";
                 };
+                infra-authentik = mkLXC {
+                    hostname = "infra-authentik";
+                    path = "infra/authentik";
+                    include = [ "features/nfs-client.nix" ];
+                    extraModules = [ inputs.authentik.nixosModules.default ];
+                };
                 services-access = mkLXC {
                     hostname = "services-access";
                     path = "services/access";
@@ -125,27 +135,36 @@
                 services-romm = mkLXC {
                     hostname = "services-romm";
                     path = "services/romm";
-                    include = [ "features/podman.nix" "features/nfs-client.nix" ];
+                    include = [
+                        "features/podman.nix"
+                        "features/nfs-client.nix"
+                    ];
                 };
                 services-kavita = mkLXC {
                     hostname = "services-kavita";
                     path = "services/kavita";
-                    include = ["features/nfs-client.nix"];
+                    include = [ "features/nfs-client.nix" ];
                 };
                 services-audiobookshelf = mkLXC {
                     hostname = "services-audiobookshelf";
                     path = "services/audiobookshelf";
-                    include = ["features/nfs-client.nix"];
+                    include = [ "features/nfs-client.nix" ];
                 };
                 services-wizarr = mkLXC {
                     hostname = "services-wizarr";
                     path = "services/wizarr";
-                    include = [ "features/podman.nix" "features/nfs-client.nix" ];
+                    include = [
+                        "features/podman.nix"
+                        "features/nfs-client.nix"
+                    ];
                 };
                 services-arr = mkLXC {
                     hostname = "services-arr";
                     path = "services/arr";
-                    include = [ "features/podman.nix" "features/nfs-client.nix" ];
+                    include = [
+                        "features/podman.nix"
+                        "features/nfs-client.nix"
+                    ];
                 };
             };
         };

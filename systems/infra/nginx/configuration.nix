@@ -21,6 +21,7 @@ in
 {
     imports = [
         ./services
+        ./authentik
     ];
     security.acme = {
         acceptTerms = true;
@@ -78,7 +79,7 @@ in
             add_header Strict-Transport-Security $hsts_header;
 
             proxy_hide_header Access-Control-Allow-Origin;
-            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header Host $host;
 
