@@ -42,6 +42,7 @@
         isSystemUser = true;
         shell = pkgs.zsh;
         group = "authentik";
+        createHome = true;
     };
 
     users.groups.authentik = {};
