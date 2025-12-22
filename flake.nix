@@ -106,11 +106,6 @@
                     hostname = "infra-nginx";
                     path = "infra/nginx";
                 };
-                infra-authelia = mkLXC {
-                    hostname = "infra-authelia";
-                    path = "infra/authelia";
-                    include = [ "features/podman.nix" "features/nfs-client.nix" ];
-                };
                 services-access = mkLXC {
                     hostname = "services-access";
                     path = "services/access";
