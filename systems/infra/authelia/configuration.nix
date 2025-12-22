@@ -6,6 +6,10 @@
         key = "";
         hosts = [ "infra-authelia" ];
     };
+    ensurePaths.folders = {
+        "/shared/systems/infra/authelia" = {};
+        "/shared/systems/infra/authelia/assets" = {};
+    };
     virtualisation.oci-containers.containers.authelia = {
         autoStart = true;
         volumes = [
