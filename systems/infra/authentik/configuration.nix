@@ -7,11 +7,23 @@
         "authentik/email_password" = {
             hosts = [ "infra-authentik" ];
         };
+        "authentik/admin_password" = {
+            hosts = [ "infra-authentik" ];
+        };
+        "authentik/admin_token" = {
+            hosts = [ "infra-authentik" ];
+        };
+        "authentik/admin_email" = {
+            hosts = [ "infra-authentik" ];
+        };
     };
 
     sops.templates."authentik.env".content = ''
         AUTHENTIK_SECRET_KEY=${config.sops.placeholder."authentik/secret_key"}
         AUTHENTIK_EMAIL__PASSWORD=${config.sops.placeholder."authentik/email_password"}
+        AUTHENTIK_BOOTSTRAP_PASSWORD=${config.sops.placeholder."authentik/admin_password"}
+        AUTHENTIK_BOOTSTRAP_EMAIL=${config.sops.placeholder."authentik/admin_email"}
+        AUTHENTIK_BOOTSTRAP_TOKEN=${config.sops.placeholder."authentik/admin_token"}
     '';
 
     ensurePaths.folders = {
