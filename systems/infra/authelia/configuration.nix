@@ -28,7 +28,7 @@
         ensureUsers = [
           {
             name = "authelia";
-            ensureDbOwnership = true;
+            ensureDBOwnership = true;
             ensureClauses = {
                 createdb = true;
                 login = true;
