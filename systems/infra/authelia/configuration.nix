@@ -6,9 +6,6 @@
         key = "";
         hosts = [ "infra-authelia" ];
     };
-    users.groups.authelia = {};
-    ensurePaths.folders."/persistent/authelia" = {mode = "777";};
-    ensurePaths.folders."/persistent/authelia/assets" = {mode = "777";};
     services.authelia.instances.lesbosso = {
         enable = true;
         user = "root";
