@@ -15,8 +15,6 @@
         };
     };
 
-    users.mutableUsers = false;
-
     users.groups.itec = {
         name = "itec";
         gid = 1000;
