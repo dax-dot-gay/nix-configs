@@ -18,6 +18,7 @@
             "0.0.0.0:9959:9959"
         ];
         image = "docker.io/authelia/authelia:latest";
+        user = "root:root";
     };
     networking.firewall.allowedTCPPorts = [
         9091
