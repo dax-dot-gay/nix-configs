@@ -6,12 +6,21 @@
         key = "";
         hosts = [ "infra-authelia" ];
     };
-    services.authelia.instances.lesbosso = {
-        enable = true;
-        user = "root";
-        group = "root";
-        settingsFiles = [ config.sops.secrets."authelia/config.yaml".path ];
-        secrets.manual = true;
+    virtualisation.oci-containers.containers.authelia = {
+        autoStart = true;
+        volumes = [
+            "${config.sops.secrets."authelia/config.yaml".path}:/config/config.yml"
+            "/shared/systems/infra/authelia:/authelia"
+            "/shared/systems/infra/authelia/assets:/authelia/assets"
+        ];
+        ports = [
+            "0.0.0.0:9091:9091"
+            "0.0.0.0:9959:9959"
+        ];
+        image = "docker.io/authelia/authelia:latest";
     };
-    networking.firewall.enable = false;
+    networking.firewall.allowedTCPPorts = [
+        9091
+        9959
+    ];
 }
