@@ -8,7 +8,6 @@
     };
     users.groups.authelia = {};
     ensurePaths.folders."/shared/systems/infra/authelia/assets" = {};
-    ensurePaths.files."/shared/systems/infra/authelia/users.yml" = {};
     services.authelia.instances.lesbosso = {
         enable = true;
         user = "root";
