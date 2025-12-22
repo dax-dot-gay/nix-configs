@@ -9,6 +9,7 @@
     users.groups.authelia = {};
     ensurePaths.folders."/shared/systems/infra/authelia/assets" = {};
     ensurePaths.files."/shared/systems/infra/authelia/users.yml" = {};
+    ensurePaths.files."/shared/systems/infra/authelia/storage.sqlite" = {};
     services.authelia.instances.lesbosso = {
         enable = true;
         user = "root";
