@@ -13,7 +13,7 @@
     virtualisation.oci-containers.containers.authelia = {
         autoStart = true;
         volumes = [
-            "${config.sops.secrets."authelia/config.yaml".path}:/config/config.yml"
+            "${config.sops.secrets."authelia/config.yaml".path}:/config/configuration.yml"
             "/shared/systems/infra/authelia:/authelia"
             "/shared/systems/infra/authelia/assets:/authelia/assets"
         ];
