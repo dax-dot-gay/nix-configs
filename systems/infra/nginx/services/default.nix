@@ -4,6 +4,5 @@
         ./matrix.nix
         ./jellyfin.nix
         ./arrs.nix
-        ./authelia
     ];
 }
