@@ -8,7 +8,7 @@ let
         base-vm = mkHost "base-vm" 6;
         infra-nfs = mkHost "infra-nfs" 10;
         infra-nginx = mkHost "infra-nginx" 11;
-        infra-authelia = mkHost "infra-authelia" 12;
+        infra-authelia = mkHost "infra-authelia" 13;
         services-access = mkHost "services-access" 20;
         services-matrix = mkHost "services-matrix" 21;
         services-jellyfin = mkHost "services-jellyfin" 22;
