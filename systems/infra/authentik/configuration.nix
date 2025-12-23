@@ -80,9 +80,9 @@
         postgresql.dataDir = "/persistent/postgresql";
     };
 
-    systemd.services.authentik-migrate.serviceConfig.DynamicUser = lib.mkOverride 1 false;
-    systemd.services.authentik-worker.serviceConfig.DynamicUser = lib.mkOverride 1 false;
-    systemd.services.authentik.serviceConfig.DynamicUser = lib.mkOverride 1 false;
+    systemd.services.authentik.serviceConfig.ReadWritePaths = ["/shared/systems/infra/authentik/blueprints" "/shared/systems/infra/authentik/templates" "/shared/systems/infra/authentik/media"];
+    systemd.services.authentik-worker.serviceConfig.ReadWritePaths = ["/shared/systems/infra/authentik/blueprints" "/shared/systems/infra/authentik/templates" "/shared/systems/infra/authentik/media"];
+    systemd.services.authentik-migrate.serviceConfig.ReadWritePaths = ["/shared/systems/infra/authentik/blueprints" "/shared/systems/infra/authentik/templates" "/shared/systems/infra/authentik/media"];
 
     networking.firewall.allowedTCPPorts = [
         9000
