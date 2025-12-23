@@ -27,8 +27,6 @@
     '';
 
     ensurePaths.folders = {
-        "/shared/systems/infra/authentik/blueprints" = {};
-        "/shared/systems/infra/authentik/templates" = {};
         "/shared/systems/infra/authentik/media" = {};
         "/persistent/postgresql" = {
             owner = "postgres";
@@ -52,8 +50,6 @@
             createDatabase = true;
             environmentFile = config.sops.templates."authentik.env".path;
             settings = {
-                blueprints_dir = lib.mkOverride 10 "/shared/systems/infra/authentik/blueprints";
-                template_dir = lib.mkOverride 10 "/shared/systems/infra/authentik/templates";
                 storage.media.file = lib.mkOverride 10 { path = "/shared/systems/infra/authentik/media"; };
                 media.enableUpload = true;
                 email = {
