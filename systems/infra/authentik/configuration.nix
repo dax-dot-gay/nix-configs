@@ -26,16 +26,15 @@
         AUTHENTIK_BOOTSTRAP_TOKEN=${config.sops.placeholder."authentik/admin_token"}
     '';
 
-    system.activationScripts = {
-      mkdirs = ''
-        mkdir -p /shared/systems/infra/authentik/blueprints
-        mkdir -p /shared/systems/infra/authentik/templates
-        mkdir -p /shared/systems/infra/authentik/media
-        mkdir -p /persistent/postgresql
-
-        chown -R postgres:postgres /persistent/postgresql
-        chmod -R 750 /persistent/postgresql
-      '';
+    ensurePaths.folders = {
+        "/shared/systems/infra/authentik/blueprints" = {};
+        "/shared/systems/infra/authentik/templates" = {};
+        "/shared/systems/infra/authentik/media" = {};
+        "/persistent/postgresql" = {
+            owner = "postgres";
+            group = "postgres";
+            mode = "0750";
+        };
     };
 
     users.users.authentik = {
@@ -80,6 +79,10 @@
 
         postgresql.dataDir = "/persistent/postgresql";
     };
+
+    systemd.services.authentik-migrate.serviceConfig.DynamicUser = lib.mkOverride 1 false;
+    systemd.services.authentik-worker.serviceConfig.DynamicUser = lib.mkOverride 1 false;
+    systemd.services.authentik.serviceConfig.DynamicUser = lib.mkOverride 1 false;
 
     networking.firewall.allowedTCPPorts = [
         9000
