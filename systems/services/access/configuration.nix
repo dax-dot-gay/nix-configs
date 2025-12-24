@@ -93,7 +93,7 @@ in
         FILEBROWSER_ADMIN_PASSWORD=${config.sops.placeholder."files/admin_password"}
         FILEBROWSER_OIDC_CLIENT_ID=${config.sops.placeholder."files/oidc_client_id"}
         FILEBROWSER_OIDC_CLIENT_SECRET=${config.sops.placeholder."files/oidc_client_secret"}
-        FILEBROWSER_JWT_TOKEN_SECRET=${config.sops.placeholder."files/jwt_token_secret"}
+        FILEBROWSER_JWT_TOKEN_SECRET=${config.sops.placeholder."files/jwt_secret"}
         FILEBROWSER_TOTP_SECRET=${config.sops.placeholder."files/totp_secret"}
         FILEBROWSER_CONFIG=/volume/config.yml
     '';
