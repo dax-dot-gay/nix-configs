@@ -67,7 +67,7 @@ let
                 adminGroup = "authentik-admin";
                 groupsClaim = "groups";
             };
-            adminUsername = "itec";
+            adminUsername = "admin";
         };
         frontend = {
             name = "Lesbos - File Server";
