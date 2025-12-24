@@ -107,7 +107,7 @@ in
             "${settings}:/volume/config.yml"
         ];
         ports = ["0.0.0.0:8080:8080"];
-        environmentFiles = [ config.sops.templates."filebrowser.yml".path ];
+        environmentFiles = [ config.sops.templates."filebrowser.env".path ];
         user = "root:root";
     };
 }
