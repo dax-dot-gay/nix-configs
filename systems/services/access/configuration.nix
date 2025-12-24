@@ -89,7 +89,7 @@ in
         "files/totp_secret" = {hosts = ["services-access"];};
     };
 
-    config.sops.templates."filebrowser.env".content = ''
+    sops.templates."filebrowser.env".content = ''
         FILEBROWSER_ADMIN_PASSWORD=${config.sops.placeholder."files/admin_password"}
         FILEBROWSER_OIDC_CLIENT_ID=${config.sops.placeholder."files/oidc_client_id"}
         FILEBROWSER_OIDC_CLIENT_SECRET=${config.sops.placeholder."files/oidc_client_secret"}
