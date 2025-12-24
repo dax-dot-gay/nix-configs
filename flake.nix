@@ -119,7 +119,7 @@
                 services-access = mkLXC {
                     hostname = "services-access";
                     path = "services/access";
-                    include = [ "features/nfs-client.nix" ];
+                    include = [ "features/nfs-client.nix" "features/podman.nix" ];
                 };
                 services-matrix = mkLXC {
                     hostname = "services-matrix";
