@@ -42,6 +42,9 @@
             "matrix-authentication-service"
             "matrix-synapse"
         ];
+        initialScript = pkgs.writeText "init-sql-script" ''
+          alter user "matrix-authentication-service" with password 'matrix-authentication-service';
+        '';
     };
     networking.firewall.enable = false;
 
