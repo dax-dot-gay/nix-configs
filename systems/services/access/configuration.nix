@@ -32,6 +32,7 @@
         user = "root";
         group = "root";
         dataDir = "/shared/systems/services/access";
+        extraReadWriteDirs = ["/shared"];
         settings = {
             sftpd = {
                 bindings = [
