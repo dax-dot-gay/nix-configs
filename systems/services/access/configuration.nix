@@ -64,7 +64,7 @@
                 enabled = true;
             };
             data_provider = {
-                driver = "sqlite";
+                driver = "bolt";
                 name = "/shared/systems/services/access/sftpgo.db";
                 create_default_admin = true;
                 users_base_dir = "/shared/data/users";
