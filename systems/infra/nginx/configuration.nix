@@ -116,6 +116,10 @@ in
                 hostname = "services-syncthing";
                 port = 8384;
             };
+            "archive.dax.gay" = mkHost {
+                hostname = "services-archive";
+                port = 8000;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;

@@ -173,6 +173,14 @@
                         "features/nfs-client.nix"
                     ];
                 };
+                services-archive = mkLXC {
+                    hostname = "services-archive";
+                    path = "services/archive";
+                    include = [
+                        "features/podman.nix"
+                        "features/nfs-client.nix"
+                    ];
+                };
             };
         };
 }
