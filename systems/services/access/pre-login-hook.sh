@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf /shared/systems/services/access/login-attempt.json
+/run/current-system/sw/bin/rm -rf /shared/systems/services/access/login-attempt.json
 echo "$SFTPGO_LOGIND_USER" > /shared/systems/services/access/login-attempt.json
 USER_ID="$(/run/current-system/sw/bin/jq .id /shared/systems/services/access/login-attempt.json)"
 USER_NAME="$(/run/current-system/sw/bin/jq .username /shared/systems/services/access/login-attempt.json)"
@@ -11,4 +11,4 @@ else
     echo ""
 fi
 
-rm -rf /shared/systems/services/access/login-attempt.json
+/run/current-system/sw/bin/rm -rf /shared/systems/services/access/login-attempt.json
