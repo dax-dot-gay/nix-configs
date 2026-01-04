@@ -5,16 +5,16 @@ USER_NAME="$(/run/current-system/sw/bin/jq .username /shared/systems/services/ac
 
 if [ $USER_ID -eq 0 ]; then
     if [ $SFTPGO_LOGIND_PROTOCOL = "OIDC" ]; then
-        /run/current-system/sw/bin/cat << EOF
-{
-    "status": 1,
-    "username": "${USER_NAME}",
-    "has_password": false,
-    "permissions": {
-        "/": ["*"]
-    }
-}
-EOF
+        JQ_OUT=$(/run/current-system/sw/bin/printf '{
+            "status": 1,
+            "username": "%s",
+            "has_password": false,
+            "permissions": {
+                "/": ["*"]
+            }
+        }' "${USER_NAME}")
+
+        echo -e "${JQ_OUT}"
     else
         echo ""
     fi
