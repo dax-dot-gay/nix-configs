@@ -22,6 +22,8 @@
     systemd.services.sftpgo.serviceConfig = {
         EnvironmentFile = config.sops.templates."sftpgo.env".path;
     };
+
+    networking.firewall.enable = false;
     
     services.sftpgo = {
         enable = true;
