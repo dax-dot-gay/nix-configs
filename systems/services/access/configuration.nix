@@ -41,6 +41,7 @@
                 bindings = [
                     {
                         port = 8080;
+                        address = "0.0.0.0";
                         oidc = {
                             redirect_base_url = "https://fs.dax.gay";
                             username_field = "preferred_username";
