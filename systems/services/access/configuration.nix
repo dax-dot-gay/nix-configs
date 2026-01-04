@@ -1,7 +1,4 @@
 { config, pkgs, lib, ... }:
-let 
-    pre_login_hook = pkgs.writeShellScriptBin "pre-login-hook" lib.readFile ./pre-login-hook.sh;
-in
 {
     ensurePaths.folders."/shared/systems/services/access" = {};
     ensurePaths.folders."/shared/data/users" = {};
@@ -28,7 +25,7 @@ in
 
     networking.firewall.enable = false;
 
-    environment.systemPackages = [ pkgs.jq pre_login_hook ];
+    environment.systemPackages = [ pkgs.jq pkgs.writeShellScriptBin "pre-login-hook" (lib.readFile ./pre-login-hook.sh) ];
     
     services.sftpgo = {
         enable = true;
@@ -77,7 +74,7 @@ in
                 name = "/shared/systems/services/access/sftpgo.db";
                 create_default_admin = true;
                 users_base_dir = "/shared/data/users";
-                pre_login_hook = pre_login_hook;
+                pre_login_hook = "pre-login-hook";
             };
         };
     };
