@@ -74,7 +74,7 @@
                 name = "/shared/systems/services/access/sftpgo.db";
                 create_default_admin = true;
                 users_base_dir = "/shared/data/users";
-                pre_login_hook = pkgs.writeShellScriptBin "pre-login-hook" (lib.readFile ./pre-login-hook.sh);
+                pre_login_hook = "${pkgs.writeShellScriptBin "pre-login-hook" (lib.readFile ./pre-login-hook.sh)}/bin/pre-login-hook";
             };
         };
     };
