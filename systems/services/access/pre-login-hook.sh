@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 USER_ID="$(jq .id $SFTPGO_LOGIND_USER)"
 USER_NAME="$(jq .username $SFTPGO_LOGIND_USER)"
