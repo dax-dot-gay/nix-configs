@@ -51,6 +51,8 @@
                         oidc = {
                             redirect_base_url = "https://fs.dax.gay";
                             username_field = "preferred_username";
+                            role_field = "sftpgo_role";
+                            scopes = ["openid" "profile" "email" "sftpgo"];
                         };
                         security = {
                             enabled = true;
