@@ -17,6 +17,7 @@ let
         services-audiobookshelf = mkHost "services-audiobookshelf" 25;
         services-wizarr = mkHost "services-wizarr" 26;
         services-arr = mkHost "services-arr" 27;
+        services-syncthing = mkHost "services-syncthing" 28;
     };
 in
 {

@@ -166,6 +166,13 @@
                         "features/nfs-client.nix"
                     ];
                 };
+                services-syncthing = mkLXC {
+                    hostname = "services-syncthing";
+                    path = "services/syncthing";
+                    include = [
+                        "features/nfs-client.nix"
+                    ];
+                };
             };
         };
 }

@@ -112,6 +112,10 @@ in
                 hostname = "services-wizarr";
                 port = 5690;
             };
+            "sync.dax.gay" = mkHost {
+                hostname = "services-syncthing";
+                port = 8384;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;
