@@ -25,7 +25,7 @@
 
     networking.firewall.enable = false;
 
-    environment.systemPackages = [ pkgs.jq pkgs.writeShellScriptBin "pre-login-hook" (lib.readFile ./pre-login-hook.sh) ];
+    environment.systemPackages = [ pkgs.jq ];
     
     services.sftpgo = {
         enable = true;
@@ -74,7 +74,7 @@
                 name = "/shared/systems/services/access/sftpgo.db";
                 create_default_admin = true;
                 users_base_dir = "/shared/data/users";
-                pre_login_hook = "pre-login-hook";
+                pre_login_hook = pkgs.writeShellScriptBin "pre-login-hook" (lib.readFile ./pre-login-hook.sh);
             };
         };
     };
