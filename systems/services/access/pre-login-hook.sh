@@ -5,7 +5,7 @@ USER_NAME="$(/run/current-system/sw/bin/jq .username /shared/systems/services/ac
 
 if [ $USER_ID -eq 0 ]; then
     if [ $SFTPGO_LOGIND_PROTOCOL = "OIDC" ]; then
-        cat << EOF
+        /run/current-system/sw/bin/cat << EOF
 {
     "status": 1,
     "username": "${USER_NAME}",
