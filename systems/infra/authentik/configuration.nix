@@ -99,6 +99,8 @@
         authentik-proxy = {
             enable = true;
             environmentFile = config.sops.templates."authentik-proxy.env".path;
+            listenHTTP = "0.0.0.0:9005";
+            listenHTTPS = "0.0.0.0:9004";
         };
 
         postgresql.dataDir = "/persistent/postgresql";
