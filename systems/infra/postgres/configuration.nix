@@ -12,12 +12,12 @@
     secrets.secrets = {
         "pgadmin/password" = { };
     };
-    boot.supportedFilesystems = ["fuse.bindfs"];
+    boot.supportedFilesystems = ["fuse"];
     fileSystems = {
         "/bound/postgres" = {
-            device = "/shared/systems/infra/postgres";
+            device = "bindfs#/shared/systems/infra/postgres";
             depends = ["/shared"];
-            fsType = "fuse.bindfs";
+            fsType = "fuse";
             options = [
                 "force-user=postgres"
                 "force-group=postgres"
