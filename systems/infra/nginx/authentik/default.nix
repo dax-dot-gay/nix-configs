@@ -41,7 +41,7 @@ in
                 proxy_set_header X-authentik-uid $authentik_uid;
             '';
         };
-        locations."/outpost.oauthentik.io" = {
+        locations."/outpost.goauthentik.io" = {
             proxyPass = "http://${hosts.ip "infra-authentik"}:9000/outpost.goauthentik.io";
             proxyWebsockets = true;
             extraConfig = ''
