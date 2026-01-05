@@ -7,8 +7,8 @@
 {
     ensurePaths.folders."/shared/systems/infra/postgres" = { };
     ensurePaths.folders."/shared/systems/infra/pgadmin" = { };
-    ensurePaths.folders."/bound" = { owner = "postgres"; group = "postgres"; };
-    ensurePaths.folders."/bound/postgres" = { owner = "postgres"; group = "postgres"; };
+    ensurePaths.folders."/bound" = { owner = "postgres"; group = "postgres"; mode = "0775"; };
+    ensurePaths.folders."/bound/postgres" = { owner = "postgres"; group = "postgres"; mode = "0775"; };
     secrets.secrets = {
         "pgadmin/password" = { };
     };
