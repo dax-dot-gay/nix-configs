@@ -28,7 +28,7 @@
     services.postgresql = {
         enable = true;
         package = pkgs.postgresql_17;
-        dataDir = "/shared/systems/infra/postgres";
+        dataDir = "/bound/postgres";
         identMap = ''
             superuser_map   root        postgres
             superuser_map   postgres    postgres
@@ -67,11 +67,6 @@
         initialEmail = "me@dax.gay";
         initialPasswordFile = config.sops.secrets."pgadmin/password".path;
         settings.SQLITE_PATH = "/shared/systems/infra/pgadmin/pgadmin.db";
-    };
-
-    systemd.services.postgresql.serviceConfig = {
-        User = lib.mkForce "root";
-        Group = lib.mkForce "root";
     };
 
     systemd.services.pgadmin.serviceConfig = {
