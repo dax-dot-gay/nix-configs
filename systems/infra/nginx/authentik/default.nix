@@ -42,7 +42,7 @@ in
             '';
         };
         locations."/outpost.goauthentik.io" = {
-            proxyPass = "https://auth.dax.gay/outpost.goauthentik.io";
+            proxyPass = "http://${hosts.ip "infra-authentik"}:9005";
             extraConfig = ''
                 proxy_set_header        Host $host;
 

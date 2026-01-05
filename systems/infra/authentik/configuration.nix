@@ -111,6 +111,7 @@
     networking.firewall.allowedTCPPorts = [
         9000
         9300
-
+        9004
+        9005
     ];
 }
