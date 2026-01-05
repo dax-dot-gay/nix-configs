@@ -52,6 +52,8 @@
                 SAVE_ARCHIVEDOTORG = "True";
                 USER_AGENT = "Mozilla/5.0 (compatible; Konqueror/4.3; Linux) KHTML/4.3.1 (like Gecko) Fedora/4.3.1-3.fc11";
                 TIMEOUT = "120";
+                REVERSE_PROXY_USER_HEADER = "X-authentik-username";
+                REVERSE_PROXY_WHITELIST = "192.168.30.0/24";
             };
             user = "root:root";
             autoStart = true;
