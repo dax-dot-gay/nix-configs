@@ -118,7 +118,7 @@
                 };
                 infra-postgres = mkLXC {
                     hostname = "infra-postgres";
-                    path = "infra/authentik";
+                    path = "infra/postgres";
                     include = [ "features/nfs-client.nix" ];
                 };
                 services-access = mkLXC {
