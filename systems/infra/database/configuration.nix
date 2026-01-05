@@ -29,8 +29,8 @@
         authentication = lib.mkForce ''
             #type   database    DBuser  auth-method
             local   all         all     trust
-            host    sameuser    all     127.0.0.1/32 scram-sha-256
-            host    sameuser    all     ::1/128 scram-sha-256
+            host    all         all     127.0.0.1/32 scram-sha-256
+            host    all         all     ::1/128 scram-sha-256
             host    sameuser    all     192.168.30.0/24 scram-sha-256
             host    sameuser    all     10.1.8.0/24 scram-sha-256
         '';
