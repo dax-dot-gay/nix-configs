@@ -1,7 +1,7 @@
 { config, ... }:
 {
     secrets.secrets = {
-        "tailscale-cottage-of-queer/auth_key" = { };
+        "tailscale-cottage-of-queer/auth_key" = { neededForUsers = true; };
     };
 
     services.tailscale = {
