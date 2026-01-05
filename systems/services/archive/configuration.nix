@@ -40,7 +40,6 @@
                 "/shared/data/archive:/data/archive"
                 "/shared/systems/services/archive:/data"
             ];
-            cmd = ["server"];
             environmentFiles = [ config.sops.templates."archivebox.env".path ];
             environment = {
                 ALLOWED_HOSTS = "*";
