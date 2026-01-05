@@ -20,14 +20,6 @@ in
             proxyPass = "http://${hosts.ip "services-archive"}:8000";
             proxyWebsockets = true;
             extraConfig = ''
-                if ($request_method = OPTIONS ) {
-                    add_header 'Access-Control-Allow-Origin'  '*';
-                    add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS, HEAD, PUT, DELETE, CONNECT, TRACE, PATCH';
-                    add_header 'Access-Control-Allow-Headers' 'Authorization, Origin, X-Requested-With, Content-Type, Accept';
-
-                    return 200;
-                }
-
                 auth_request     /outpost.goauthentik.io/auth/nginx;
                 error_page       401 = @goauthentik_proxy_signin;
                 auth_request_set $auth_cookie $upstream_http_set_cookie;
@@ -50,7 +42,7 @@ in
             '';
         };
         locations."/outpost.oauthentik.io" = {
-            proxyPass = "https://auth.dax.gay/outpost.goauthentik.io";
+            proxyPass = "http://${hosts.ip "infra-authentik"}:9000/outpost.goauthentik.io";
             proxyWebsockets = true;
             extraConfig = ''
                 proxy_set_header        Host $host;
