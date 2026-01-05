@@ -16,6 +16,9 @@
         "authentik/admin_email" = {
             hosts = [ "infra-authentik" ];
         };
+        "authentik/ldap_token" = {
+            hosts = [ "infra-authentik" ];
+        };
     };
 
     sops.templates."authentik.env".content = ''
@@ -24,6 +27,10 @@
         AUTHENTIK_BOOTSTRAP_PASSWORD=${config.sops.placeholder."authentik/admin_password"}
         AUTHENTIK_BOOTSTRAP_EMAIL=${config.sops.placeholder."authentik/admin_email"}
         AUTHENTIK_BOOTSTRAP_TOKEN=${config.sops.placeholder."authentik/admin_token"}
+    '';
+
+    sops.templates."authentik-ldap.env".content = ''
+        AUTHENTIK_TOKEN=${config.sops.placeholder."authentik/ldap_token"}
     '';
 
     ensurePaths.folders = {
@@ -71,6 +78,11 @@
                 };
             };
             nginx.enable = false;
+        };
+
+        authentik-ldap = {
+            enable = true;
+            environmentFile = config.sops.templates."authentik-ldap.env".path;
         };
 
         postgresql.dataDir = "/persistent/postgresql";
