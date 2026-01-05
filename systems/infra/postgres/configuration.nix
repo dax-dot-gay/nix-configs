@@ -1,12 +1,9 @@
 {
     config,
-    daxlib,
     pkgs,
+    lib,
     ...
 }:
-let
-    hosts = daxlib.hosts;
-in
 {
     ensurePaths.folders."/shared/systems/infra/postgres" = { };
     ensurePaths.folders."/shared/systems/infra/pgadmin" = { };
@@ -56,5 +53,14 @@ in
         initialEmail = "me@dax.gay";
         initialPasswordFile = config.sops.secrets."pgadmin/password".path;
         settings.SQLITE_PATH = "/shared/systems/infra/pgadmin/pgadmin.db";
+    };
+
+    systemd.services.postgresql.serviceConfig = {
+        User = lib.mkForce "root";
+        Group = lib.mkForce "root";
+    };
+
+    systemd.services.pgadmin.serviceConfig = {
+        ReadWritePaths = ["/shared/systems/infra/pgadmin/"];
     };
 }
