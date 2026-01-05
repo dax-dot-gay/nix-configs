@@ -61,7 +61,5 @@
 
     systemd.services.pgadmin.serviceConfig = {
         ReadWritePaths = [ "/shared/systems/infra/pgadmin/" ];
-        User = "root";
-        Group = "root";
     };
 }
