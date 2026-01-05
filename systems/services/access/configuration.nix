@@ -3,6 +3,7 @@
     ensurePaths.folders."/shared/systems/services/access" = {};
     ensurePaths.folders."/shared/data/users" = {};
     ensurePaths.folders."/shared/data/public" = {};
+    ensurePaths.folders."/shared/data/media/UserMedia/AcademicArchive" = {};
     secrets.secrets = {
         "files/oidc/client_id" = {};
         "files/oidc/client_secret" = {};

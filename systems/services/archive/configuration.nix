@@ -20,15 +20,15 @@
     sops.templates."archivebox.env".content = ''
         ADMIN_USERNAME=${config.sops.placeholder."archivebox/admin_username"}
         ADMIN_PASSWORD=${config.sops.placeholder."archivebox/admin_password"}
-        OLD_SEARCH_BACKEND_PASSWORD=${config.sops.placeholder."archivebox/search_backend_password"}
+        SEARCH_BACKEND_PASSWORD=${config.sops.placeholder."archivebox/search_backend_password"}
     '';
 
     sops.templates."sonic.env".content = ''
-        OLD_SEARCH_BACKEND_PASSWORD=${config.sops.placeholder."archivebox/search_backend_password"}
+        SEARCH_BACKEND_PASSWORD=${config.sops.placeholder."archivebox/search_backend_password"}
     '';
 
     sops.templates."scheduler.env".content = ''
-        OLD_SEARCH_BACKEND_PASSWORD=${config.sops.placeholder."archivebox/search_backend_password"}
+        SEARCH_BACKEND_PASSWORD=${config.sops.placeholder."archivebox/search_backend_password"}
     '';
     networking.firewall.allowedTCPPorts = [ 8000 ];
 
@@ -40,6 +40,7 @@
                 "/shared/data/archive:/data/archive"
                 "/shared/systems/services/archive:/data"
             ];
+            cmd = ["server"];
             environmentFiles = [ config.sops.templates."archivebox.env".path ];
             environment = {
                 ALLOWED_HOSTS = "*";
@@ -47,8 +48,8 @@
                 PUBLIC_INDEX = "True";
                 PUBLIC_SNAPSHOTS = "True";
                 PUBLIC_ADD_VIEW = "True";
-                /*SEARCH_BACKEND_ENGINE = "sonic";
-                SEARCH_BACKEND_HOST_NAME = "sonic";*/
+                SEARCH_BACKEND_ENGINE = "sonic";
+                SEARCH_BACKEND_HOST_NAME = "sonic";
                 SAVE_ARCHIVEDOTORG = "True";
                 USER_AGENT = "Mozilla/5.0 (compatible; Konqueror/4.3; Linux) KHTML/4.3.1 (like Gecko) Fedora/4.3.1-3.fc11";
                 PUID = toString config.users.users.archivebox.uid;
