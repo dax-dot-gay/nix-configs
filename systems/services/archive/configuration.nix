@@ -1,4 +1,5 @@
-{ config, pkgs, ... }:
+{ config, pkgs, daxlib, ... }:
+let hosts = daxlib.hosts; in
 {
     users.users.archivebox = {
         isSystemUser = true;
@@ -15,12 +16,16 @@
         "archivebox/admin_username" = { };
         "archivebox/admin_password" = { };
         "archivebox/search_backend_password" = { };
+        "archivebox/ldap_user" = {};
+        "archivebox/ldap_password" = {};
     };
 
     sops.templates."archivebox.env".content = ''
         ADMIN_USERNAME=${config.sops.placeholder."archivebox/admin_username"}
         ADMIN_PASSWORD=${config.sops.placeholder."archivebox/admin_password"}
         SEARCH_BACKEND_PASSWORD=${config.sops.placeholder."archivebox/search_backend_password"}
+        LDAP_BIND_DN="cn=${config.sops.placeholder."archivebox/ldap_user"},ou=users,dc=ldap,dc=goauthentik,dc=io"
+        LDAP_BIND_PASSWORD="${config.sops.placeholder."archivebox/ldap_password"}"
     '';
 
     sops.templates."sonic.env".content = ''
@@ -52,8 +57,14 @@
                 SAVE_ARCHIVEDOTORG = "True";
                 USER_AGENT = "Mozilla/5.0 (compatible; Konqueror/4.3; Linux) KHTML/4.3.1 (like Gecko) Fedora/4.3.1-3.fc11";
                 TIMEOUT = "120";
-                REVERSE_PROXY_USER_HEADER = "X-authentik-username";
-                REVERSE_PROXY_WHITELIST = "192.168.30.0/24";
+                LDAP = "True";
+                LDAP_SERVER_URI = "ldap://${hosts.ip "services-authentik"}:3389";
+                LDAP_USER_BASE="ou=users,ou=archivebox,ou=services,dc=ldap.example.com";
+                LDAP_USER_FILTER="(objectClass=user)";
+                LDAP_USERNAME_ATTR="cn";
+                LDAP_FIRSTNAME_ATTR="name";
+                LDAP_LASTNAME_ATTR="givenName";
+                LDAP_EMAIL_ATTR="mail";
             };
             user = "root:root";
             autoStart = true;
