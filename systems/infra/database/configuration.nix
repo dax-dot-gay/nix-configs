@@ -10,7 +10,7 @@
     ensurePaths.folders."/persistent/postgres" = {
         owner = "postgres";
         group = "postgres";
-        mode = "777";
+        mode = "750";
     };
     secrets.secrets = {
         "pgadmin/password" = { };
