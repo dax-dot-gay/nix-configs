@@ -7,9 +7,23 @@
 {
     ensurePaths.folders."/shared/systems/infra/postgres" = { };
     ensurePaths.folders."/shared/systems/infra/pgadmin" = { };
+    ensurePaths.folders."/bound" = { owner = "postgres"; group = "postgres"; };
+    ensurePaths.folders."/bound/postgres" = { owner = "postgres"; group = "postgres"; };
     secrets.secrets = {
         "pgadmin/password" = { };
     };
+    boot.supportedFilesystems = ["fuse.bindfs"];
+    fileSystems = {
+        "/bound/postgres" = {
+            device = "/shared/systems/infra/postgres";
+            depends = ["/shared"];
+            fsType = "fuse.bindfs";
+            options = [
+                "map=root/postgres:@root/@postgres"
+            ];
+        };
+    };
+    environment.systemPackages = [pkgs.bindfs];
     networking.firewall.allowedTCPPorts = [ 5432 ];
     services.postgresql = {
         enable = true;
