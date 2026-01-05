@@ -7,8 +7,8 @@
 {
     ensurePaths.folders."/shared/systems/infra/postgres" = { };
     ensurePaths.folders."/shared/systems/infra/pgadmin" = { };
-    ensurePaths.folders."/bound" = { owner = "postgres"; group = "postgres"; mode = "0775"; };
-    ensurePaths.folders."/bound/postgres" = { owner = "postgres"; group = "postgres"; mode = "0775"; };
+    ensurePaths.folders."/bound" = { owner = "itec"; group = "itec"; mode = "0777"; };
+    ensurePaths.folders."/bound/postgres" = { owner = "itec"; group = "itec"; mode = "0777"; };
     secrets.secrets = {
         "pgadmin/password" = { };
     };
@@ -19,7 +19,7 @@
             depends = ["/shared"];
             fsType = "fuse.bindfs";
             options = [
-                "map=root/postgres:@root/@postgres"
+                "map=root/itec:@root/@itec"
             ];
         };
     };
