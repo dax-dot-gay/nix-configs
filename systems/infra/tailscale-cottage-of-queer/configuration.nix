@@ -9,7 +9,7 @@
         useRoutingFeatures = "server";
         openFirewall = true;
         authKeyFile = config.sops.secrets."tailscale-cottage-of-queer/auth_key".path;
-        authKeyParameters.preauthorized = true;
+        authKeyParameters.preauthorized = false;
         extraUpFlags = [ "--advertise-exit-node" ];
     };
 
