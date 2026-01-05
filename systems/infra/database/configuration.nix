@@ -1,35 +1,24 @@
 {
     config,
     pkgs,
-    lib,
     ...
 }:
 {
     ensurePaths.folders."/shared/systems/infra/postgres" = { };
     ensurePaths.folders."/shared/systems/infra/pgadmin" = { };
-    ensurePaths.folders."/bound" = { owner = "postgres"; group = "postgres"; mode = "0777"; };
-    ensurePaths.folders."/bound/postgres" = { owner = "postgres"; group = "postgres"; mode = "0777"; };
+    ensurePaths.folders."/persistent/postgres" = {
+        owner = "postgres";
+        group = "postgres";
+    };
     secrets.secrets = {
         "pgadmin/password" = { };
     };
-    boot.supportedFilesystems = ["fuse"];
-    fileSystems = {
-        "/bound/postgres" = {
-            device = "bindfs#/shared/systems/infra/postgres";
-            depends = ["/shared"];
-            fsType = "fuse";
-            options = [
-                "force-user=postgres"
-                "force-group=postgres"
-            ];
-        };
-    };
-    environment.systemPackages = [pkgs.bindfs];
+    environment.systemPackages = [ pkgs.rclone ];
     networking.firewall.allowedTCPPorts = [ 5432 ];
     services.postgresql = {
         enable = true;
         package = pkgs.postgresql_17;
-        dataDir = "/bound/postgres";
+        dataDir = "/persistent/postgres";
         identMap = ''
             superuser_map   root        postgres
             superuser_map   postgres    postgres
@@ -71,6 +60,8 @@
     };
 
     systemd.services.pgadmin.serviceConfig = {
-        ReadWritePaths = ["/shared/systems/infra/pgadmin/"];
+        ReadWritePaths = [ "/shared/systems/infra/pgadmin/" ];
+        User = "root";
+        Group = "root";
     };
 }

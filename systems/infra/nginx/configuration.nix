@@ -125,7 +125,7 @@ in
                 port = 8000;
             };
             "pgadmin.dax.gay" = mkHost {
-                hostname = "infra-postgres";
+                hostname = "infra-database";
                 port = 5050;
             };
             "dax.gay" = {

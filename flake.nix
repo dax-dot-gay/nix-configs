@@ -116,9 +116,9 @@
                     include = [ "features/nfs-client.nix" ];
                     extraModules = [ inputs.authentik.nixosModules.default ];
                 };
-                infra-postgres = mkLXC {
-                    hostname = "infra-postgres";
-                    path = "infra/postgres";
+                infra-database = mkLXC {
+                    hostname = "infra-database";
+                    path = "infra/database";
                     include = [ "features/nfs-client.nix" ];
                 };
                 services-access = mkLXC {
