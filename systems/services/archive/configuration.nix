@@ -58,7 +58,7 @@ let hosts = daxlib.hosts; in
                 USER_AGENT = "Mozilla/5.0 (compatible; Konqueror/4.3; Linux) KHTML/4.3.1 (like Gecko) Fedora/4.3.1-3.fc11";
                 TIMEOUT = "120";
                 LDAP = "True";
-                LDAP_SERVER_URI = "ldap://${hosts.ip "services-authentik"}:3389";
+                LDAP_SERVER_URI = "ldap://${hosts.ip "infra-authentik"}:3389";
                 LDAP_USER_BASE="ou=users,ou=archivebox,ou=services,dc=ldap.example.com";
                 LDAP_USER_FILTER="(objectClass=user)";
                 LDAP_USERNAME_ATTR="cn";
