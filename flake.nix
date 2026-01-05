@@ -121,6 +121,27 @@
                     path = "infra/database";
                     include = [ "features/nfs-client.nix" ];
                 };
+                infra-tailscale-cottage-of-queer = nixpkgs.lib.nixosSystem {
+                    system = "${system}";
+                    specialArgs = inputs // {
+                        hostname = "infra-tailscale-cottage-of-queer";
+                        repository = repository;
+                    };
+                    modules = [
+                        ./modules/defaults/openssh.nix
+                        ./modules/defaults/secrets
+                        ./modules/defaults/users.nix
+                        ./modules/defaults/terminal.nix
+                        ./modules/defaults/nixos.nix
+                        ./modules/defaults/comin.nix
+                        ./modules/defaults/upgrades.nix
+                        ./modules/defaults/nixpkgs.nix
+                        ./modules/systems/lxc.nix
+                        ./systems/infra/tailscale-cottage-of-queer/configuration.nix
+                        inputs.sops-nix.nixosModules.sops
+                        inputs.comin.nixosModules.comin
+                    ];
+                };
                 services-access = mkLXC {
                     hostname = "services-access";
                     path = "services/access";

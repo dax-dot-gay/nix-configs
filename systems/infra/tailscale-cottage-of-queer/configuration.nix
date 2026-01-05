@@ -1,0 +1,23 @@
+{ config, ... }:
+{
+    secrets.secrets = {
+        "tailscale-cottage-of-queer/auth_key" = { };
+    };
+
+    services.tailscale = {
+        enable = true;
+        useRoutingFeatures = "server";
+        openFirewall = true;
+        authKeyFile = config.sops.secrets."tailscale-cottage-of-queer/auth_key".path;
+        authKeyParameters.preauthorized = true;
+        extraUpFlags = [ "--advertise-exit-node" ];
+    };
+
+    system.stateVersion = "25.11";
+    networking = {
+        networkmanager.enable = true;
+        hostName = "infra-tailscale-cottage-of-queer";
+    };
+
+    time.timeZone = "America/New_York";
+}
