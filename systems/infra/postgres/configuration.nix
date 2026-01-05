@@ -35,25 +35,20 @@ in
         port = 5432;
         ensureUsers = [
             {
-                name = "nextcloud";
-                ensureDBOwnership = true;
-                ensureClauses = {
-                    login = true;
-                    password = "SCRAM-SHA-256$4096:MGAd0pYiR7cgXLfEqVeaTw==$9jf2mIYgve8DjhO2SSV2+BAss7Gm0OyyvW7xX4Vnmt0=:zxstJYKlG4LNpbKmVyB2xXbvDbkIsBkhE68shr9G46s=";
-                };
-            }
-            {
                 name = "pgadmin";
                 ensureDBOwnership = true;
                 ensureClauses = {
                     login = true;
-                    password = "SCRAM-SHA-256$4096:Sbi3PQwwe/0qHsd2QYj6YA==$ZBvUziT3EkQREAcKBWUAAPWh1pvykCbuMF+d12/U/P8=:TSk68faPT6VPAZ4Tfci/2bnYjIdKbzyKXJmDzYNz/0U=";
                     superuser = true;
                 };
             }
         ];
-        ensureDatabases = ["nextcloud" "pgadmin"];
+        ensureDatabases = ["pgadmin"];
     };
+
+    systemd.services.postgresql-setup.script = config.systemd.services.postgresql-setup.script + ''
+        ALTER ROLE pgadmin WITH PASSWORD 'SCRAM-SHA-256$4096:Sbi3PQwwe/0qHsd2QYj6YA==$ZBvUziT3EkQREAcKBWUAAPWh1pvykCbuMF+d12/U/P8=:TSk68faPT6VPAZ4Tfci/2bnYjIdKbzyKXJmDzYNz/0U=';
+    '';
 
     services.pgadmin = {
         enable = true;
