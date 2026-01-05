@@ -19,6 +19,9 @@
         "authentik/ldap_token" = {
             hosts = [ "infra-authentik" ];
         };
+        "authentik/proxy_token" = {
+            hosts = [ "infra-authentik" ];
+        };
     };
 
     sops.templates."authentik.env".content = ''
@@ -31,6 +34,10 @@
 
     sops.templates."authentik-ldap.env".content = ''
         AUTHENTIK_TOKEN=${config.sops.placeholder."authentik/ldap_token"}
+    '';
+
+    sops.templates."authentik-proxy.env".content = ''
+        AUTHENTIK_TOKEN=${config.sops.placeholder."authentik/proxy_token"}
     '';
 
     ensurePaths.folders = {
@@ -83,6 +90,11 @@
         authentik-ldap = {
             enable = true;
             environmentFile = config.sops.templates."authentik-ldap.env".path;
+        };
+
+        authentik-proxy = {
+            enable = true;
+            environmentFile = config.sops.templates."authentik-proxy.env".path;
         };
 
         postgresql.dataDir = "/persistent/postgresql";
