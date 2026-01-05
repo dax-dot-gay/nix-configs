@@ -34,10 +34,14 @@
 
     sops.templates."authentik-ldap.env".content = ''
         AUTHENTIK_TOKEN=${config.sops.placeholder."authentik/ldap_token"}
+        AUTHENTIK_HOST=https://auth.dax.gay
+        AUTHENTIK_INSECURE=False
     '';
 
     sops.templates."authentik-proxy.env".content = ''
         AUTHENTIK_TOKEN=${config.sops.placeholder."authentik/proxy_token"}
+        AUTHENTIK_HOST=https://auth.dax.gay
+        AUTHENTIK_INSECURE=False
     '';
 
     ensurePaths.folders = {
@@ -107,5 +111,6 @@
     networking.firewall.allowedTCPPorts = [
         9000
         9300
+
     ];
 }
