@@ -52,6 +52,7 @@ in
                 };
             }
         ];
+        ensureDatabases = ["nextcloud" "pgadmin"];
     };
 
     services.pgadmin = {
