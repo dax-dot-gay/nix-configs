@@ -36,7 +36,7 @@
         enableTCPIP = true;
         port = 5432;
         initialScript = pkgs.writeText "init-sql-script" ''
-            ALTER ROLE pgadmin WITH PASSWORD 'SCRAM-SHA-256$4096:Sbi3PQwwe/0qHsd2QYj6YA==$ZBvUziT3EkQREAcKBWUAAPWh1pvykCbuMF+d12/U/P8=:TSk68faPT6VPAZ4Tfci/2bnYjIdKbzyKXJmDzYNz/0U=';
+            CREATE ROLE pgadmin WITH LOGIN SUPERUSER PASSWORD 'SCRAM-SHA-256$4096:Sbi3PQwwe/0qHsd2QYj6YA==$ZBvUziT3EkQREAcKBWUAAPWh1pvykCbuMF+d12/U/P8=:TSk68faPT6VPAZ4Tfci/2bnYjIdKbzyKXJmDzYNz/0U=';
         '';
         ensureUsers = [
             {
