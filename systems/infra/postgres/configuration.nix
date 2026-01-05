@@ -19,7 +19,8 @@
             depends = ["/shared"];
             fsType = "fuse.bindfs";
             options = [
-                "mirror=itec:root:postgres:@itec:@root:@postgres"
+                "force-user=postgres"
+                "force-group=postgres"
             ];
         };
     };
