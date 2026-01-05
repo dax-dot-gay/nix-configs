@@ -89,6 +89,8 @@ in
             }
 
             add_header 'Access-Control-Allow-Origin' '*' always;
+            proxy_buffers 8 16k;
+            proxy_buffer_size 32k;
         '';
 
         virtualHosts = {
