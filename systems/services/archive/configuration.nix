@@ -51,11 +51,9 @@
                 SEARCH_BACKEND_HOST_NAME = "sonic";
                 SAVE_ARCHIVEDOTORG = "True";
                 USER_AGENT = "Mozilla/5.0 (compatible; Konqueror/4.3; Linux) KHTML/4.3.1 (like Gecko) Fedora/4.3.1-3.fc11";
-                PUID = toString config.users.users.archivebox.uid;
-                PGID = toString config.users.groups.archivebox.gid;
                 TIMEOUT = "120";
             };
-            user = "archivebox:archivebox";
+            user = "root:root";
             autoStart = true;
         };
 
@@ -73,12 +71,10 @@
                 SEARCH_BACKEND_HOST_NAME = "sonic";
                 SAVE_ARCHIVEDOTORG = "True";
                 USER_AGENT = "Mozilla/5.0 (compatible; Konqueror/4.3; Linux) KHTML/4.3.1 (like Gecko) Fedora/4.3.1-3.fc11";
-                PUID = toString config.users.users.archivebox.uid;
-                PGID = toString config.users.groups.archivebox.gid;
                 TIMEOUT = "120";
             };
             volumes = [ "/shared/systems/services/archive:/data" ];
-            user = "archivebox:archivebox";
+            user = "root:root";
             autoStart = true;
         };
 
