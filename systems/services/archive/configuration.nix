@@ -63,7 +63,7 @@ let hosts = daxlib.hosts; in
                 LDAP_USER_FILTER="(objectClass=user)";
                 LDAP_USERNAME_ATTR="cn";
                 LDAP_FIRSTNAME_ATTR="name";
-                LDAP_LASTNAME_ATTR="givenName";
+                LDAP_LASTNAME_ATTR="name";
                 LDAP_EMAIL_ATTR="mail";
             };
             user = "root:root";

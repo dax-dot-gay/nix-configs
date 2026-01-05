@@ -124,6 +124,10 @@ in
                 hostname = "services-archive";
                 port = 8000;
             };
+            "pgadmin.dax.gay" = mkHost {
+                hostname = "infra-postgres";
+                port = 5050;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;
