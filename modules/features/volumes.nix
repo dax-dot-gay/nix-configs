@@ -158,6 +158,10 @@ in
                     preStop = "umount ${name}";
                     reload = "umount ${name}";
                     wantedBy = [ "multi-user.target" ];
+                    environment = {
+                        TMPDIR = "/run";
+                        RCLONE_TEMP_DIR = "/run";
+                    };
                     path = [
                         pkgs.coreutils-full
                         pkgs.getent
