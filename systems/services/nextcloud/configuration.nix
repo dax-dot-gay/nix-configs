@@ -111,5 +111,8 @@ in
         "/bound/test" = {
             path = "/systems/services/nextcloud";
         };
+        "/bound/test2" = {
+            path = "/systems/services/nextcloud";
+        };
     };
 }
