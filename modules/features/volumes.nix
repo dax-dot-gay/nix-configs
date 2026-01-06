@@ -161,6 +161,9 @@ in
                     environment = {
                         TMPDIR = "/run";
                         RCLONE_TEMP_DIR = "/run";
+                        HOME = "/run";
+                        XDG_CONFIG_HOME = "/run";
+                        RCLONE_CONFIG_DIR = "/run";
                     };
                     path = [
                         pkgs.coreutils-full
