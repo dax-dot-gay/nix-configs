@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
     secrets.secrets = {
         "ssh/peer.pub" = {
@@ -9,6 +9,6 @@
         };
     };
 
-    users.users.root.openssh.authorizedKeys.keyFiles = [ config.sops.secrets."ssh/peer.pub".path ];
-    users.users.itec.openssh.authorizedKeys.keyFiles = [ config.sops.secrets."ssh/peer.pub".path ];
+    users.users.root.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKFsoY66q/ej1AfjYuJ1d2t7RWdKizRi2TCJ73vEP0iq root@lesbos.peer" ];
+    users.users.itec.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKFsoY66q/ej1AfjYuJ1d2t7RWdKizRi2TCJ73vEP0iq root@lesbos.peer" ];
 }
