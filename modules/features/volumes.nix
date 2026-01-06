@@ -99,44 +99,67 @@ in
     config =
         let
             remotes = lib.fold (
-                current: acc: if (lib.hasAttr current.remote.name acc) then acc else acc // {"${current.remote.name}" = current.remote;}
+                current: acc:
+                if (lib.hasAttr current.remote.name acc) then
+                    acc
+                else
+                    acc // { "${current.remote.name}" = current.remote; }
             ) { } (lib.attrValues cfg);
         in
         {
             environment.systemPackages = [ pkgs.rclone ];
-            environment.etc."rclone-volumes.conf".text = concatStringsSep "\n" (mapAttrsToList (name: value: ''
-                [${name}]
-                type = sftp
-                host = ${value.host}
-                port = ${toString value.port}
-                user = ${value.user}
-                key_file = ${value.private_keyfile}
+            environment.etc."rclone-volumes.conf".text = concatStringsSep "\n" (
+                mapAttrsToList (name: value: ''
+                    [${name}]
+                    type = sftp
+                    host = ${value.host}
+                    port = ${toString value.port}
+                    user = ${value.user}
+                    key_file = ${value.private_keyfile}
 
-            '') remotes);
+                '') remotes
+            );
             ensurePaths.folders = mapAttrs (name: value: {
                 mode = value.mode;
                 owner = value.owner;
                 group = value.group;
             }) cfg;
-            fileSystems = mapAttrs (name: value: {
-                device = "${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}";
-                fsType = "rclone";
-                options = [
-                    "nodev"
-                    "nofail"
-                    "exec"
-                    "rw"
-                    "allow_other"
-                    "args2env"
-                    "_netdev"
-                    "vfs-cache-mode=writes"
-                    "cache-dir=/var/rclone"
-                    "config=/etc/rclone-volumes.conf"
-                    "uid=${toString config.users.users.${value.owner}.uid}"
-                    "gid=${toString config.users.groups.${value.group}.gid}"
-                    "umask=${value.umask}"
-                    "temp-dir=/run"
-                ];
+            /*
+              systemd.services = mapAttrs (name: value: {
+                  device = "${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}";
+                  fsType = "rclone";
+                  options = [
+                      "nodev"
+                      "nofail"
+                      "exec"
+                      "rw"
+                      "allow_other"
+                      "args2env"
+                      "_netdev"
+                      "vfs-cache-mode=writes"
+                      "cache-dir=/var/rclone"
+                      "config=/etc/rclone-volumes.conf"
+                      "uid=${toString config.users.users.${value.owner}.uid}"
+                      "gid=${toString config.users.groups.${value.group}.gid}"
+                      "umask=${value.umask}"
+                      "temp-dir=/run"
+                  ];
+              }) cfg;
+            */
+            systemd.services = mapAttrs' (name: value: {
+                name = "volume-${replaceStrings [ "/" ] [ "-" ] name}";
+                value = {
+                    wants = [ "systemd-tmpfiles-setup.service" ];
+                    script = ''
+                        mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} \
+                            -t rclone
+                            -o nodev,nofail,exec,rw,allow_other,args2env,_netdev,vfs-cache-mode=writes,cache-dir=/var/rclone,config=/etc/rclone-volumes.conf,uid=${
+                                toString config.users.users.${value.owner}.uid
+                            },gid=${toString config.users.groups.${value.group}.gid},umask=${value.umask},temp-dir=/run
+                    '';
+                    preStop = "umount ${name}";
+                    reload = "umount ${name}";
+                };
             }) cfg;
         };
 }
