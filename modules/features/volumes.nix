@@ -59,7 +59,7 @@ let
                 };
                 default = { };
             };
-            user = mkOption {
+            owner = mkOption {
                 type = types.str;
                 description = "User to rewrite ownership to locally";
                 default = "root";
@@ -109,6 +109,20 @@ in
         in
         {
             environment.systemPackages = [ pkgs.rclone ];
-            environment.etc."rclone-volumes.conf".text = lib.generators.toJSON {} remotes;
+            environment.etc."rclone-volumes.conf".text = concatStringsSep "\n" (mapAttrsToList (name: value: ''
+                [${name}]
+                type = sftp
+                host = ${value.host}
+                port = ${toString value.port}
+                user = ${value.user}
+                key_file = ${value.private_keyfile}
+                pubkey_file = ${value.public_keyfile}
+                
+            '') remotes);
+            ensurePaths.folders = mapAttrs (name: value: {
+                mode = value.mode;
+                owner = value.owner;
+                group = value.group;
+            }) cfg;
         };
 }
