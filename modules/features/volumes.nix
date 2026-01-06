@@ -109,6 +109,6 @@ in
         in
         {
             environment.systemPackages = [ pkgs.rclone ];
-            environment.etc."rclone-volumes.conf".text = lib.generators.toJSON remotes;
+            environment.etc."rclone-volumes.conf".text = lib.generators.toJSON {} remotes;
         };
 }
