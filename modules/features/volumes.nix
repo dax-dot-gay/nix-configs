@@ -135,6 +135,7 @@ in
                     "uid=${toString config.users.users.${value.owner}.uid}"
                     "gid=${toString config.users.groups.${value.group}.gid}"
                     "umask=${value.umask}"
+                    "temp-dir=/run"
                 ];
             }) cfg;
         };
