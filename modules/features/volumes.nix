@@ -154,7 +154,7 @@ in
                     script = ''
                         rclone mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} --allow-other --vfs-cache-mode writes --cache-dir /var/cache/rclone --config /run/rclone-volumes.conf --uid ${
                             toString config.users.users.${value.owner}.uid
-                        } --gid ${toString config.users.groups.${value.group}.gid} --umask ${value.umask} --temp-dir /tmp
+                        } --gid ${toString config.users.groups.${value.group}.gid} --umask ${value.umask} --temp-dir /tmp -vv
                     '';
                     wantedBy = [ "multi-user.target" ];
                     environment = {
