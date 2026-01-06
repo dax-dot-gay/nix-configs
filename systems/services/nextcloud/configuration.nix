@@ -109,10 +109,10 @@ in
     environment.systemPackages = [pkgs.rclone];
     lesbos.volumes = {
         "/bound/test" = {
-            path = "/systems/services/nextcloud";
+            path = "/data/media";
         };
         "/bound/test2" = {
-            path = "/systems/services/nextcloud";
+            path = "/data/personal";
         };
     };
 }
