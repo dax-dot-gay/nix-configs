@@ -11,6 +11,7 @@
         ./upgrades.nix
         ./ensure_paths.nix
         ./nixpkgs.nix
+        ./openssh-peer.nix
     ];
 
     system.stateVersion = "25.11";

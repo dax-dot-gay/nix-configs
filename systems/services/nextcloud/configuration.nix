@@ -107,4 +107,9 @@ in
 
     services.redis.servers.nextcloud.user = lib.mkForce "root";*/
     environment.systemPackages = [pkgs.rclone];
+    lesbos.volumes = {
+        "/bound/test" = {
+            path = "/systems/services/nextcloud";
+        };
+    };
 }

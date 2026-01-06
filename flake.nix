@@ -212,6 +212,7 @@
                     path = "services/nextcloud";
                     include = [
                         "features/nfs-client.nix"
+                        "features/volumes.nix"
                     ];
                 };
             };
