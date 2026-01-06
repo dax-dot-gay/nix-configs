@@ -7,7 +7,7 @@
 }:
 let
     hosts = daxlib.hosts;
-    apps = builtins.fromJSON ./apps.json;
+    apps = builtins.fromJSON (lib.readFile ./apps.json);
     nextcloudApps =
         names:
         lib.listToAttrs (
