@@ -138,8 +138,8 @@ in
                     "vfs-cache-mode=writes"
                     "cache-dir=/var/rclone"
                     "config=/etc/rclone-volumes.conf"
-                    "uid=${config.users.users.${value.owner}.uid}"
-                    "gid=${config.users.groups.${value.group}.gid}"
+                    "uid=${toString config.users.users.${value.owner}.uid}"
+                    "gid=${toString config.users.groups.${value.group}.gid}"
                     "umask=${value.umask}"
                 ];
             }) cfg;
