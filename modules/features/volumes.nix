@@ -70,12 +70,12 @@ let
                 default = "root";
             };
             umask = mkOption {
-                types = types.strMatching "^[0-7]++$";
+                type = types.strMatching "^[0-7]++$";
                 description = "Umask to rewrite filesystem to locally";
                 default = "027";
             };
             mode = mkOption {
-                types = types.strMatching "^[0-7]++$";
+                type = types.strMatching "^[0-7]++$";
                 description = "File mode of the volume directory when created";
                 default = "750";
             };
