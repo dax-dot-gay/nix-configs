@@ -117,12 +117,31 @@ in
                 user = ${value.user}
                 key_file = ${value.private_keyfile}
                 pubkey_file = ${value.public_keyfile}
-                
+
             '') remotes);
             ensurePaths.folders = mapAttrs (name: value: {
                 mode = value.mode;
                 owner = value.owner;
                 group = value.group;
+            }) cfg;
+            fileSystems = mapAttrs (name: value: {
+                device = "${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}";
+                fsType = "rclone";
+                options = [
+                    "nodev"
+                    "nofail"
+                    "exec"
+                    "rw"
+                    "allow_other"
+                    "args2env"
+                    "_netdev"
+                    "vfs-cache-mode=writes"
+                    "cache-dir=/var/rclone"
+                    "config=/etc/rclone-volumes.conf"
+                    "uid=${config.users.users.${value.owner}.uid}"
+                    "gid=${config.users.groups.${value.group}.gid}"
+                    "umask=${value.umask}"
+                ];
             }) cfg;
         };
 }
