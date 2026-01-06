@@ -50,11 +50,6 @@ let
                             description = "Path to SFTP private key";
                             default = toString config.sops.secrets."ssh/peer.priv".path;
                         };
-                        public_keyfile = mkOption {
-                            type = types.str;
-                            description = "Path to SFTP public key";
-                            default = toString config.sops.secrets."ssh/peer.pub".path;
-                        };
                     };
                 };
                 default = { };
@@ -116,7 +111,6 @@ in
                 port = ${toString value.port}
                 user = ${value.user}
                 key_file = ${value.private_keyfile}
-                pubkey_file = ${value.public_keyfile}
 
             '') remotes);
             ensurePaths.folders = mapAttrs (name: value: {
