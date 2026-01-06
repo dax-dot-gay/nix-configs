@@ -207,6 +207,13 @@
                         "features/nfs-client.nix"
                     ];
                 };
+                services-nextcloud = mkLXC {
+                    hostname = "services-nextcloud";
+                    path = "services/nextcloud";
+                    include = [
+                        "features/nfs-client.nix"
+                    ];
+                };
             };
         };
 }
