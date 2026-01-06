@@ -24,7 +24,7 @@ let
         );
 in
 {
-    secrets.secrets = {
+    /*secrets.secrets = {
         "nextcloud/admin" = { };
         "nextcloud/dbpassword" = { };
         "nextcloud/secret" = { };
@@ -105,5 +105,6 @@ in
         group = lib.mkForce "root";
     };
 
-    services.redis.servers.nextcloud.user = lib.mkForce "root";
+    services.redis.servers.nextcloud.user = lib.mkForce "root";*/
+    environment.systemPackages = [pkgs.rclone];
 }
