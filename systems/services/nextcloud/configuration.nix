@@ -83,11 +83,8 @@ in
             "drawio"
             "files_automatedtagging"
             "groupfolders"
-            "files_markdown"
             "cookbook"
-            "maps"
             "external"
-            "pride_flags"
             "onlyoffice"
             "riotchat"
         ]);
