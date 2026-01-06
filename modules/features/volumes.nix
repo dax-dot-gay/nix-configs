@@ -159,6 +159,7 @@ in
                     '';
                     preStop = "umount ${name}";
                     reload = "umount ${name}";
+                    wantedBy = ["multi-user.target"];
                 };
             }) cfg;
         };
