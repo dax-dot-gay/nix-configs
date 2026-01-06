@@ -46,14 +46,14 @@ let
                             default = "root";
                         };
                         private_keyfile = mkOption {
-                            type = types.path;
+                            type = types.str;
                             description = "Path to SFTP private key";
-                            default = config.sops.secrets."ssh/peer.priv".path;
+                            default = toString config.sops.secrets."ssh/peer.priv".path;
                         };
                         public_keyfile = mkOption {
-                            type = types.path;
+                            type = types.str;
                             description = "Path to SFTP public key";
-                            default = config.sops.secrets."ssh/peer.pub".path;
+                            default = toString config.sops.secrets."ssh/peer.pub".path;
                         };
                     };
                 };
