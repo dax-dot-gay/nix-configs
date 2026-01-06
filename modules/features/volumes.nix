@@ -12,7 +12,7 @@ let
     volume_options = types.submodule {
         options = {
             path = mkOption {
-                type = types.path;
+                type = types.str;
                 description = "The path on the remote within the base directory to mount";
                 default = "/";
             };
@@ -36,7 +36,7 @@ let
                             default = 22;
                         };
                         base_path = mkOption {
-                            type = types.path;
+                            type = types.str;
                             description = "Base path on this remote";
                             default = "/shared";
                         };
