@@ -53,7 +53,7 @@ let
                         public_keyfile = mkOption {
                             type = types.path;
                             description = "Path to SFTP public key";
-                            default = config.sops.secrets."ssh/pub.priv".path;
+                            default = config.sops.secrets."ssh/peer.pub".path;
                         };
                     };
                 };
