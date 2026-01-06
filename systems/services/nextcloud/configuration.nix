@@ -108,11 +108,11 @@ in
     services.redis.servers.nextcloud.user = lib.mkForce "root";*/
     environment.systemPackages = [pkgs.rclone];
     lesbos.volumes = {
-        "/bound/test" = {
-            path = "/data/media";
-        };
-        "/bound/test2" = {
-            path = "/data/personal";
+        "/volumes/nextcloud" = {
+            path = "systems/services/nextcloud";
+            owner = "nextcloud";
+            group = "nextcloud";
+            subpaths = ["data" "home" "skeletons"];
         };
     };
 }

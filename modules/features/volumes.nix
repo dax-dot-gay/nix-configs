@@ -16,6 +16,11 @@ let
                 description = "The path on the remote within the base directory to mount";
                 default = "/";
             };
+            subpaths = mkOption {
+                type = types.listOf types.str;
+                description = "Paths within this folder to create";
+                default = [];
+            };
             remote = mkOption {
                 description = "Configuration of remote";
                 type = types.submodule {
@@ -119,11 +124,20 @@ in
 
                 '') remotes
             );
-            ensurePaths.folders = mapAttrs (name: value: {
-                mode = value.mode;
-                owner = value.owner;
-                group = value.group;
-            }) cfg;
+            ensurePaths.folders = listToAttrs (flatten (mapAttrsToList (name: value: [
+                {
+                    name = name;
+                    value = {
+                        mode = value.mode;
+                        owner = value.owner;
+                        group = value.group;
+                    };
+                }
+            ] ++ map (subpath: {name = "${removeSuffix "/" name}/${removePrefix "/" subpath}"; value = {
+                        mode = value.mode;
+                        owner = value.owner;
+                        group = value.group;
+                    };}) value.subpaths) cfg));
             /*
               systemd.services = mapAttrs (name: value: {
                   device = "${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}";
