@@ -147,7 +147,7 @@ in
               }) cfg;
             */
             systemd.services = mapAttrs' (name: value: {
-                name = "volume-${replaceStrings [ "/" ] [ "-" ] name}";
+                name = "volume-${replaceStrings [ "/" ] [ "-" ] (removePrefix "/" name)}";
                 value = {
                     wants = [ "systemd-tmpfiles-setup.service" ];
                     script = ''
