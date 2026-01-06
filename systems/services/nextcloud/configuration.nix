@@ -36,15 +36,17 @@ in
         "/shared/systems/services/nextcloud/home" = { };
     };
 
+    sops.templates."nc.json".content = ''
+        {"secret": "${config.sops.placeholder."nextcloud/secret"}"}
+    '';
+
     services.nextcloud = {
         enable = true;
         hostName = "nextcloud.dax.gay";
         datadir = "/shared/systems/services/nextcloud/data";
         home = "/shared/systems/services/nextcloud/home";
         skeletonDirectory = "/shared/systems/services/nextcloud/skeletons";
-        secrets = {
-            secret = config.sops.secrets."nextcloud/secret".path;
-        };
+        secretFile = config.sops.templates."nc.json".path;
         config = {
             dbtype = "pgsql";
             dbuser = "nextcloud";
@@ -89,4 +91,19 @@ in
             "riotchat"
         ]);
     };
+
+    systemd.services = {
+        nextcloud-setup.serviceConfig.User = lib.mkForce "root";
+        nextcloud-cron.serviceConfig.User = lib.mkForce "root";
+        nextcloud-update-plugins.serviceConfig.User = lib.mkForce "root";
+        nextcloud-update-db.serviceConfig.User = lib.mkForce "root";
+
+    };
+
+    services.phpfpm.pools.nextcloud = {
+        user = lib.mkForce "root";
+        group = lib.mkForce "root";
+    };
+
+    services.redis.servers.nextcloud.user = lib.mkForce "root";
 }
