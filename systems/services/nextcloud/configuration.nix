@@ -16,7 +16,7 @@ let
                 value = pkgs.fetchNextcloudApp {
                     appName = item;
                     appVersion = apps."${item}".version;
-                    license = builtins.elemAt apps."${item}".licenses 0;
+                    license = "agpl3";
                     sha256 = apps."${item}".hash;
                     url = apps."${item}".url;
                 };
