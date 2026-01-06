@@ -38,7 +38,7 @@ let
                         base_path = mkOption {
                             type = types.str;
                             description = "Base path on this remote";
-                            default = "/shared";
+                            default = "/export/shared";
                         };
                         user = mkOption {
                             type = types.str;
