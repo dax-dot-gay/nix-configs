@@ -151,14 +151,14 @@ in
                 value = {
                     wants = [ "systemd-tmpfiles-setup.service" ];
                     script = ''
-                        mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} \
+                        /run/wrappers/bin/mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} \
                             -t rclone
                             -o nodev,nofail,exec,rw,allow_other,args2env,_netdev,vfs-cache-mode=writes,cache-dir=/var/rclone,config=/etc/rclone-volumes.conf,uid=${
                                 toString config.users.users.${value.owner}.uid
                             },gid=${toString config.users.groups.${value.group}.gid},umask=${value.umask},temp-dir=/run
                     '';
-                    preStop = "umount ${name}";
-                    reload = "umount ${name}";
+                    preStop = "/run/wrappers/bin/umount ${name}";
+                    reload = "/run/wrappers/bin/umount ${name}";
                     wantedBy = ["multi-user.target"];
                 };
             }) cfg;
