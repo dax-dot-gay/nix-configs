@@ -104,7 +104,7 @@ in
     config =
         let
             remotes = lib.fold (
-                current: acc: if (lib.hasAttr current.remote.name) then acc else acc // current.remote
+                current: acc: if (lib.hasAttr current.remote.name acc) then acc else acc // {"${current.remote.name}" = current.remote;}
             ) { } (lib.attrValues cfg);
         in
         {
