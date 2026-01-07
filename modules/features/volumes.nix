@@ -137,6 +137,12 @@ in
 
                         sleep infinity
                     '';
+                    reload = ''
+                        umount ${name}
+                    '';
+                    preStop = ''
+                        umount ${name}
+                    '';
                     wantedBy = [ "multi-user.target" ];
                     environment = {
                         TMPDIR = "/run";
