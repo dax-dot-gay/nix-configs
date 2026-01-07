@@ -19,7 +19,7 @@ let
             subpaths = mkOption {
                 type = types.listOf types.str;
                 description = "Paths within this folder to create";
-                default = [];
+                default = [ ];
             };
             remote = mkOption {
                 description = "Configuration of remote";
@@ -124,20 +124,11 @@ in
 
                 '') remotes
             );
-            ensurePaths.folders = listToAttrs (flatten (mapAttrsToList (name: value: [
-                {
-                    name = name;
-                    value = {
-                        mode = value.mode;
-                        owner = value.owner;
-                        group = value.group;
-                    };
-                }
-            ] ++ map (subpath: {name = "${removeSuffix "/" name}/${removePrefix "/" subpath}"; value = {
-                        mode = value.mode;
-                        owner = value.owner;
-                        group = value.group;
-                    };}) value.subpaths) cfg));
+            ensurePaths.folders = mapAttrs (name: value: {
+                mode = value.mode;
+                owner = value.owner;
+                group = value.group;
+            }) cfg;
             /*
               systemd.services = mapAttrs (name: value: {
                   device = "${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}";
@@ -168,6 +159,7 @@ in
                     script = ''
                         bash -c "rclone mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} --allow-other --vfs-cache-mode writes --cache-dir /var/cache/rclone --config /run/rclone-volumes.conf --uid $(id -u ${value.owner}) --gid $(id -g ${value.group}) --umask ${value.umask} --temp-dir /tmp -vv"
                     '';
+                    postStart = concatStringsSep "\n" (map (subpath: "mkdir -p ${removeSuffix "/" name}/${removePrefix "/" subpath}") value.subpaths);
                     wantedBy = [ "multi-user.target" ];
                     environment = {
                         TMPDIR = "/run";
