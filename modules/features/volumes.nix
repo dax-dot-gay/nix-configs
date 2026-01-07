@@ -161,7 +161,7 @@ in
 
                         ${concatStringsSep "\n" (map (subpath: "mkdir -p ${removeSuffix "/" name}/${removePrefix "/" subpath}") value.subpaths)}
 
-                        bash
+                        sleep infinity
                     '';
                     wantedBy = [ "multi-user.target" ];
                     environment = {
