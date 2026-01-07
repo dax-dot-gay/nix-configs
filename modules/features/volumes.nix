@@ -69,14 +69,9 @@ let
                 description = "Group to rewrite ownership to locally";
                 default = "root";
             };
-            umask = mkOption {
-                type = types.strMatching "^[0-7]++$";
-                description = "Umask to rewrite filesystem to locally";
-                default = "027";
-            };
             mode = mkOption {
                 type = types.strMatching "^[0-7]++$";
-                description = "File mode of the volume directory when created";
+                description = "File mode of the volume directory and all internal files";
                 default = "750";
             };
         };
@@ -135,9 +130,10 @@ in
                     wants = [ "systemd-tmpfiles-setup.service" ];
                     preStart = "cp /etc/static/rclone-volumes.conf /run/rclone-volumes.conf";
                     script = ''
-                        rclone mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} --daemon --allow-other --vfs-cache-mode writes --cache-dir /var/cache/rclone --config /run/rclone-volumes.conf --uid $(id -u ${value.owner}) --gid $(id -g ${value.group}) --umask ${value.umask} --temp-dir /tmp -vv --log-file /run/rclone.volumes.log
+                        rclone mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} --daemon --allow-other --vfs-cache-mode writes --cache-dir /var/cache/rclone --config /run/rclone-volumes.conf --uid $(id -u ${value.owner}) --gid $(id -g ${value.group}) --temp-dir /tmp -vv --log-file /run/rclone.volumes.log
 
                         ${concatStringsSep "\n" (map (subpath: "mkdir -p ${removeSuffix "/" name}/${removePrefix "/" subpath}") value.subpaths)}
+                        chmod -R ${value.mode} ${name}
 
                         sleep infinity
                     '';
