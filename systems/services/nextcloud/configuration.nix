@@ -99,6 +99,7 @@ in
                 "data"
                 "home"
                 "skeletons"
+                "config"
             ];
         };
     };
