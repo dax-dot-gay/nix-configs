@@ -38,8 +38,7 @@ in
     services.nextcloud = {
         enable = true;
         hostName = "nextcloud.dax.gay";
-        datadir = "/volumes/nextcloud/data";
-        home = "/volumes/nextcloud/home";
+        home = "/volumes/nextcloud";
         skeletonDirectory = "/volumes/nextcloud/skeletons";
         secretFile = config.sops.templates."nc.json".path;
         config = {
@@ -96,8 +95,6 @@ in
             group = "nextcloud";
             mode = "775";
             subpaths = [
-                "data"
-                "home"
                 "skeletons"
                 "config"
             ];
