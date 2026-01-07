@@ -119,16 +119,15 @@ in
 
                 '') remotes
             );
-            ensurePaths.folders = mapAttrs (name: value: {
-                mode = value.mode;
-                owner = value.owner;
-                group = value.group;
-            }) cfg;
             systemd.services = mapAttrs' (name: value: {
                 name = "volume-${replaceStrings [ "/" ] [ "-" ] (removePrefix "/" name)}";
                 value = {
-                    wants = [ "systemd-tmpfiles-setup.service" ];
-                    preStart = "cp /etc/static/rclone-volumes.conf /run/rclone-volumes.conf";
+                    preStart = ''
+                        cp /etc/static/rclone-volumes.conf /run/rclone-volumes.conf
+                        mkdir -p ${name}
+                        chmod -R ${value.mode} ${name}
+                        chown -R ${value.owner}:${value.group} ${name}
+                    '';
                     script = ''
                         rclone mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} --daemon --allow-other --vfs-cache-mode writes --cache-dir /var/cache/rclone --config /run/rclone-volumes.conf --uid $(id -u ${value.owner}) --gid $(id -g ${value.group}) --temp-dir /tmp -vv --log-file /run/rclone.volumes.log
 
@@ -143,7 +142,7 @@ in
                     preStop = ''
                         umount ${name}
                     '';
-                    wantedBy = [ "multi-user.target" ];
+                    wantedBy = [ "multi-user.target" "systemd-tmpfiles-setup.service" "systemd-tmpfiles-resetup.service" ];
                     environment = {
                         TMPDIR = "/run";
                         RCLONE_TEMP_DIR = "/run";
