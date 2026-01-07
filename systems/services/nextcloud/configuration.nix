@@ -93,7 +93,7 @@ in
             path = "systems/services/nextcloud";
             owner = "nextcloud";
             group = "nextcloud";
-            mode = "775";
+            mode = "770";
             subpaths = [
                 "skeletons"
                 "config"
