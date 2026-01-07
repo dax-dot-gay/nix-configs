@@ -94,6 +94,7 @@ in
             owner = "nextcloud";
             group = "nextcloud";
             mode = "770";
+            umask = "007";
             subpaths = [
                 "skeletons"
                 "config"
