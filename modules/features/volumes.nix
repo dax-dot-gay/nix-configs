@@ -129,28 +129,6 @@ in
                 owner = value.owner;
                 group = value.group;
             }) cfg;
-            /*
-              systemd.services = mapAttrs (name: value: {
-                  device = "${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}";
-                  fsType = "rclone";
-                  options = [
-                      "nodev"
-                      "nofail"
-                      "exec"
-                      "rw"
-                      "allow_other"
-                      "args2env"
-                      "_netdev"
-                      "vfs-cache-mode=writes"
-                      "cache-dir=/var/rclone"
-                      "config=/etc/rclone-volumes.conf"
-                      "uid=${toString config.users.users.${value.owner}.uid}"
-                      "gid=${toString config.users.groups.${value.group}.gid}"
-                      "umask=${value.umask}"
-                      "temp-dir=/run"
-                  ];
-              }) cfg;
-            */
             systemd.services = mapAttrs' (name: value: {
                 name = "volume-${replaceStrings [ "/" ] [ "-" ] (removePrefix "/" name)}";
                 value = {
