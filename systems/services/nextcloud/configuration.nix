@@ -24,16 +24,11 @@ let
         );
 in
 {
-    /*secrets.secrets = {
+    
+    secrets.secrets = {
         "nextcloud/admin" = { };
         "nextcloud/dbpassword" = { };
         "nextcloud/secret" = { };
-    };
-
-    ensurePaths.folders = {
-        "/shared/systems/services/nextcloud/skeletons" = { };
-        "/shared/systems/services/nextcloud/data" = { };
-        "/shared/systems/services/nextcloud/home" = { };
     };
 
     sops.templates."nc.json".content = ''
@@ -43,9 +38,8 @@ in
     services.nextcloud = {
         enable = true;
         hostName = "nextcloud.dax.gay";
-        datadir = "/shared/systems/services/nextcloud/data";
-        home = "/shared/systems/services/nextcloud/home";
-        skeletonDirectory = "/shared/systems/services/nextcloud/skeletons";
+        home = "/volumes/nextcloud";
+        skeletonDirectory = "/volumes/nextcloud/skeletons";
         secretFile = config.sops.templates."nc.json".path;
         config = {
             dbtype = "pgsql";
@@ -62,6 +56,7 @@ in
         settings.overwriteprotocol = "https";
         package = pkgs.nextcloud32;
         extraAppsEnable = true;
+        appstoreEnable = false;
         extraApps = {
             inherit (pkgs.nextcloud32Packages.apps)
                 news
@@ -91,20 +86,18 @@ in
             "riotchat"
         ]);
     };
-
-    systemd.services = {
-        nextcloud-setup.serviceConfig.User = lib.mkForce "root";
-        nextcloud-cron.serviceConfig.User = lib.mkForce "root";
-        nextcloud-update-plugins.serviceConfig.User = lib.mkForce "root";
-        nextcloud-update-db.serviceConfig.User = lib.mkForce "root";
-
+    
+    environment.systemPackages = [ pkgs.rclone ];
+    lesbos.volumes = {
+        "/volumes/nextcloud" = {
+            path = "systems/services/nextcloud";
+            owner = "nextcloud";
+            group = "nextcloud";
+            mode = "775";
+            subpaths = [
+                "skeletons"
+                "config"
+            ];
+        };
     };
-
-    services.phpfpm.pools.nextcloud = {
-        user = lib.mkForce "root";
-        group = lib.mkForce "root";
-    };
-
-    services.redis.servers.nextcloud.user = lib.mkForce "root";*/
-    environment.systemPackages = [pkgs.rclone];
 }
