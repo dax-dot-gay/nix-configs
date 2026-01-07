@@ -94,6 +94,7 @@ in
             path = "systems/services/nextcloud";
             owner = "nextcloud";
             group = "nextcloud";
+            mode = "775";
             subpaths = [
                 "data"
                 "home"
