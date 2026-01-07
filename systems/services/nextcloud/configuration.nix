@@ -57,6 +57,7 @@ in
         settings.overwriteprotocol = "https";
         package = pkgs.nextcloud32;
         extraAppsEnable = true;
+        appstoreEnable = false;
         extraApps = {
             inherit (pkgs.nextcloud32Packages.apps)
                 news
