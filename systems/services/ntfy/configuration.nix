@@ -46,7 +46,7 @@
             NTFY_PASSWORD=$(echo ${config.sops.secrets."ntfy/pass".path})
 
             set +e
-            ntfy user add --role=admin --auth-file /vol/ntfy/auth.db $NTFY_USER
+            ntfy user --auth-file /vol/ntfy/auth.db add --role=admin $NTFY_USER
         '';
         path = [pkgs.ntfy-sh];
     };
