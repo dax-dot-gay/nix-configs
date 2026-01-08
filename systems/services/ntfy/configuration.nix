@@ -35,6 +35,7 @@
             enable-login = true;
             enable-reservations = true;
             require-login = true;
+            log-level = "trace";
         };
     };
     systemd.services."ntfy-sh" = {
