@@ -170,6 +170,9 @@ in
                         ''
                         + preflight;
                     };
+                    "/" = {
+                        return = "301 https://github.com/dax-dot-gay";
+                    };
                 };
             };
         };
