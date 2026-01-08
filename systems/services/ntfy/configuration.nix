@@ -25,7 +25,6 @@
         settings = {
             base-url = "https://ntfy.dax.gay";
             listen-http = "0.0.0.0:2586";
-            cache-file = "/vol/ntfy/cache.db";
             auth-file = "/vol/ntfy/auth.db";
             auth-default-access = "deny-all";
             behind-proxy = true;
