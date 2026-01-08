@@ -48,5 +48,6 @@
             set +e
             ntfy user add --role=admin --auth-file /vol/ntfy/auth.db $NTFY_USER
         '';
+        path = [pkgs.ntfy-sh];
     };
 }
