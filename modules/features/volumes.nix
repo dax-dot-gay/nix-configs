@@ -129,9 +129,12 @@ in
                 value = {
                     preStart = ''
                         cp /etc/static/rclone-volumes.conf /run/rclone-volumes.conf
+                        
+                        set +e
                         mkdir -p ${name}
                         chmod -R ${value.mode} ${name}
                         chown -R ${value.owner}:${value.group} ${name}
+                        set -e
 
                         ssh -o "StrictHostKeyChecking=no" -i ${value.remote.keyfile} -p ${toString value.remote.port} ${value.remote.user}@${value.remote.host} mkdir -p ${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}
                     '';
