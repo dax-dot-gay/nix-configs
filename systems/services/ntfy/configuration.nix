@@ -28,6 +28,7 @@
             Group = "ntfy";
         };
         script = ''
+            ls /vol/ntfy
             sqlite3 --batch /vol/ntfy/cache.db
             sqlite3 --batch /vol/ntfy/auth.db
         '';
