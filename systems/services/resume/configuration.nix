@@ -92,6 +92,7 @@ in
                 STORAGE_BUCKET = "default";
                 STORAGE_USE_SSL = "false";
                 STORAGE_SKIP_BUCKET_CHECK = "false";
+                DISABLE_SIGNUPS = "true";
             };
             environmentFiles = [ "${config.sops.templates."resume.env".path}" ];
         };
