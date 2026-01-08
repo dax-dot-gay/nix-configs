@@ -52,4 +52,9 @@
             require-login = true;
         };
     };
+    systemd.services."ntfy-sh" = {
+        serviceConfig = {
+            ReadWritePaths = ["/vol/ntfy"];
+        };
+    };
 }
