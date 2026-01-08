@@ -36,7 +36,7 @@ in
         '';
         "resume.env".content = ''
             CHROME_TOKEN=${config.sops.placeholder."resume-maker/token"}
-            DATABASE_URL=postgresql://${config.sops.placeholder."resume-maker/postgres/user"};${
+            DATABASE_URL=postgresql://${config.sops.placeholder."resume-maker/postgres/user"}:${
                 config.sops.placeholder."resume-maker/postgres/pass"
             }@${hosts.ip "infra-database"}:5432/resume-maker
             ACCESS_TOKEN_SECRET=${config.sops.placeholder."resume-maker/access_secret"}
