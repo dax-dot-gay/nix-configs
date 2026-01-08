@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
     lesbos.system_users.ntfy = { };
     lesbos.volumes."/vol/ntfy" = {
@@ -18,6 +18,7 @@
         };
     };
     networking.firewall.allowedTCPPorts = [ 2586 ];
+    environment.systemPackages = [pkgs.sqlite];
     services.ntfy-sh = {
         enable = true;
         user = "ntfy";
