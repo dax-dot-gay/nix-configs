@@ -50,7 +50,7 @@ let
                             description = "Remote user to mount as";
                             default = "root";
                         };
-                        private_keyfile = mkOption {
+                        keyfile = mkOption {
                             type = types.str;
                             description = "Path to SFTP private key";
                             default = toString config.sops.secrets."ssh/peer.priv".path;
@@ -120,7 +120,7 @@ in
                     host = ${value.host}
                     port = ${toString value.port}
                     user = ${value.user}
-                    key_file = ${value.private_keyfile}
+                    key_file = ${value.keyfile}
 
                 '') remotes
             );
@@ -132,6 +132,8 @@ in
                         mkdir -p ${name}
                         chmod -R ${value.mode} ${name}
                         chown -R ${value.owner}:${value.group} ${name}
+
+                        ssh -i ${value.remote.keyfile} -p ${value.remote.port} ${value.remote.user}@${value.remote.host} mkdir -p ${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}
                     '';
                     script = ''
                         rclone mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} --daemon --allow-other --vfs-cache-mode writes --cache-dir /var/cache/rclone --config /run/rclone-volumes.conf --uid $(id -u ${value.owner}) --gid $(id -g ${value.group}) --umask ${value.umask} --temp-dir /tmp -vv --log-file /run/rclone.volumes.log --allow-non-empty

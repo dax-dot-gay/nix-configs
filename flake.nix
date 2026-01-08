@@ -215,6 +215,14 @@
                         "features/volumes.nix"
                     ];
                 };
+                services-resume = mkLXC {
+                    hostname = "services-resume";
+                    path = "services/resume";
+                    include = [
+                        "features/volumes.nix"
+                        "features/podman.nix"
+                    ];
+                };
             };
         };
 }
