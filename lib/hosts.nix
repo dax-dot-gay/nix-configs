@@ -22,6 +22,7 @@ let
         services-archive = mkHost "services-archive" 29;
         services-nextcloud = mkHost "services-nextcloud" 30;
         services-resume = mkHost "services-resume" 31;
+        services-ntfy = mkHost "services-ntfy" 32;
     };
 in
 {

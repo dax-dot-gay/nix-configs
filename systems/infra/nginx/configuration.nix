@@ -128,6 +128,10 @@ in
                 hostname = "infra-database";
                 port = 5050;
             };
+            "ntfy.dax.gay" = mkHost {
+                hostname = "services-ntfy";
+                port = 2586;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;

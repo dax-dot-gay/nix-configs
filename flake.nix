@@ -223,6 +223,13 @@
                         "features/podman.nix"
                     ];
                 };
+                services-ntfy = mkLXC {
+                    hostname = "services-ntfy";
+                    path = "services/ntfy";
+                    include = [
+                        "features/volumes.nix"
+                    ];
+                };
             };
         };
 }
