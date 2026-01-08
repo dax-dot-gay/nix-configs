@@ -41,5 +41,12 @@
         serviceConfig = {
             ReadWritePaths = ["/vol/ntfy"];
         };
+        postStart = ''
+            NTFY_USER=$(echo ${config.sops.secrets."ntfy/user".path})
+            NTFY_PASSWORD=$(echo ${config.sops.secrets."ntfy/pass".path})
+
+            set +e
+            ntfy user add --role=admin --auth-file /vol/ntfy/auth.db $NTFY_USER
+        '';
     };
 }
