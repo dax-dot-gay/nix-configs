@@ -19,21 +19,6 @@
     };
     networking.firewall.allowedTCPPorts = [ 2586 ];
     environment.systemPackages = [pkgs.sqlite];
-    systemd.services."ensure-setup" = {
-        wantedBy = ["ntfy-sh.service"];
-        wants = ["vol-ntfy.mount"];
-        serviceConfig = {
-            Type = "oneshot";
-            User = "ntfy";
-            Group = "ntfy";
-        };
-        script = ''
-            set +e
-            sqlite3 /vol/ntfy/cache.db ".save /vol/ntfy/cache.db"
-            sqlite3 /vol/ntfy/auth.db ".save /vol/ntfy/auth.db"
-        '';
-        path = [pkgs.sqlite];
-    };
     services.ntfy-sh = {
         enable = true;
         user = "ntfy";
