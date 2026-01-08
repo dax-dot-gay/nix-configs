@@ -11,7 +11,7 @@ in
 {
     options = {
         lesbos.system_users = mkOption {
-            type = types.attrsOf types.submodule (
+            type = types.attrsOf (types.submodule (
                 { config, ... }:
                 {
                     options = {
@@ -32,7 +32,7 @@ in
                         };
                     };
                 }
-            );
+            ));
         };
     };
 
