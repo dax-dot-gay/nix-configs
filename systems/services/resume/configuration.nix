@@ -10,43 +10,17 @@ in
     lesbos.volumes = {
         "/vol/resume-maker" = {
             path = "systems/services/resume-maker";
-            owner = "resume-maker";
-            group = "resume-maker";
             mode = "777";
         };
     };
-    lesbos.system_users = {
-        "resume-maker" = { };
-    };
     secrets.secrets = {
-        "resume-maker/minio/user" = {
-            owner = "resume-maker";
-            group = "resume-maker";
-        };
-        "resume-maker/minio/pass" = {
-            owner = "resume-maker";
-            group = "resume-maker";
-        };
-        "resume-maker/postgres/user" = {
-            owner = "resume-maker";
-            group = "resume-maker";
-        };
-        "resume-maker/postgres/pass" = {
-            owner = "resume-maker";
-            group = "resume-maker";
-        };
-        "resume-maker/token" = {
-            owner = "resume-maker";
-            group = "resume-maker";
-        };
-        "resume-maker/access_secret" = {
-            owner = "resume-maker";
-            group = "resume-maker";
-        };
-        "resume-maker/refresh_secret" = {
-            owner = "resume-maker";
-            group = "resume-maker";
-        };
+        "resume-maker/minio/user" = {};
+        "resume-maker/minio/pass" = {};
+        "resume-maker/postgres/user" = {};
+        "resume-maker/postgres/pass" = {};
+        "resume-maker/token" = {};
+        "resume-maker/access_secret" = {};
+        "resume-maker/refresh_secret" = {};
     };
     sops.templates = {
         "minio.env".content = ''
@@ -85,7 +59,7 @@ in
             ];
             ports = [ "0.0.0.0:9000:9000" ];
             volumes = [ "/vol/resume-maker:/data:rw" ];
-            user = "resume-maker:resume-maker";
+            user = "root:root";
             environmentFiles = [ "${config.sops.templates."minio.env".path}" ];
         };
         chrome = {
@@ -95,6 +69,7 @@ in
                 "--add-host=host.containers.internal:host-gateway"
             ];
             environmentFiles = [ "${config.sops.templates."chrome.env".path}" ];
+            user = "root:root";
         };
         resume-maker = {
             image = "amruthpillai/reactive-resume:latest";
@@ -104,6 +79,7 @@ in
                 "minio"
                 "chrome"
             ];
+            user = "root:root";
             environment = {
                 PORT = "3000";
                 NODE_ENV = "production";
