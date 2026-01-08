@@ -19,6 +19,20 @@
     };
     networking.firewall.allowedTCPPorts = [ 2586 ];
     environment.systemPackages = [pkgs.sqlite];
+    systemd.services."ensure-setup" = {
+        wantedBy = ["multi-user.target"];
+        wants = ["vol-ntfy.mount"];
+        serviceConfig = {
+            Type = "oneshot";
+            User = "ntfy";
+            Group = "ntfy";
+        };
+        script = ''
+            sqlite3 --batch /vol/ntfy/cache.db
+            sqlite3 --batch /vol/ntfy/auth.db
+        '';
+        path = [pkgs.sqlite];
+    };
     services.ntfy-sh = {
         enable = true;
         user = "ntfy";
@@ -27,6 +41,7 @@
             base-url = "https://ntfy.dax.gay";
             listen-http = "0.0.0.0:2586";
             auth-file = "/vol/ntfy/auth.db";
+            cache-file = "/vol/ntfy/cache.db";
             auth-default-access = "deny-all";
             behind-proxy = true;
             attachment-cache-dir = "/vol/ntfy/attachments";
