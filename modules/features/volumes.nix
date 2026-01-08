@@ -139,19 +139,22 @@ in
                         ssh -o "StrictHostKeyChecking=no" -i ${value.remote.keyfile} -p ${toString value.remote.port} ${value.remote.user}@${value.remote.host} mkdir -p ${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path}
                     '';
                     script = ''
+                        set +e
+                        fusermount -u ${name}
                         rclone mount ${value.remote.name}:${removeSuffix "/" value.remote.base_path}/${removePrefix "/" value.path} ${name} --daemon --allow-other --vfs-cache-mode writes --cache-dir /var/cache/rclone --config /run/rclone-volumes.conf --uid $(id -u ${value.owner}) --gid $(id -g ${value.group}) --umask ${value.umask} --temp-dir /tmp -vv --log-file /run/rclone.volumes.log --allow-non-empty
 
-                        set +e
                         ${concatStringsSep "\n" (map (subpath: "mkdir -p ${removeSuffix "/" name}/${removePrefix "/" subpath}") value.subpaths)}
                         chmod -R ${value.mode} ${name}
                         set -e
                         sleep infinity
                     '';
                     reload = ''
-                        umount ${name}
+                        set +e
+                        fusermount -u ${name}
                     '';
                     preStop = ''
-                        umount ${name}
+                        set +e
+                        fusermount -u ${name}
                     '';
                     wantedBy = [ "multi-user.target" "systemd-tmpfiles-setup.service" "systemd-tmpfiles-resetup.service" ];
                     environment = {
@@ -169,6 +172,7 @@ in
                         pkgs.umount
                         pkgs.openssh
                         pkgs.bash
+                        pkgs.fuse
                     ];
                 };
             }) cfg;
