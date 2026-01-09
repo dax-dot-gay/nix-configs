@@ -23,5 +23,5 @@
 
     networking.firewall.enable = false;
 
-    environment.systemPackages = [ pkgs.rclone ];
+    environment.systemPackages = [ pkgs.rclone pkgs.xz pkgs.unzip pkgs.zip ];
 }
