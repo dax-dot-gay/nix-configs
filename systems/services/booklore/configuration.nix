@@ -2,11 +2,11 @@
 {
     lesbos = {
         volumes."/vol/booklore" = {
-            path = "systems/services/booklore";
-            subpaths = [
-                "data"
-                "mysql"
-            ];
+            path = "systems/services/booklore/data";
+        };
+        volumes."/vol/mysql" = {
+            path = "systems/services/booklore/mysql";
+            mode = "750";
         };
         volumes."/vol/bookdrop" = {
             path = "data/media/Library/booklore/bookdrop";
