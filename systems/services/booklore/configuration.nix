@@ -1,43 +1,22 @@
 { config, ... }:
-let
-    uid = toString config.lesbos.system_users.booklore.uid;
-    gid = toString config.lesbos.system_users.booklore.gid;
-in
 {
     lesbos = {
-        system_users.booklore = {
-            uid = 981;
-            gid = 981;
-        };
         volumes."/vol/booklore" = {
             path = "systems/services/booklore";
             subpaths = [
                 "data"
                 "mysql"
             ];
-            owner = "booklore";
-            group = "booklore";
-            mode = "777";
         };
         volumes."/vol/bookdrop" = {
             path = "data/media/Library/booklore/bookdrop";
-            owner = "booklore";
-            group = "booklore";
-            mode = "777";
         };
         volumes."/vol/library" = {
             path = "data/media/Library/booklore/library";
-            owner = "booklore";
-            group = "booklore";
-            mode = "777";
         };
     };
 
-    secrets.secrets."booklore/db_password" = {
-        owner = "booklore";
-        group = "booklore";
-        mode = "777";
-    };
+    secrets.secrets."booklore/db_password" = {};
     sops.templates."booklore.env".content = ''
         DATABASE_PASSWORD=${config.sops.placeholder."booklore/db_password"}
     '';
@@ -58,11 +37,11 @@ in
                 "/vol/library:/books"
                 "/vol/bookdrop:/bookdrop"
             ];
-            user = "${uid}:${gid}";
+            user = "root:root";
             environmentFiles = [ config.sops.templates."booklore.env".path ];
             environment = {
-                USER_ID = uid;
-                GROUP_ID = gid;
+                USER_ID = "0";
+                GROUP_ID = "0";
                 TZ = "US/Eastern";
                 DATABASE_URL = "jdbc:mariadb://mariadb:3306/booklore";
                 DATABASE_USERNAME = "booklore";
@@ -75,10 +54,10 @@ in
             autoStart = true;
             volumes = [ "/vol/booklore/mysql:/config" ];
             environmentFiles = [ config.sops.templates."mysql.env".path ];
-            user = "${uid}:${gid}";
+            user = "root:root";
             environment = {
-                PUID = uid;
-                PGID = gid;
+                PUID = "0";
+                PGID = "0";
                 TZ = "US/Eastern";
                 MYSQL_DATABASE = "booklore";
                 MYSQL_USER = "booklore";
