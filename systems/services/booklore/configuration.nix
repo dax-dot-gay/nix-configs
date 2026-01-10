@@ -7,6 +7,7 @@
         volumes."/vol/mysql" = {
             path = "systems/services/booklore/mysql";
             mode = "750";
+            umask = "007";
         };
         volumes."/vol/bookdrop" = {
             path = "data/media/Library/booklore/bookdrop";
