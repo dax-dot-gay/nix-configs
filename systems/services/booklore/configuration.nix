@@ -63,7 +63,7 @@
                 MYSQL_DATABASE = "booklore";
                 MYSQL_USER = "booklore";
             };
-            extraOptions = ["--health-cmd='[\"CMD\", \"mariadb-admin\", \"ping\", \"-h\", \"localhost\"]'"];
+            extraOptions = ["--health-cmd='[\"mariadb-admin\", \"ping\", \"-h\", \"localhost\"]'"];
             podman.sdnotify = "healthy";
         };
     };
