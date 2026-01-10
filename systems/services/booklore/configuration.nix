@@ -14,6 +14,11 @@
         };
         volumes."/vol/library" = {
             path = "data/media/Library/booklore/library";
+            subpaths = [
+                "primary"
+                "academic_archive"
+                "manuals"
+            ];
         };
     };
 
