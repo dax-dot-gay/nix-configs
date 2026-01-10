@@ -33,7 +33,7 @@
             dependsOn = [ "mariadb" ];
             ports = [ "0.0.0.0:6060:6060" ];
             volumes = [
-                "/vol/booklore/data:/app/data"
+                "/vol/booklore:/app/data"
                 "/vol/library:/books"
                 "/vol/bookdrop:/bookdrop"
             ];
@@ -52,7 +52,7 @@
         mariadb = {
             image = "lscr.io/linuxserver/mariadb:11.4.5";
             autoStart = true;
-            volumes = [ "/vol/booklore/mysql:/config" ];
+            volumes = [ "/vol/mysql:/config" ];
             environmentFiles = [ config.sops.templates."mysql.env".path ];
             user = "root:root";
             environment = {
