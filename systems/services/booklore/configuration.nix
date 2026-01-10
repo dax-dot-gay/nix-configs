@@ -16,6 +16,7 @@
             path = "data/media/Library/booklore/library";
             subpaths = [
                 "primary"
+                "comics"
                 "academic_archive"
                 "manuals"
             ];
