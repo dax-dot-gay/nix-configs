@@ -230,6 +230,14 @@
                         "features/volumes.nix"
                     ];
                 };
+                services-booklore = mkLXC {
+                    hostname = "services-booklore";
+                    path = "services/booklore";
+                    include = [
+                        "features/volumes.nix"
+                        "features/podman.nix"
+                    ];
+                };
             };
         };
 }

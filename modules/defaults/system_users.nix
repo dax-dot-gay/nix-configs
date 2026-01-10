@@ -30,6 +30,16 @@ in
                             default = [ ];
                             description = "Extra groups to add this user to";
                         };
+                        uid = mkOption {
+                            type = types.nullOr types.int;
+                            default = null;
+                            description = "Force UID";
+                        };
+                        gid = mkOption {
+                            type = types.nullOr types.int;
+                            default = null;
+                            description = "Force GID";
+                        };
                     };
                 }
             ));
@@ -44,10 +54,11 @@ in
             home = value.home;
             group = value.group;
             extraGroups = value.extra_groups;
+            uid = value.uid;
         }) cfg;
         users.groups = mapAttrs' (name: value: {
             name = value.group;
-            value = { };
+            value = { gid = value.gid; };
         }) cfg;
     };
 }

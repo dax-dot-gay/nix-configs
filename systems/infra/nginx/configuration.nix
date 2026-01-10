@@ -92,7 +92,7 @@ in
             proxy_buffers 8 512k;
             proxy_buffer_size 256k;
             proxy_busy_buffers_size 512k;
-            large_client_header_buffers 4 256k;
+            large_client_header_buffers 8 256k;
         '';
 
         virtualHosts = {
@@ -104,7 +104,7 @@ in
                 hostname = "services-romm";
                 port = 8080;
             };
-            "ebooks.dax.gay" = mkHost {
+            "kavita.dax.gay" = mkHost {
                 hostname = "services-kavita";
                 port = 5000;
             };
