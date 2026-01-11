@@ -50,6 +50,7 @@
                 DATABASE_URL = "jdbc:mariadb://mariadb:3306/booklore";
                 DATABASE_USERNAME = "booklore";
                 BOOKLORE_PORT = "6060";
+                SWAGGER_ENABLED = "true";
             };
             autoStart = true;
         };
