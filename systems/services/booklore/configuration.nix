@@ -4,11 +4,6 @@
         volumes."/vol/booklore" = {
             path = "systems/services/booklore/data";
         };
-        volumes."/vol/mysql" = {
-            path = "systems/services/booklore/mysql";
-            mode = "750";
-            umask = "007";
-        };
         volumes."/vol/bookdrop" = {
             path = "data/media/Library/booklore/bookdrop";
         };
@@ -22,6 +17,8 @@
             ];
         };
     };
+
+    ensurePaths.folders."/persistent/mysql" = {mode = "750";};
 
     secrets.secrets."booklore/db_password" = {};
     sops.templates."booklore.env".content = ''
@@ -59,7 +56,7 @@
         mariadb = {
             image = "lscr.io/linuxserver/mariadb:11.4.5";
             autoStart = true;
-            volumes = [ "/vol/mysql:/config" ];
+            volumes = [ "/persistent/mysql:/config" ];
             environmentFiles = [ config.sops.templates."mysql.env".path ];
             user = "root:root";
             environment = {
