@@ -3,6 +3,8 @@
     lesbos = {
         volumes."/vol/booklore" = {
             path = "systems/services/booklore/data";
+            mode = "777";
+            umask = "000";
         };
         volumes."/vol/bookdrop" = {
             path = "data/media/Library/booklore/bookdrop";
