@@ -22,7 +22,8 @@
         "/shared/systems/services/arr/prowlarr" = { };
         "/shared/systems/services/arr/radarr" = { };
         "/shared/systems/services/arr/sonarr" = { };
-        "/shared/systems/services/arr/deemix" = { };
+        "/shared/systems/services/arr/lidarr" = { };
+        "/shared/systems/services/arr/lidatube" = {};
     };
 
     networking.firewall.enable = false;

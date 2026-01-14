@@ -37,7 +37,8 @@
       "7878:7878/tcp"
       "5055:5055/tcp"
       "9696:9696/tcp"
-      "6595:6595/tcp"
+      "8686:8686/tcp" # Lidarr
+      "5000:5000/tcp" # Lidatube
     ];
     labels = {
       "compose2nix.settings.sops.secrets" = "arr/gluetun.env";
@@ -258,22 +259,20 @@
       "podman-compose-arrs-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."deemix" = {
-    image = "ghcr.io/bambanah/deemix:latest";
+  virtualisation.oci-containers.containers."lidarr" = {
+    image = "lscr.io/linuxserver/lidarr:latest";
     environment = {
       "TZ" = "America/New_York";
-      DEEMIX_SERVER_PORT = "6595";
-      DEEMIX_SINGLE_USER = "true";
-      PUID = "0";
-      PGID = "0";
-      DISABLE_OWNERSHIP_CHECK = "true";
     };
     volumes = [
-      "/shared/data/media/Music:/downloads:rw"
-      "/shared/systems/services/arr/deemix:/config:rw"
+      "/shared/data/media/Music:/music:rw"
+      "/shared/systems/services/arr/deluge/downloads:/downloads:rw"
+      "/shared/systems/services/arr/lidarr:/config:rw"
     ];
     dependsOn = [
       "arrs-gluetun"
+      "deluge"
+      "lidatube"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -281,7 +280,43 @@
     ];
     user = "root:root";
   };
-  systemd.services."podman-deemix" = {
+  systemd.services."podman-lidarr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    partOf = [
+      "podman-compose-arrs-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-arrs-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."lidatube" = {
+    image = "thewicklowwolf/lidatube:latest";
+    environment = {
+      PUID = "0";
+      PGID = "0";
+      lidarr_address = "https://lid.arr.dax.gay";
+      thread_limit = "8";
+      sync_schedule = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23";
+      attempt_lidarr_import = "True";
+    };
+    volumes = [
+      "/shared/systems/services/arr/deluge/downloads:/lidatube/downloads:rw"
+      "/shared/systems/services/arr/lidatube:/lidatube/config:rw"
+      "/etc/localtime:/etc/localtime:ro"
+    ];
+    dependsOn = [
+      "arrs-gluetun"
+      "deluge"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network=container:arrs-gluetun"
+    ];
+    user = "root:root";
+  };
+  systemd.services."podman-lidatube" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
