@@ -24,6 +24,7 @@ let
         services-resume = mkHost "services-resume" 31;
         services-ntfy = mkHost "services-ntfy" 32;
         services-booklore = mkHost "services-booklore" 33;
+        services-pinchflat = mkHost "services-pinchflat" 34;
     };
 in
 {

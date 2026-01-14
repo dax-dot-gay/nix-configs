@@ -238,6 +238,14 @@
                         "features/podman.nix"
                     ];
                 };
+                services-pinchflat = mkLXC {
+                    hostname = "services-pinchflat";
+                    path = "services/pinchflat";
+                    include = [
+                        "features/volumes.nix"
+                        "features/podman.nix"
+                    ];
+                };
             };
         };
 }
