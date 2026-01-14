@@ -37,6 +37,7 @@
       "7878:7878/tcp"
       "5055:5055/tcp"
       "9696:9696/tcp"
+      "6595:6595/tcp"
     ];
     labels = {
       "compose2nix.settings.sops.secrets" = "arr/gluetun.env";
@@ -247,6 +248,40 @@
     user = "root:root";
   };
   systemd.services."podman-sonarr" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    partOf = [
+      "podman-compose-arrs-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-arrs-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."deemix" = {
+    image = "ghcr.io/bambanah/deemix:latest";
+    environment = {
+      "TZ" = "America/New_York";
+      DEEMIX_SERVER_PORT = "6595";
+      DEEMIX_SINGLE_USER = "true";
+      PUID = "0";
+      PGID = "0";
+      DISABLE_OWNERSHIP_CHECK = "true";
+    };
+    volumes = [
+      "/shared/data/media/Music:/downloads:rw"
+      "/shared/systems/services/arr/deemix:/config:rw"
+    ];
+    dependsOn = [
+      "arrs-gluetun"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network=container:arrs-gluetun"
+    ];
+    user = "root:root";
+  };
+  systemd.services."podman-deemix" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };

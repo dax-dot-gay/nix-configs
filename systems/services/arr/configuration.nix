@@ -14,6 +14,7 @@
         "/shared/data/media/Podcasts" = { };
         "/shared/data/media/Books" = { };
         "/shared/data/media/Audiobooks" = { };
+        "/shared/data/media/Music" = { };
         "/shared/systems/services/arr/audiobookrequest" = { };
         "/shared/systems/services/arr/deluge/config" = { };
         "/shared/systems/services/arr/deluge/downloads" = { };
@@ -21,6 +22,7 @@
         "/shared/systems/services/arr/prowlarr" = { };
         "/shared/systems/services/arr/radarr" = { };
         "/shared/systems/services/arr/sonarr" = { };
+        "/shared/systems/services/arr/deemix" = { };
     };
 
     networking.firewall.enable = false;
