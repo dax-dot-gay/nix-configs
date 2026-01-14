@@ -303,7 +303,7 @@
     };
     environmentFiles = [ config.sops.secrets."arr/lidatube.env".path ];
     volumes = [
-      "/shared/systems/services/arr/deluge/downloads:/lidatube/downloads:rw"
+      "/shared/data/media/Music:/lidatube/downloads:rw"
       "/shared/systems/services/arr/lidatube:/lidatube/config:rw"
       "/etc/localtime:/etc/localtime:ro"
     ];
