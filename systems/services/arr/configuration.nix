@@ -7,6 +7,9 @@
     secrets.secrets."arr/gluetun.env" = {
         mode = "0666";
     };
+    secrets.secrets."arr/lidatube.env" = {
+        mode = "0666";
+    };
 
     ensurePaths.folders = {
         "/shared/data/media/Shows" = { };
