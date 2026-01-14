@@ -101,6 +101,11 @@
                         collectionType = "tvshows";
                         libraryOptions.pathInfos = [ { path = "/shared/data/media/Shows"; } ];
                     }
+                    {
+                        name = "Music";
+                        collectionType = "music";
+                        libraryOptions.pathInfos = [ { path = "/shared/data/media/Music"; } ];
+                    }
                 ];
             };
             users = [
