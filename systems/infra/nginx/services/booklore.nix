@@ -13,6 +13,7 @@ in
                 proxyWebsockets = true;
                 extraConfig = preflight + ''
                     proxy_set_header X-Forwarded-Port $server_port;
+                    client_max_body_size 10G;
                 '';
             };
         };
