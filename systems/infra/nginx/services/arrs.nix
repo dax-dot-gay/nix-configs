@@ -44,6 +44,11 @@ in
             hostname = "services-arr";
             port = 5055;
         };
+        "lid.arr.dax.gay" = mkHost {
+            acmeHost = "any.arr.dax.gay";
+            hostname = "services-arr";
+            port = 8686;
+        };
         /*"request.audiobooks.dax.gay" = mkHost {
             acmeHost = "any.audiobooks.dax.gay";
             hostname = "services-arr";
