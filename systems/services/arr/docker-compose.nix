@@ -272,7 +272,6 @@
     dependsOn = [
       "arrs-gluetun"
       "deluge"
-      "lidatube"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -281,43 +280,6 @@
     user = "root:root";
   };
   systemd.services."podman-lidarr" = {
-    serviceConfig = {
-      Restart = lib.mkOverride 90 "always";
-    };
-    partOf = [
-      "podman-compose-arrs-root.target"
-    ];
-    wantedBy = [
-      "podman-compose-arrs-root.target"
-    ];
-  };
-  virtualisation.oci-containers.containers."lidatube" = {
-    image = "thewicklowwolf/lidatube:latest";
-    environment = {
-      PUID = "0";
-      PGID = "0";
-      lidarr_address = "https://lid.arr.dax.gay";
-      thread_limit = "8";
-      sync_schedule = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23";
-      attempt_lidarr_import = "False";
-    };
-    environmentFiles = [ config.sops.secrets."arr/lidatube.env".path ];
-    volumes = [
-      "/shared/data/media/Music:/lidatube/downloads:rw"
-      "/shared/systems/services/arr/lidatube:/lidatube/config:rw"
-      "/etc/localtime:/etc/localtime:ro"
-    ];
-    dependsOn = [
-      "arrs-gluetun"
-      "deluge"
-    ];
-    log-driver = "journald";
-    extraOptions = [
-      "--network=container:arrs-gluetun"
-    ];
-    user = "root:root";
-  };
-  systemd.services."podman-lidatube" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "always";
     };
