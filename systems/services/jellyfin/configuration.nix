@@ -65,6 +65,11 @@
                         url = "https://www.iamparadox.dev/jellyfin/plugins/manifest.json";
                         enabled = true;
                     }
+                    {
+                        name = "FinTube";
+                        url = "https://raw.githubusercontent.com/AECX/FinTube/master/manifest.json";
+                        enabled = true;
+                    }
                 ];
                 trickplayOptions = {
                     enableHwAcceleration = true;
@@ -134,6 +139,8 @@
         jellyfin
         jellyfin-ffmpeg
         jellyfin-web
+        yt-dlp
+        id3v2
     ];
 
     # Nightly reboots to kick people off and clear cache
