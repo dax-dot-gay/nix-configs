@@ -107,9 +107,9 @@
                         libraryOptions.pathInfos = [ { path = "/shared/data/media/Shows"; } ];
                     }
                     {
-                        name = "Music";
+                        name = "Songs";
                         collectionType = "music";
-                        libraryOptions.pathInfos = [ { path = "/shared/data/media/Music"; } ];
+                        libraryOptions.pathInfos = [ { path = "/shared/data/media/Songs"; } ];
                     }
                 ];
             };
