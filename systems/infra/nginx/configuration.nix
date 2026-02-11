@@ -132,6 +132,10 @@ in
                 hostname = "services-ntfy";
                 port = 2586;
             };
+            "dav.dax.gay" = mkHost {
+                hostname = "services-radicale";
+                port = 5232;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;

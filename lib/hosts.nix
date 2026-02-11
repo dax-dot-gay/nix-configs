@@ -25,6 +25,7 @@ let
         services-ntfy = mkHost "services-ntfy" 32;
         services-booklore = mkHost "services-booklore" 33;
         services-pinchflat = mkHost "services-pinchflat" 34;
+        services-radicale = mkHost "services-radicale" 35;
     };
 in
 {

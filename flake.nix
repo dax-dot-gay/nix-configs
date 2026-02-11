@@ -246,6 +246,13 @@
                         "features/podman.nix"
                     ];
                 };
+                services-radicale = mkLXC {
+                    hostname = "services-radicale";
+                    path = "services/radicale";
+                    include = [
+                        "features/volumes.nix"
+                    ];
+                };
             };
         };
 }
