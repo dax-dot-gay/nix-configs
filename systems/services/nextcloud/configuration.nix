@@ -29,7 +29,7 @@
     lesbos.system_users.nextcloud = {uid = 33; gid = 33;};
     virtualisation.oci-containers.containers.nextcloud = {
         image = "nextcloud";
-        ports = ["0.0.0.0:80:80"];
+        ports = ["0.0.0.0:8080:8080"];
         user = "33:33";
         volumes = [
             "/vol/nextcloud/root:/var/www/html"
@@ -45,6 +45,7 @@
             NEXTCLOUD_TRUSTED_DOMAINS = "cloud.dax.gay dax.gay";
             PHP_UPLOAD_LIMIT = "64G";
             PHP_MEMORY_LIMIT = "1G";
+            APACHE_LISTEN_PORT = "8080";
         };
     };
     networking.firewall.enable = false;
