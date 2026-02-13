@@ -211,7 +211,7 @@
                     hostname = "services-nextcloud";
                     path = "services/nextcloud";
                     include = [
-                        "features/nfs-client.nix"
+                        "features/podman.nix"
                         "features/volumes.nix"
                     ];
                 };

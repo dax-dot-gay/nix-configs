@@ -1,104 +1,47 @@
-{
-    config,
-    daxlib,
-    pkgs,
-    lib,
-    ...
-}:
-let
-    hosts = daxlib.hosts;
-    apps = builtins.fromJSON (lib.readFile ./apps.json);
-    nextcloudApps =
-        names:
-        lib.listToAttrs (
-            lib.map (item: {
-                name = item;
-                value = pkgs.fetchNextcloudApp {
-                    appName = item;
-                    appVersion = apps."${item}".version;
-                    license = "gpl3";
-                    sha256 = apps."${item}".hash;
-                    url = apps."${item}".url;
-                };
-            }) names
-        );
-in
-{
-    
+{config, daxlib, ...}: let hosts = daxlib.hosts; in {
     secrets.secrets = {
-        "nextcloud/admin" = { };
-        "nextcloud/dbpassword" = { };
-        "nextcloud/secret" = { };
+        "nextcloud/database/user" = {};
+        "nextcloud/database/password" = {};
+        "nextcloud/database/database" = {};
+        "nextcloud/admin/user" = {};
+        "nextcloud/admin/password" = {};
     };
-
-    sops.templates."nc.json".content = ''
-        {"secret": "${config.sops.placeholder."nextcloud/secret"}"}
+    sops.templates."nextcloud.env".content = ''
+        POSTGRES_DB=${config.sops.placeholder."nextcloud/database/database"}
+        POSTGRES_USER=${config.sops.placeholder."nextcloud/database/user"}
+        POSTGRES_PASSWORD=${config.sops.placeholder."nextcloud/database/password"}
+        NEXTCLOUD_ADMIN_USER=${config.sops.placeholder."nextcloud/admin/user"}
+        NEXTCLOUD_ADMIN_PASSWORD=${config.sops.placeholder."nextcloud/admin/password"}
     '';
-
-    services.nextcloud = {
-        enable = true;
-        hostName = "nextcloud.dax.gay";
-        home = "/volumes/nextcloud";
-        skeletonDirectory = "/volumes/nextcloud/skeletons";
-        secretFile = config.sops.templates."nc.json".path;
-        config = {
-            dbtype = "pgsql";
-            dbuser = "nextcloud";
-            dbname = "nextcloud";
-            dbpassFile = config.sops.secrets."nextcloud/dbpassword".path;
-            dbhost = "${hosts.ip "infra-database"}:5432";
-            adminpassFile = config.sops.secrets."nextcloud/admin".path;
-            adminuser = "admin";
-        };
-        configureRedis = true;
-        caching.redis = true;
-        caching.apcu = false;
-        settings.overwriteprotocol = "https";
-        package = pkgs.nextcloud32;
-        extraAppsEnable = true;
-        appstoreEnable = false;
-        extraApps = {
-            inherit (pkgs.nextcloud32Packages.apps)
-                news
-                calendar
-                contacts
-                tasks
-                polls
-                bookmarks
-                mail
-                deck
-                notes
-                ;
-        }
-        // (nextcloudApps [
-            "forms"
-            "music"
-            "secrets"
-            "iframewidget"
-            "user_oidc"
-            "doom_nextcloud"
-            "drawio"
-            "files_automatedtagging"
-            "groupfolders"
-            "cookbook"
-            "external"
-            "onlyoffice"
-            "riotchat"
-        ]);
+    lesbos.volumes."/vol/nextcloud" = {
+        path = "systems/services/nextcloud";
+        subpaths = [
+            "root"
+            "custom_apps"
+            "config"
+            "data"
+            "custom_themes"
+        ];
     };
-    
-    environment.systemPackages = [ pkgs.rclone ];
-    lesbos.volumes = {
-        "/volumes/nextcloud" = {
-            path = "systems/services/nextcloud";
-            owner = "nextcloud";
-            group = "nextcloud";
-            mode = "770";
-            umask = "007";
-            subpaths = [
-                "skeletons"
-                "config"
-            ];
+    virtualisation.oci-containers.containers.nextcloud = {
+        image = "nextcloud";
+        ports = ["0.0.0.0:80:80"];
+        user = "root:root";
+        volumes = [
+            "/vol/nextcloud/root:/var/www/html"
+            "/vol/nextcloud/custom_apps:/var/www/html/custom_apps"
+            "/vol/nextcloud/config:/var/www/html/config"
+            "/vol/nextcloud/data:/var/www/html/data"
+        ];
+        environmentFiles = [
+            config.sops.templates."nextcloud.env".path
+        ];
+        environment = {
+            POSTGRES_HOST = "${hosts.ip "infra-database"}";
+            NEXTCLOUD_TRUSTED_DOMAINS = "cloud.dax.gay dax.gay";
+            PHP_UPLOAD_LIMIT = "64G";
+            PHP_MEMORY_LIMIT = "1G";
         };
     };
+    networking.firewall.enable = false;
 }
