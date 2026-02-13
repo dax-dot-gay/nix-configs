@@ -136,6 +136,10 @@ in
                 hostname = "services-radicale";
                 port = 5232;
             };
+            "cloud.dax.gay" = mkHost {
+                hostname = "services-nextcloud";
+                port = 8080;
+            };
             "dax.gay" = {
                 useACMEHost = "dax.gay";
                 forceSSL = true;
