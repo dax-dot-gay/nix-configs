@@ -1,10 +1,10 @@
 {config, daxlib, ...}: let hosts = daxlib.hosts; in {
     secrets.secrets = {
-        "nextcloud/database/user" = {};
-        "nextcloud/database/password" = {};
-        "nextcloud/database/database" = {};
-        "nextcloud/admin/user" = {};
-        "nextcloud/admin/password" = {};
+        "nextcloud/database/user" = {owner = "nextcloud";};
+        "nextcloud/database/password" = {owner = "nextcloud";};
+        "nextcloud/database/database" = {owner = "nextcloud";};
+        "nextcloud/admin/user" = {owner = "nextcloud";};
+        "nextcloud/admin/password" = {owner = "nextcloud";};
     };
     sops.templates."nextcloud.env".content = ''
         POSTGRES_DB=${config.sops.placeholder."nextcloud/database/database"}
@@ -13,8 +13,11 @@
         NEXTCLOUD_ADMIN_USER=${config.sops.placeholder."nextcloud/admin/user"}
         NEXTCLOUD_ADMIN_PASSWORD=${config.sops.placeholder."nextcloud/admin/password"}
     '';
+    sops.templates."nextcloud.env".owner = "nextcloud";
     lesbos.volumes."/vol/nextcloud" = {
         path = "systems/services/nextcloud";
+        owner = "nextcloud";
+        group = "nextcloud";
         subpaths = [
             "root"
             "custom_apps"
@@ -23,10 +26,11 @@
             "custom_themes"
         ];
     };
+    lesbos.system_users.nextcloud = {uid = 33; gid = 33;};
     virtualisation.oci-containers.containers.nextcloud = {
         image = "nextcloud";
         ports = ["0.0.0.0:80:80"];
-        user = "root:root";
+        user = "33:33";
         volumes = [
             "/vol/nextcloud/root:/var/www/html"
             "/vol/nextcloud/custom_apps:/var/www/html/custom_apps"
