@@ -13,6 +13,10 @@
         NEXTCLOUD_ADMIN_USER=${config.sops.placeholder."nextcloud/admin/user"}
         NEXTCLOUD_ADMIN_PASSWORD=${config.sops.placeholder."nextcloud/admin/password"}
     '';
+    sops.templates."apache.conf".content = ''
+        Listen 8080
+    '';
+    sops.templates."apache.conf".owner = "nextcloud";
     sops.templates."nextcloud.env".owner = "nextcloud";
     lesbos.volumes."/vol/nextcloud" = {
         path = "systems/services/nextcloud";
@@ -36,6 +40,7 @@
             "/vol/nextcloud/custom_apps:/var/www/html/custom_apps"
             "/vol/nextcloud/config:/var/www/html/config"
             "/vol/nextcloud/data:/var/www/html/data"
+            "${config.sops.templates."apache.conf".path}:/etc/apache2/ports.conf:ro"
         ];
         environmentFiles = [
             config.sops.templates."nextcloud.env".path
