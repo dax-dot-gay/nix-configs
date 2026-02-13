@@ -22,6 +22,8 @@
         path = "systems/services/nextcloud";
         owner = "nextcloud";
         group = "nextcloud";
+        mode = "077";
+        umask = "007";
         subpaths = [
             "root"
             "custom_apps"
