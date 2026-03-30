@@ -3,23 +3,20 @@
     ensurePaths.folders."/persistent/jellyfin" = {
         mode = "0777";
     };
-    ensurePaths.folders."/persistent/jellyfin/web" = {
-        mode = "0777";
-    };
-    ensurePaths.folders."/persistent/jellyfin/data" = {
+    ensurePaths.folders."/persistent/jellyfin-data" = {
         mode = "0700";
     };
     system.activationScripts = {
         jellyfin-web = ''
-            cp -R ${pkgs.jellyfin-web.outPath}/** /persistent/jellyfin/web
-            chmod -R 777 /persistent/jellyfin/web
+            cp -R ${pkgs.jellyfin-web.outPath}/** /persistent/jellyfin
+            chmod -R 777 /persistent/jellyfin
         '';
     };
     services.jellyfin = {
         enable = true;
         user = "root";
         group = "root";
-        dataDir = "/persistent/jellyfin/data";
+        dataDir = "/persistent/jellyfin-data";
         openFirewall = true;
         package = pkgs.jellyfin;
     };
